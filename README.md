@@ -1,3 +1,5 @@
+# Multiple-Choice-Python-Game
+
 # Lern-Quiz
 
 Multiple-Choice-Quiz zum Lernen von Signalverarbeitung und Computergrafik.
@@ -32,4 +34,3 @@ python Multiple-Choice/main.py
 - Mehrfachauswahl bei Fragen moeglich
 - Ausfuehrliche Erklaerungen nach jeder Antwort
 - Fortschrittsanzeige und Score-Tracking
-# Multiple-Choice-Python-Game
