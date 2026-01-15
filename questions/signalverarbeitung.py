@@ -960,4 +960,357 @@ def get_questions() -> List[Question]:
             },
             topic="Signalverarbeitung - Filter"
         ),
+
+        # ============================================================
+        # ZUSAETZLICHE FRAGEN (aus DSV-final.pdf), KEINE DOPPELTEN
+        # ============================================================
+        Question(
+            prompt="Wofuer steht das Ohmsche Gesetz?",
+            options={
+                "A": "P = U * I",
+                "B": "I = U / R",
+                "C": "R = U * I",
+                "D": "U = I / R"
+            },
+            correct={"B"},
+            explain_correct="Das Ohmsche Gesetz beschreibt den Zusammenhang zwischen Spannung U, Widerstand R und Strom I: "
+                            "I = U / R (bzw. U = R * I).",
+            explain_wrong={
+                "A": "Das ist die elektrische Leistung P.",
+                "C": "Falsch umgestellt.",
+                "D": "Falsch umgestellt."
+            },
+            topic="Signalverarbeitung - Technische Grundlagen"
+        ),
+
+        Question(
+            prompt="Wovon haengt der elektrische Widerstand eines Leiters ab? (Mehrfachauswahl moeglich)",
+            options={
+                "A": "Von der Leiterlaenge l",
+                "B": "Vom Leiterquerschnitt A",
+                "C": "Vom Material (spezifischer Widerstand rho)",
+                "D": "Von der Farbe der Isolation"
+            },
+            correct={"A", "B", "C"},
+            explain_correct="Der Widerstand folgt (idealisiert) R = (rho * l) / A: "
+                            "laenger -> mehr Widerstand, groesserer Querschnitt -> weniger Widerstand, "
+                            "Material (rho) beeinflusst ebenfalls den Widerstand.",
+            explain_wrong={
+                "D": "Die Farbe der Isolation hat keinen elektrischen Einfluss auf R."
+            },
+            topic="Signalverarbeitung - Technische Grundlagen"
+        ),
+
+        Question(
+            prompt="Ein Spannungsteiler besteht aus zwei gleichen Widerstaenden in Reihe an U=230V. Wie gross ist U1 ueber dem ersten Widerstand?",
+            options={
+                "A": "230 V",
+                "B": "115 V",
+                "C": "57.5 V",
+                "D": "0 V"
+            },
+            correct={"B"},
+            explain_correct="Bei zwei gleichen Widerstaenden teilt sich die Spannung gleich auf: U1 = 230 V / 2 = 115 V.",
+            explain_wrong={
+                "A": "Das waere die Gesamtspannung, nicht die Teilspannung.",
+                "C": "Das waere eine Viertelung, nicht Halbierung.",
+                "D": "Nur bei Kurzschluss/keiner Spannung ueber dem Widerstand."
+            },
+            topic="Signalverarbeitung - Technische Grundlagen"
+        ),
+
+        Question(
+            prompt="Die Netzspannung hat f = 50 Hz. Wie gross ist die Periodendauer T?",
+            options={
+                "A": "T = 2 ms",
+                "B": "T = 10 ms",
+                "C": "T = 20 ms",
+                "D": "T = 50 ms"
+            },
+            correct={"C"},
+            explain_correct="T = 1/f = 1/50 s = 0.02 s = 20 ms.",
+            explain_wrong={
+                "A": "Das entspraeche 500 Hz.",
+                "B": "Das entspraeche 100 Hz.",
+                "D": "Das entspraeche 20 Hz."
+            },
+            topic="Signalverarbeitung - Technische Grundlagen"
+        ),
+
+        Question(
+            prompt="Warum kann Powerline Communication (PLC) Daten ueber Stromkabel uebertragen, obwohl dort schon 50 Hz Netzspannung anliegt?",
+            options={
+                "A": "PLC nutzt hoehere Traegerfrequenzen zusaetzlich zur 50 Hz Netzspannung",
+                "B": "PLC ersetzt die 50 Hz komplett durch digitale Impulse",
+                "C": "PLC funktioniert nur bei Gleichspannung",
+                "D": "PLC nutzt Ultraschall in den Kabeln"
+            },
+            correct={"A"},
+            explain_correct="PLC verwendet die vorhandene 230V-Infrastruktur, ueberlagert aber ein Datensignal auf "
+                            "hoeheren Traegerfrequenzen als 50 Hz.",
+            explain_wrong={
+                "B": "Die Netzversorgung bleibt bestehen; es wird nicht 'ersetzt'.",
+                "C": "PLC ist nicht auf Gleichspannung beschraenkt.",
+                "D": "Es geht um elektrische/e.m. Signale, nicht Ultraschall."
+            },
+            topic="Signalverarbeitung - Modulation & Uebertragung"
+        ),
+
+        Question(
+            prompt="Welche Modulations-/Multiplexingart wird bei PLC laut Folie genannt?",
+            options={
+                "A": "AM (Amplitudenmodulation)",
+                "B": "FM (Frequenzmodulation)",
+                "C": "OFDM (Orthogonales Frequenzmultiplexing)",
+                "D": "PWM (Pulsweitenmodulation)"
+            },
+            correct={"C"},
+            explain_correct="In den Folien wird fuer PLC explizit OFDM (Orthogonales Frequenzmultiplexing) genannt.",
+            explain_wrong={
+                "A": "AM ist eine Modulationsart, aber hier wird OFDM genannt.",
+                "B": "FM ist eine Modulationsart, aber hier wird OFDM genannt.",
+                "D": "PWM ist eher Leistungselektronik/Ansteuerung, nicht das genannte Verfahren."
+            },
+            topic="Signalverarbeitung - Modulation & Uebertragung"
+        ),
+
+        Question(
+            prompt="Was gilt fuer Wellenlaenge und Antennengroesse?",
+            options={
+                "A": "Je hoeher die Frequenz, desto groesser die Wellenlaenge und die Antenne",
+                "B": "Je hoeher die Frequenz, desto kleiner die Wellenlaenge und desto kleiner kann die Antenne sein",
+                "C": "Frequenz und Wellenlaenge sind unabhaengig",
+                "D": "Antennegroesse haengt nur von der Sendeleistung ab"
+            },
+            correct={"B"},
+            explain_correct="Mit steigender Frequenz sinkt die Wellenlaenge (lambda ~ 1/f). "
+                            "Kuerzere Wellenlaengen erlauben kleinere Antennen.",
+            explain_wrong={
+                "A": "Genau umgekehrt: hoeher f -> kleinere Wellenlaenge.",
+                "C": "Sie sind direkt gekoppelt.",
+                "D": "Die Antennengeometrie ist stark wellenlaengenabhaengig."
+            },
+            topic="Signalverarbeitung - Modulation & Uebertragung"
+        ),
+
+        Question(
+            prompt="Warum sind digitale Signale oft stoerrobuster als analoge Signale?",
+            options={
+                "A": "Weil 0 und 1 als Spannungsbereiche (Schwellwerte) interpretiert werden",
+                "B": "Weil digitale Signale immer hoehere Amplituden haben",
+                "C": "Weil digitale Signale keine Uebertragung benoetigen",
+                "D": "Weil digitale Signale keine Bandbreite brauchen"
+            },
+            correct={"A"},
+            explain_correct="Digitale Logikwerte sind typischerweise nicht ein exakter Spannungswert, sondern ein Bereich. "
+                            "Dadurch kann Rauschen innerhalb der Reserve toleriert werden, ohne dass der Logikwert kippt.",
+            explain_wrong={
+                "B": "Hoehere Amplitude ist nicht zwingend und nicht das Prinzip.",
+                "C": "Auch digitale Signale muessen uebertragen werden.",
+                "D": "Digitale Signale brauchen sehr wohl Bandbreite."
+            },
+            topic="Signalverarbeitung - Digitaltechnik"
+        ),
+
+        Question(
+            prompt="Das Internet wird in den Folien als welches Uebertragungsmedium beschrieben?",
+            options={
+                "A": "Synchron (feste, konstante Latenz)",
+                "B": "Asynchron (Latenzen koennen schwanken)",
+                "C": "Ohne Latenz",
+                "D": "Nur fuer Audio geeignet"
+            },
+            correct={"B"},
+            explain_correct="Das Internet ist ein asynchrones Medium: Latenzen sind nicht konstant und haengen u.a. von Traffic ab.",
+            explain_wrong={
+                "A": "Konstante Latenz waere synchron (im Internet typischerweise nicht gegeben).",
+                "C": "Physikalisch unmoeglich.",
+                "D": "Es ist ein allgemeines Datennetz."
+            },
+            topic="Signalverarbeitung - Netzwerke"
+        ),
+
+        Question(
+            prompt="Wie nennt man Schwankungen der Uebertragungslatenz im Netzwerk?",
+            options={
+                "A": "Clipping",
+                "B": "Network-Jitter",
+                "C": "Aliasing",
+                "D": "Quantisierung"
+            },
+            correct={"B"},
+            explain_correct="Schwankungen der Latenz (Delay-Variationen) werden als Network-Jitter bezeichnet.",
+            explain_wrong={
+                "A": "Clipping ist Uebersteuerung im Pegelbereich.",
+                "C": "Aliasing betrifft Sampling zu niedriger Abtastraten.",
+                "D": "Quantisierung betrifft Wertdiskretisierung."
+            },
+            topic="Signalverarbeitung - Netzwerke"
+        ),
+
+        Question(
+            prompt="Wozu dient ein Jitter-Buffer bei Echtzeitdiensten (z.B. VoIP)?",
+            options={
+                "A": "Er macht das Signal lauter",
+                "B": "Er gleicht schwankende Paketlaufzeiten aus, indem er Daten zwischenspeichert",
+                "C": "Er komprimiert Audio verlustfrei",
+                "D": "Er ersetzt UDP durch TCP"
+            },
+            correct={"B"},
+            explain_correct="Ein Jitter-Buffer puffert ankommende Pakete und gibt sie gleichmaessiger weiter, "
+                            "um Jitter (schwankende Latenzen) zu kaschieren.",
+            explain_wrong={
+                "A": "Pegel hat damit nichts zu tun.",
+                "C": "Das ist nicht die Aufgabe eines Jitter-Buffers.",
+                "D": "Transportprotokoll wird dadurch nicht automatisch gewechselt."
+            },
+            topic="Signalverarbeitung - Netzwerke"
+        ),
+
+        Question(
+            prompt="Was bedeutet FIFO im Kontext von Netzwerk- oder Audiopuffern?",
+            options={
+                "A": "Fast Input Fast Output",
+                "B": "First In / First Out",
+                "C": "First In / Fixed Out",
+                "D": "Frequency In / Frequency Out"
+            },
+            correct={"B"},
+            explain_correct="FIFO bedeutet First In / First Out: Das aelteste Element im Buffer wird zuerst wieder ausgegeben.",
+            explain_wrong={
+                "A": "Keine gaengige Bedeutung.",
+                "C": "Nicht korrekt.",
+                "D": "Nicht korrekt."
+            },
+            topic="Signalverarbeitung - Netzwerke"
+        ),
+
+        Question(
+            prompt="Welche Aussagen treffen typischerweise auf UDP im Vergleich zu TCP zu? (Mehrfachauswahl moeglich)",
+            options={
+                "A": "UDP ist schneller durch weniger Overhead",
+                "B": "UDP garantiert Zustellung und Reihenfolge",
+                "C": "UDP hat kleineren Header als TCP",
+                "D": "UDP hat keine Fehlerkorrektur/Recovery wie TCP"
+            },
+            correct={"A", "C", "D"},
+            explain_correct="UDP ist leichtgewichtiger (kleiner Header, weniger Mechanismen) und daher oft schneller, "
+                            "bietet aber keine Zuverlaessigkeitsmechanismen wie TCP (keine Zustell-/Reihenfolgegarantie, "
+                            "keine Recovery).",
+            explain_wrong={
+                "B": "Genau das ist TCP-Staerke, nicht UDP."
+            },
+            topic="Signalverarbeitung - Netzwerke"
+        ),
+
+        Question(
+            prompt="Welche Aussage beschreibt typische Unterschiede zwischen Onboard-Sound und externer Audio-Hardware (Interface)?",
+            options={
+                "A": "Onboard hat meist hoehere SNR und sehr genaue Wordclock",
+                "B": "Externes Interface hat oft mehr I/Os, hoehere SNR und genauere Wordclock (weniger Jitter)",
+                "C": "Externes Interface hat immer weniger Anschluesse als Onboard",
+                "D": "Onboard hat immer Wordclock In/Out, ADAT und SPDIF"
+            },
+            correct={"B"},
+            explain_correct="In den Folien: Onboard/Standard-LineIn/Out hat oft weniger Kanaele und relativ niedrige SNR "
+                            "sowie ungenauere Wordclock (mehr Jitter). Externe Interfaces bieten haeufig mehr I/Os, "
+                            "hoehere SNR und eine genauere Wordclock (weniger Jitter) sowie zusaetzliche Schnittstellen.",
+            explain_wrong={
+                "A": "Das ist typischerweise umgekehrt.",
+                "C": "Externe Interfaces bieten oft mehr, nicht weniger.",
+                "D": "Das sind eher Merkmale externer/Pro-Hardware."
+            },
+            topic="Signalverarbeitung - PC-Audio"
+        ),
+
+        Question(
+            prompt="Welche Farbe hat bei typischen PC-Soundkarten die Line-In Buchse?",
+            options={
+                "A": "Gruen",
+                "B": "Blau",
+                "C": "Rot",
+                "D": "Gelb"
+            },
+            correct={"B"},
+            explain_correct="Typischer Farbcode am PC: Gruen = Line Out, Blau = Line In, Rot/Pink = Mic In.",
+            explain_wrong={
+                "A": "Gruen ist typischerweise Line Out.",
+                "C": "Rot/Pink ist typischerweise Mic In.",
+                "D": "Gelb ist nicht der Standard-Farbcode fuer Line-In."
+            },
+            topic="Signalverarbeitung - PC-Audio"
+        ),
+
+        Question(
+            prompt="Bei fs = 48 kHz entspricht ein Sample-Intervall ungefaehr welcher Zeit?",
+            options={
+                "A": "20.83 us",
+                "B": "2.083 us",
+                "C": "208.3 us",
+                "D": "0.2083 us"
+            },
+            correct={"A"},
+            explain_correct="1/fs = 1/48000 s ≈ 0.00002083 s = 20.83 us.",
+            explain_wrong={
+                "B": "Das waere 480 kHz.",
+                "C": "Das waere 4.8 kHz.",
+                "D": "Das waere 4.8 MHz."
+            },
+            topic="Signalverarbeitung - Echtzeit & Latenz"
+        ),
+
+        Question(
+            prompt="Bei fs = 48 kHz und Buffer-Size = 128 Samples: Welche (reine) Buffer-Latenz entsteht ungefaehr?",
+            options={
+                "A": "ca. 0.27 ms",
+                "B": "ca. 2.6 ms",
+                "C": "ca. 12.8 ms",
+                "D": "ca. 42.6 ms"
+            },
+            correct={"B"},
+            explain_correct="Ein Sample dauert ca. 20.83 us. 128 * 20.83 us ≈ 2666 us ≈ 2.6 ms.",
+            explain_wrong={
+                "A": "Das waere eher ~13 Samples.",
+                "C": "Das waere eher ~614 Samples.",
+                "D": "Das passt eher zu sehr grossen Buffern (z.B. 2048 Samples)."
+            },
+            topic="Signalverarbeitung - Echtzeit & Latenz"
+        ),
+
+        Question(
+            prompt="Was ist eine Callbackfunktion (im Kontext Audio/Video-Processing)?",
+            options={
+                "A": "Eine Funktion, die niemals Parameter hat",
+                "B": "Eine Funktion, die von einer Bibliothek/OS-Funktion unter bestimmten Bedingungen aufgerufen wird",
+                "C": "Eine Funktion, die nur im Frequenzbereich existiert",
+                "D": "Eine Funktion, die den Nyquist-Frequenzbereich berechnet"
+            },
+            correct={"B"},
+            explain_correct="Eine Callbackfunktion wird einer anderen (z.B. System-/Bibliotheks-)Funktion uebergeben "
+                            "und dann von dieser unter definierten Bedingungen aufgerufen (typisch: Audio-/Video-Callbacks).",
+            explain_wrong={
+                "A": "Callbacks koennen sehr wohl Parameter haben.",
+                "C": "Das ist kein Informatikbegriff so.",
+                "D": "Hat nichts mit Callbacks zu tun."
+            },
+            topic="Signalverarbeitung - Echtzeit & Software"
+        ),
+
+        Question(
+            prompt="Full-HD Video hat 1920x1080 Pixel, 32 bit/Pixel und 25 fps. Wie gross ist die Datenmenge pro Bild ungefaehr?",
+            options={
+                "A": "ca. 0.83 MB",
+                "B": "ca. 8.29 MB",
+                "C": "ca. 82.9 MB",
+                "D": "ca. 829 MB"
+            },
+            correct={"B"},
+            explain_correct="1920*1080 = 2,073,600 Pixel. *32 bit = 66,355,200 bit = 8,294,400 byte ≈ 8.29 MB pro Bild.",
+            explain_wrong={
+                "A": "Faktor 10 zu klein.",
+                "C": "Faktor 10 zu gross.",
+                "D": "Faktor 100 zu gross."
+            },
+            topic="Signalverarbeitung - Video"
+        ),
     ]
