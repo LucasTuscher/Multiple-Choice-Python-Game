@@ -1,0 +1,963 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Fragen zum Thema: Signalverarbeitung
+Umfassende Fragensammlung zu Fourier, Sampling, Quantisierung, LTI-Systemen, Audioübertragung etc.
+"""
+
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from quiz_engine import Question
+from typing import List
+
+
+def get_questions() -> List[Question]:
+    """Gibt alle Fragen zur Signalverarbeitung zurück"""
+    return [
+        # ============================================================
+        # FOURIER-TRANSFORMATION
+        # ============================================================
+        Question(
+            prompt="Unter Anwendung welches Prinzips kann man die Darstellung eines Signals im Zeit- und Frequenzbereich aendern - und zurueck?",
+            options={
+                "A": "Laplace-Transformation",
+                "B": "Fourierprinzip / Fouriertransformation",
+                "C": "Nyquist-Theorem",
+                "D": "Shannon-Theorem"
+            },
+            correct={"B"},
+            explain_correct="Das Fourierprinzip ermoeglicht die Umwandlung zwischen Zeit- und Frequenzbereich. "
+                          "Die Fouriersynthese baut ein Signal aus Sinusschwingungen auf. "
+                          "Die DFT (Diskrete Fourier-Transformation) wandelt vom Zeitbereich in den Frequenzbereich, "
+                          "die IDFT (Inverse DFT) macht dies rueckgaengig.",
+            explain_wrong={
+                "A": "Die Laplace-Transformation ist eine Verallgemeinerung, wird aber nicht primaer fuer Zeit-Frequenz-Umwandlung verwendet.",
+                "C": "Das Nyquist-Theorem beschreibt die minimale Abtastrate, nicht die Transformation zwischen Bereichen.",
+                "D": "Das Shannon-Theorem ist ein anderer Name fuer das Nyquist-Theorem."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Was beschreibt die Fouriersynthese?",
+            options={
+                "A": "Die Zerlegung eines Signals in einzelne Frequenzen",
+                "B": "Den Aufbau eines Signals aus ueberlagerten Sinusschwingungen",
+                "C": "Die Digitalisierung eines analogen Signals",
+                "D": "Die Filterung von Stoerfrequenzen"
+            },
+            correct={"B"},
+            explain_correct="Die Fouriersynthese beschreibt, wie man ein beliebiges periodisches Signal "
+                          "durch Ueberlagerung (Addition) von Sinus- und Kosinusschwingungen verschiedener "
+                          "Frequenzen, Amplituden und Phasen aufbauen kann. Dies ist das Gegenstueck zur "
+                          "Fourieranalyse, die ein Signal in seine Frequenzanteile zerlegt.",
+            explain_wrong={
+                "A": "Das ist die Fourieranalyse, nicht die Synthese.",
+                "C": "Digitalisierung erfolgt durch Sampling und Quantisierung.",
+                "D": "Filterung ist ein separater Prozess."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Was macht die DFT (Diskrete Fourier-Transformation)?",
+            options={
+                "A": "Wandelt vom Frequenzbereich in den Zeitbereich",
+                "B": "Wandelt vom Zeitbereich in den Frequenzbereich",
+                "C": "Digitalisiert ein analoges Signal",
+                "D": "Filtert hohe Frequenzen heraus"
+            },
+            correct={"B"},
+            explain_correct="Die DFT (Diskrete Fourier-Transformation) nimmt ein zeitdiskretes Signal "
+                          "und berechnet dessen Frequenzspektrum. Sie zeigt, welche Frequenzen mit "
+                          "welcher Amplitude und Phase im Signal enthalten sind. Die FFT (Fast Fourier Transform) "
+                          "ist eine effiziente Implementierung der DFT.",
+            explain_wrong={
+                "A": "Das macht die IDFT (Inverse DFT).",
+                "C": "Digitalisierung ist Sampling + Quantisierung.",
+                "D": "Filterung ist ein separater Prozess."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Was ist der Unterschied zwischen DFT und FFT?",
+            options={
+                "A": "FFT ist eine schnelle Implementierung der DFT",
+                "B": "DFT ist fuer analoge, FFT fuer digitale Signale",
+                "C": "FFT liefert genauere Ergebnisse",
+                "D": "Es gibt keinen Unterschied"
+            },
+            correct={"A"},
+            explain_correct="Die FFT (Fast Fourier Transform) ist ein effizienter Algorithmus zur "
+                          "Berechnung der DFT. Waehrend die direkte DFT O(N^2) Operationen benoetigt, "
+                          "schafft die FFT das gleiche Ergebnis mit nur O(N log N) Operationen. "
+                          "Bei 1000 Samples ist die FFT also etwa 100x schneller!",
+            explain_wrong={
+                "B": "Beide arbeiten mit diskreten (digitalen) Signalen.",
+                "C": "Beide liefern mathematisch identische Ergebnisse.",
+                "D": "Der Unterschied liegt in der Recheneffizienz."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        # ============================================================
+        # ANALOG VS. DIGITAL
+        # ============================================================
+        Question(
+            prompt="Was ist ein analoges Signal?",
+            options={
+                "A": "Ein zeit- und wertdiskretes Signal",
+                "B": "Ein zeit- und wertkontinuierliches Signal",
+                "C": "Ein zeitkontinuierliches, aber wertdiskretes Signal",
+                "D": "Ein zeitdiskretes, aber wertkontinuierliches Signal"
+            },
+            correct={"B"},
+            explain_correct="Ein analoges Signal ist sowohl zeitkontinuierlich (existiert zu jedem Zeitpunkt) "
+                          "als auch wertkontinuierlich (kann jeden beliebigen Wert annehmen). "
+                          "Beispiele sind Schallwellen in der Luft, elektrische Spannungen aus einem Mikrofon, "
+                          "oder Lichintensitaet. Es gibt keine 'Stufen' oder 'Sprünge'.",
+            explain_wrong={
+                "A": "Das beschreibt ein digitales Signal.",
+                "C": "Das waere ein quantisiertes, aber nicht abgetastetes Signal.",
+                "D": "Das waere ein abgetastetes, aber nicht quantisiertes Signal."
+            },
+            topic="Signalverarbeitung - Grundlagen"
+        ),
+
+        Question(
+            prompt="Was ist ein digitales Signal?",
+            options={
+                "A": "Ein zeit- und wertkontinuierliches Signal",
+                "B": "Ein zeitkontinuierliches, aber wertdiskretes Signal",
+                "C": "Ein zeit- und wertdiskretes Signal",
+                "D": "Ein Signal das nur Nullen enthaelt"
+            },
+            correct={"C"},
+            explain_correct="Ein digitales Signal ist sowohl zeitdiskret (existiert nur zu bestimmten "
+                          "Abtastzeitpunkten) als auch wertdiskret (kann nur bestimmte Werte/Stufen annehmen). "
+                          "Es entsteht durch Sampling (Zeitdiskretisierung) und Quantisierung (Wertdiskretisierung) "
+                          "eines analogen Signals. Computer koennen nur digitale Signale verarbeiten.",
+            explain_wrong={
+                "A": "Das ist ein analoges Signal.",
+                "B": "Zeitkontinuierlich + wertdiskret ist kein vollstaendig digitales Signal.",
+                "D": "Digitale Signale koennen beliebige diskrete Werte haben."
+            },
+            topic="Signalverarbeitung - Grundlagen"
+        ),
+
+        # ============================================================
+        # SAMPLING & ABTASTUNG
+        # ============================================================
+        Question(
+            prompt="Was versteht man unter 'Sampling' (Abtastung)?",
+            options={
+                "A": "Die Wertdiskretisierung eines Signals",
+                "B": "Die Zeitdiskretisierung eines analogen Signals",
+                "C": "Die Verstaerkung eines Signals",
+                "D": "Die Filterung von Rauschen"
+            },
+            correct={"B"},
+            explain_correct="Sampling (Abtastung) ist die Zeitdiskretisierung - das Signal wird nur "
+                          "zu bestimmten regelmaessigen Zeitpunkten gemessen. Aus einem kontinuierlichen "
+                          "Signal werden diskrete Messwerte. Die Wertdiskretisierung heisst dagegen Quantisierung. "
+                          "Zusammen (Sampling + Quantisierung) ergibt das die A/D-Wandlung.",
+            explain_wrong={
+                "A": "Das ist Quantisierung, nicht Sampling.",
+                "C": "Verstaerkung aendert nur die Amplitude.",
+                "D": "Filterung ist ein separater Prozess."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Wovon haengt die minimale Abtastrate bei der Digitalisierung ab?",
+            options={
+                "A": "Von der Amplitude des Signals",
+                "B": "Von der hoechsten vorkommenden Frequenz des Signals",
+                "C": "Von der Laenge des Signals",
+                "D": "Von der Bittiefe"
+            },
+            correct={"B"},
+            explain_correct="Nach dem Nyquist-Shannon-Theorem muss die Abtastrate mindestens doppelt so hoch sein "
+                          "wie die hoechste im Signal vorkommende Frequenz. Bei einem Signal mit maximal 20 kHz "
+                          "(menschliches Hoeren) braucht man also mindestens 40 kHz Abtastrate. "
+                          "CDs verwenden 44.1 kHz, um etwas Spielraum zu haben.",
+            explain_wrong={
+                "A": "Die Amplitude beeinflusst die noetige Bittiefe, nicht die Abtastrate.",
+                "C": "Die Signallaenge ist irrelevant fuer die Abtastrate.",
+                "D": "Die Bittiefe betrifft die Quantisierung, nicht das Sampling."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Wie gross muss die Abtastrate mindestens sein? (Mehrfachauswahl moeglich)",
+            options={
+                "A": "Mindestens gleich der hoechsten Signalfrequenz",
+                "B": "Mindestens 2x die hoechste Signalfrequenz (Nyquist-Theorem)",
+                "C": "Mindestens 10x die hoechste Signalfrequenz",
+                "D": "Die Abtastrate ist egal"
+            },
+            correct={"B"},
+            explain_correct="Das Nyquist-Shannon-Theorem besagt: Die Abtastfrequenz muss mindestens "
+                          "doppelt so hoch sein wie die hoechste Signalfrequenz (fs >= 2 * fmax). "
+                          "Nur dann kann das Signal aus den Abtastwerten vollstaendig rekonstruiert werden. "
+                          "Diese Grenze heisst Nyquist-Frequenz (= fs/2).",
+            explain_wrong={
+                "A": "Das reicht nicht aus - es muss mindestens das Doppelte sein.",
+                "C": "Das waere mehr als noetig, schadet aber nicht.",
+                "D": "Eine zu niedrige Abtastrate fuehrt zu Aliasing!"
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Welcher Effekt tritt auf, wenn die Samplerate zu niedrig ist?",
+            options={
+                "A": "Clipping",
+                "B": "Aliasing",
+                "C": "Rauschen",
+                "D": "Verstaerkung"
+            },
+            correct={"B"},
+            explain_correct="Aliasing tritt auf, wenn die Abtastrate zu niedrig ist (unter dem Nyquist-Limit). "
+                          "Hohe Frequenzen werden dann faelschlicherweise als niedrigere Frequenzen interpretiert - "
+                          "sie 'spiegeln' sich am Nyquist-Punkt. Das fuehrt zu hoerbaren Artefakten und "
+                          "Verzerrungen, die nicht mehr rueckgaengig gemacht werden koennen.",
+            explain_wrong={
+                "A": "Clipping entsteht durch Uebersteuerung, nicht durch niedrige Abtastrate.",
+                "C": "Rauschen hat andere Ursachen.",
+                "D": "Verstaerkung ist unabhaengig von der Abtastrate."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Welchen technischen Zusatz verwendet man, um Aliasing zu vermeiden?",
+            options={
+                "A": "Verstaerker",
+                "B": "Anti-Aliasing-Filter (Tiefpassfilter)",
+                "C": "Kompressor",
+                "D": "Equalizer"
+            },
+            correct={"B"},
+            explain_correct="Ein Anti-Aliasing-Filter ist ein Tiefpassfilter, der vor dem A/D-Wandler geschaltet wird. "
+                          "Er entfernt alle Frequenzen oberhalb der halben Abtastfrequenz (Nyquist-Frequenz), "
+                          "bevor das Signal abgetastet wird. So wird sichergestellt, dass das Nyquist-Theorem "
+                          "eingehalten wird und kein Aliasing entstehen kann.",
+            explain_wrong={
+                "A": "Ein Verstaerker aendert nur die Amplitude.",
+                "C": "Ein Kompressor reduziert die Dynamik.",
+                "D": "Ein Equalizer formt das Frequenzspektrum, verhindert aber nicht Aliasing."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Welche Abtastraten und Quantisierungen sind in der Audiotechnik ueblich? (Mehrfachauswahl)",
+            options={
+                "A": "CD-Qualitaet: 44.1 kHz / 16 Bit",
+                "B": "Studio-Qualitaet: 48, 96 oder 192 kHz / 24 Bit",
+                "C": "Telefon-Qualitaet: 8 kHz / 8 Bit",
+                "D": "MP3-Standard: 22 kHz / 4 Bit"
+            },
+            correct={"A", "B", "C"},
+            explain_correct="Alle diese Standards existieren: CD verwendet 44.1 kHz/16 Bit, "
+                          "professionelle Studios arbeiten mit 48-192 kHz und 24 Bit fuer mehr Dynamik und Headroom, "
+                          "und Telefonie nutzt aus historischen Gruenden nur 8 kHz/8 Bit (ausreichend fuer Sprache). "
+                          "Hoehere Werte bedeuten bessere Qualitaet, aber auch mehr Speicherbedarf.",
+            explain_wrong={
+                "D": "MP3 ist ein Kompressionsformat, kein Standard fuer Abtastrate/Quantisierung. MP3 arbeitet typischerweise mit 44.1 kHz."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Ein analoges Signal besteht aus Sinustoenen mit Periodendauern T1=3.79ms, T2=3.03ms, T3=2.53ms. "
+                   "Welche Abtastfrequenz ist mindestens noetig?",
+            options={
+                "A": "264 Hz",
+                "B": "396 Hz",
+                "C": "792 Hz",
+                "D": "1584 Hz"
+            },
+            correct={"C"},
+            explain_correct="Zuerst die Frequenzen berechnen: f1=1/0.00379≈264Hz, f2=1/0.00303≈330Hz, "
+                          "f3=1/0.00253≈396Hz. Die hoechste Frequenz ist 396 Hz. Nach dem Nyquist-Theorem "
+                          "muss die Abtastfrequenz mindestens 2 x 396 Hz = 792 Hz betragen, "
+                          "um Aliasing zu vermeiden.",
+            explain_wrong={
+                "A": "264 Hz ist nur die niedrigste Signalfrequenz.",
+                "B": "396 Hz ist die hoechste Signalfrequenz, aber wir brauchen das Doppelte.",
+                "D": "1584 Hz waere mehr als noetig (4x statt 2x)."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        # ============================================================
+        # QUANTISIERUNG
+        # ============================================================
+        Question(
+            prompt="Was versteht man unter Quantisierung?",
+            options={
+                "A": "Die zeitliche Abtastung eines Signals",
+                "B": "Die Umwandlung kontinuierlicher Amplitudenwerte in diskrete Stufen",
+                "C": "Die Verstaerkung eines Signals",
+                "D": "Die Filterung von Rauschen"
+            },
+            correct={"B"},
+            explain_correct="Quantisierung ist die Wertdiskretisierung - kontinuierliche Amplitudenwerte "
+                          "werden auf diskrete Stufen gerundet. Bei 8 Bit gibt es 256 Stufen, bei 16 Bit "
+                          "65536 Stufen. Je mehr Bit, desto feiner die Abstufung und desto geringer das "
+                          "Quantisierungsrauschen. Die Bittiefe bestimmt den Dynamikumfang (ca. 6 dB pro Bit).",
+            explain_wrong={
+                "A": "Das ist Sampling, nicht Quantisierung.",
+                "C": "Verstaerkung aendert nur die Amplitude.",
+                "D": "Filterung ist ein separater Prozess."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        # ============================================================
+        # SIGNALUEBERTRAGUNG
+        # ============================================================
+        Question(
+            prompt="Mit welcher Geschwindigkeit werden Audiosignale in der Luft uebertragen?",
+            options={
+                "A": "Lichtgeschwindigkeit (~300'000 km/s)",
+                "B": "Ca. 343 m/s (Schallgeschwindigkeit)",
+                "C": "Ca. 1000 m/s",
+                "D": "Ca. 100 m/s"
+            },
+            correct={"B"},
+            explain_correct="Schall breitet sich in Luft bei Raumtemperatur mit etwa 343 m/s aus "
+                          "(ca. 1235 km/h). Dies ist viel langsamer als Licht oder elektrische Signale. "
+                          "Die Schallgeschwindigkeit haengt von Temperatur und Medium ab - "
+                          "in Wasser ca. 1500 m/s, in Stahl ca. 5000 m/s.",
+            explain_wrong={
+                "A": "Das gilt fuer elektromagnetische Wellen, nicht fuer Schall.",
+                "C": "Die Schallgeschwindigkeit ist niedriger.",
+                "D": "Die Schallgeschwindigkeit ist hoeher."
+            },
+            topic="Signalverarbeitung - Uebertragung"
+        ),
+
+        Question(
+            prompt="Mit welcher Geschwindigkeit werden Signale in elektronischen Medien uebertragen?",
+            options={
+                "A": "Ca. 343 m/s",
+                "B": "Ca. 1000 km/s",
+                "C": "Nahe Lichtgeschwindigkeit (~300'000 km/s)",
+                "D": "Ca. 10'000 m/s"
+            },
+            correct={"C"},
+            explain_correct="Elektrische Signale in Kabeln breiten sich mit einem grossen Teil der "
+                          "Lichtgeschwindigkeit aus (typisch 60-90% von c, also ca. 180'000-270'000 km/s). "
+                          "Bei Glasfaserkabeln ist es aehnlich. Das ist so schnell, dass Latenzen "
+                          "durch Kabellaenge in der Audiotechnik vernachlaessigbar sind.",
+            explain_wrong={
+                "A": "Das ist die Schallgeschwindigkeit in Luft.",
+                "B": "Elektronische Signale sind viel schneller.",
+                "D": "Elektronische Signale sind viel schneller."
+            },
+            topic="Signalverarbeitung - Uebertragung"
+        ),
+
+        Question(
+            prompt="Welche Signalverzoegerung entsteht in der Luft pro Meter Abstand?",
+            options={
+                "A": "Ca. 0.3 ms pro Meter",
+                "B": "Ca. 3 ms pro Meter",
+                "C": "Ca. 30 ms pro Meter",
+                "D": "Ca. 0.03 ms pro Meter"
+            },
+            correct={"B"},
+            explain_correct="Bei 343 m/s Schallgeschwindigkeit dauert es 1/343 Sekunde ≈ 2.9 ms pro Meter. "
+                          "Gerundet also etwa 3 ms pro Meter. Bei 10 Metern Entfernung betraegt die "
+                          "Verzoegerung also ca. 30 ms - das ist in der Audiotechnik relevant "
+                          "(z.B. bei Delay-Einstellungen fuer PA-Systeme).",
+            explain_wrong={
+                "A": "Das waere zu schnell fuer Schall.",
+                "C": "Das waere zu langsam.",
+                "D": "Das waere fast Lichtgeschwindigkeit."
+            },
+            topic="Signalverarbeitung - Uebertragung"
+        ),
+
+        Question(
+            prompt="Was sind Vorteile der symmetrischen gegenueber der asymmetrischen Signaluebertragung? (Mehrfachauswahl)",
+            options={
+                "A": "Bessere Stoerunterdrueckung durch Gleichtaktunterdrueckung",
+                "B": "Laengere Kabelwege moeglich",
+                "C": "Guenstiger und einfacher",
+                "D": "A und B sind richtig"
+            },
+            correct={"A", "B", "D"},
+            explain_correct="Bei symmetrischer Uebertragung wird das Signal zweimal gefuehrt: normal und invertiert. "
+                          "Am Empfaenger wird die Differenz gebildet - Stoerungen, die auf beide Leiter gleich wirken, "
+                          "heben sich dabei auf (Gleichtaktunterdrueckung). Dadurch sind laengere Kabelwege moeglich. "
+                          "Nachteile: hoehere Kosten und Komplexitaet (3 Leiter statt 2).",
+            explain_wrong={
+                "C": "Asymmetrische Uebertragung ist guenstiger und einfacher."
+            },
+            topic="Signalverarbeitung - Uebertragung"
+        ),
+
+        Question(
+            prompt="Welche Steckverbinder nutzt man typischerweise fuer asymmetrische Signaluebertragung? (Mehrfachauswahl)",
+            options={
+                "A": "Cinch/RCA",
+                "B": "6.3mm Klinke (mono)",
+                "C": "3.5mm Miniklinke",
+                "D": "XLR-Stecker"
+            },
+            correct={"A", "B", "C"},
+            explain_correct="Asymmetrische Uebertragung verwendet 2-polige Verbindungen (Signal + Masse). "
+                          "Cinch/RCA ist Standard im HiFi-Bereich, 6.3mm Klinke bei Instrumenten und "
+                          "aelteren Geraeten, 3.5mm Miniklinke bei Kopfhoerern und mobilen Geraeten. "
+                          "Fuer symmetrische Uebertragung verwendet man XLR oder 6.3mm Stereo-Klinke (TRS).",
+            explain_wrong={
+                "D": "XLR-Stecker werden fuer symmetrische Signaluebertragung verwendet, nicht asymmetrische."
+            },
+            topic="Signalverarbeitung - Uebertragung"
+        ),
+
+        Question(
+            prompt="Wie wird symmetrische Signaluebertragung technisch realisiert?",
+            options={
+                "A": "Das Signal wird verdoppelt und verstaerkt",
+                "B": "Das Signal liegt zweimal vor (normal + invertiert), am Empfaenger wird die Differenz gebildet",
+                "C": "Das Signal wird digital codiert",
+                "D": "Das Signal wird komprimiert"
+            },
+            correct={"B"},
+            explain_correct="Bei symmetrischer Uebertragung gibt es drei Leiter: Hot (+), Cold (-), Ground. "
+                          "Hot fuehrt das normale Signal, Cold das invertierte (um 180° phasenverschoben). "
+                          "Der Empfaenger bildet die Differenz: Hot - Cold. Stoerungen, die beide Leiter "
+                          "gleich betreffen, heben sich dabei auf (Gleichtaktunterdrueckung/CMRR).",
+            explain_wrong={
+                "A": "Verdopplung und Verstaerkung allein bringt keine Stoersicherheit.",
+                "C": "Digitale Codierung ist ein anderes Konzept.",
+                "D": "Kompression betrifft die Dynamik, nicht die Uebertragungsmethode."
+            },
+            topic="Signalverarbeitung - Uebertragung"
+        ),
+
+        # ============================================================
+        # SNR, DAEMPFUNG, SOUNDKARTEN
+        # ============================================================
+        Question(
+            prompt="Wofuer steht die Abkuerzung SNR?",
+            options={
+                "A": "Signal Noise Reduction",
+                "B": "Signal-to-Noise Ratio (Signal-Rausch-Abstand)",
+                "C": "Sample Nyquist Rate",
+                "D": "Stereo Normalizing Range"
+            },
+            correct={"B"},
+            explain_correct="SNR steht fuer Signal-to-Noise Ratio, auf Deutsch Signal-Rausch-Abstand. "
+                          "Es beschreibt das Verhaeltnis zwischen Nutzsignal und Stoersignal (Rauschen), "
+                          "angegeben in dB. Ein hoeherer SNR bedeutet weniger Rauschen relativ zum Signal. "
+                          "Gute Audiogeraete haben SNR-Werte von 90-120 dB.",
+            explain_wrong={
+                "A": "Signal Noise Reduction waere eine Rauschunterdrueckungstechnik.",
+                "C": "Das ist keine gaengige Abkuerzung.",
+                "D": "Das ist keine gaengige Abkuerzung."
+            },
+            topic="Signalverarbeitung - Kenngroessen"
+        ),
+
+        Question(
+            prompt="Was ist Daempfung und wie wird sie angegeben?",
+            options={
+                "A": "Verstaerkung der Amplitude, in Volt",
+                "B": "Abschwuaechung der Signalamplitude, meist logarithmisch in dB",
+                "C": "Aenderung der Frequenz, in Hz",
+                "D": "Aenderung der Phase, in Grad"
+            },
+            correct={"B"},
+            explain_correct="Daempfung (Attenuation) ist die Abschwuaechung der Signalamplitude, "
+                          "die bei der Uebertragung durch Kabel oder andere Medien auftritt. "
+                          "Sie wird logarithmisch in Dezibel (dB) angegeben, da dies grosse "
+                          "Verhaeltnisse handhabbar macht. Negative dB-Werte bedeuten Abschwuaechung.",
+            explain_wrong={
+                "A": "Verstaerkung ist das Gegenteil von Daempfung.",
+                "C": "Frequenzaenderung ist ein anderer Effekt.",
+                "D": "Phasenaenderung ist ein anderer Effekt."
+            },
+            topic="Signalverarbeitung - Kenngroessen"
+        ),
+
+        Question(
+            prompt="Was ist Wordclock-Jitter?",
+            options={
+                "A": "Stoergeraeusche im Audiosignal",
+                "B": "Zeitliche Schwankungen der Sample-Zeitpunkte",
+                "C": "Unterschiede in der Bittiefe",
+                "D": "Frequenzschwankungen im Signal"
+            },
+            correct={"B"},
+            explain_correct="Wordclock-Jitter beschreibt zeitliche Ungenauigkeiten/Schwankungen bei den "
+                          "Abtastzeitpunkten. Idealerweise sollten Samples in exakt gleichmaessigen "
+                          "Abstaenden genommen werden. Jitter fuehrt dazu, dass die Zeitpunkte leicht "
+                          "variieren, was zu Verzerrungen und erhoehtem Rauschen fuehren kann.",
+            explain_wrong={
+                "A": "Stoergeraeusche koennen durch Jitter entstehen, sind aber nicht dasselbe.",
+                "C": "Bittiefe ist ein anderes Konzept.",
+                "D": "Frequenzschwankungen waeren Wow/Flutter."
+            },
+            topic="Signalverarbeitung - Kenngroessen"
+        ),
+
+        # ============================================================
+        # MUSIKTHEORIE & AKUSTIK
+        # ============================================================
+        Question(
+            prompt="In wie viele Halbtoene ist eine Oktave unterteilt?",
+            options={
+                "A": "8 Halbtoene",
+                "B": "10 Halbtoene",
+                "C": "12 Halbtoene",
+                "D": "7 Halbtoene"
+            },
+            correct={"C"},
+            explain_correct="Eine Oktave ist in 12 Halbtoene unterteilt (chromatische Tonleiter). "
+                          "Jeder Halbton wird weiter in 100 Cent unterteilt, sodass eine Oktave "
+                          "1200 Cent entspricht. Die 12 Halbtoene bilden die Basis der westlichen Musik "
+                          "und entsprechen den weissen und schwarzen Tasten einer Klavieroktave.",
+            explain_wrong={
+                "A": "8 bezieht sich auf die Tonstufen einer diatonischen Tonleiter, nicht auf Halbtoene.",
+                "B": "Es sind genau 12, nicht 10.",
+                "D": "7 sind die Stufen einer diatonischen Tonleiter (Do Re Mi Fa Sol La Si)."
+            },
+            topic="Signalverarbeitung - Akustik"
+        ),
+
+        Question(
+            prompt="Was ist ein musikalisches Intervall?",
+            options={
+                "A": "Die Lautstaerke eines Tons",
+                "B": "Der Tonhoehenabstand zwischen zwei Toenen",
+                "C": "Die Dauer eines Tons",
+                "D": "Die Klangfarbe eines Instruments"
+            },
+            correct={"B"},
+            explain_correct="Ein Intervall beschreibt den Tonhoehenabstand zwischen zwei Toenen. "
+                          "Intervalle haben Namen wie Sekunde, Terz, Quarte, Quinte, Oktave usw. "
+                          "Sie werden durch das Frequenzverhaeltnis der beiden Toene bestimmt. "
+                          "Eine Oktave entspricht einer Frequenzverdopplung (2:1).",
+            explain_wrong={
+                "A": "Die Lautstaerke wird durch die Amplitude bestimmt.",
+                "C": "Die Dauer ist der Notenwert.",
+                "D": "Die Klangfarbe wird durch das Obertonspektrum bestimmt."
+            },
+            topic="Signalverarbeitung - Akustik"
+        ),
+
+        Question(
+            prompt="Welches Intervall entsteht bei Frequenzverdopplung?",
+            options={
+                "A": "Quinte",
+                "B": "Quarte",
+                "C": "Oktave",
+                "D": "Terz"
+            },
+            correct={"C"},
+            explain_correct="Eine Oktave entspricht einer Frequenzverdopplung (Verhaeltnis 2:1). "
+                          "Wenn ein Ton 440 Hz hat (Kammerton A), liegt die Oktave darueber bei 880 Hz. "
+                          "Die Quinte hat das Verhaeltnis 3:2 (z.B. 440 Hz zu 660 Hz), "
+                          "die Quarte 4:3, die grosse Terz 5:4.",
+            explain_wrong={
+                "A": "Die Quinte hat das Frequenzverhaeltnis 3:2.",
+                "B": "Die Quarte hat das Frequenzverhaeltnis 4:3.",
+                "D": "Die grosse Terz hat das Frequenzverhaeltnis 5:4."
+            },
+            topic="Signalverarbeitung - Akustik"
+        ),
+
+        Question(
+            prompt="Welche Intervalle bilden einen Dur-Dreiklang? (Grundton nach oben)",
+            options={
+                "A": "Kleine Terz + grosse Terz",
+                "B": "Grosse Terz + kleine Terz",
+                "C": "Zwei grosse Terzen",
+                "D": "Zwei kleine Terzen"
+            },
+            correct={"B"},
+            explain_correct="Ein Dur-Dreiklang besteht von unten nach oben aus: grosse Terz (4 Halbtoene) "
+                          "gefolgt von kleiner Terz (3 Halbtoene). Beispiel C-Dur: C-E (grosse Terz) und "
+                          "E-G (kleine Terz). Bei Moll ist es umgekehrt: kleine Terz + grosse Terz. "
+                          "Dies erklaert den unterschiedlichen Klangcharakter (Dur = 'froelich', Moll = 'traurig').",
+            explain_wrong={
+                "A": "Das waere ein Moll-Dreiklang.",
+                "C": "Zwei grosse Terzen ergeben einen uebermäessigen Dreiklang.",
+                "D": "Zwei kleine Terzen ergeben einen verminderten Dreiklang."
+            },
+            topic="Signalverarbeitung - Akustik"
+        ),
+
+        Question(
+            prompt="Was sind Obertoene?",
+            options={
+                "A": "Toene die leiser sind als der Grundton",
+                "B": "Frequenzen die ganzzahlige Vielfache der Grundfrequenz sind",
+                "C": "Stoergeraeusche im Signal",
+                "D": "Toene die tiefer sind als der Grundton"
+            },
+            correct={"B"},
+            explain_correct="Obertoene (Harmonische) sind Frequenzen, die ganzzahlige Vielfache der "
+                          "Grundfrequenz sind. Bei einem Grundton von 100 Hz liegen die Obertoene "
+                          "bei 200 Hz, 300 Hz, 400 Hz usw. Das Verhaeltnis und die Staerke der Obertoene "
+                          "bestimmen die Klangfarbe (Timbre) eines Instruments.",
+            explain_wrong={
+                "A": "Obertoene koennen unterschiedliche Lautstaerken haben.",
+                "C": "Obertoene sind gewuenschte Signalanteile, keine Stoerungen.",
+                "D": "Tiefere Toene waeren Untertoene (selten)."
+            },
+            topic="Signalverarbeitung - Akustik"
+        ),
+
+        # ============================================================
+        # AUDIOEFFEKTE
+        # ============================================================
+        Question(
+            prompt="Welche Audioeffekte ahneln sich in ihrer Funktionsweise stark?",
+            options={
+                "A": "Hall und Kompressor",
+                "B": "Flanger und Phaser",
+                "C": "Equalizer und Limiter",
+                "D": "Delay und Noise Gate"
+            },
+            correct={"B"},
+            explain_correct="Flanger und Phaser erzeugen beide einen 'schwebenden', bewegten Klang "
+                          "durch Phasenverschiebungen. Der Flanger verwendet eine kurze, modulierte "
+                          "Verzoegerung, der Phaser verwendet Allpassfilter. Beide erzeugen durch "
+                          "Interferenz charakteristische 'Kerben' im Frequenzspektrum (Kammfiltereffekt).",
+            explain_wrong={
+                "A": "Hall erzeugt Raumklang, Kompressor reduziert Dynamik - voellig verschieden.",
+                "C": "Equalizer formt Frequenzen, Limiter begrenzt Pegel - voellig verschieden.",
+                "D": "Delay wiederholt das Signal, Noise Gate schneidet leise Passagen ab - voellig verschieden."
+            },
+            topic="Signalverarbeitung - Effekte"
+        ),
+
+        # ============================================================
+        # LTI-SYSTEME
+        # ============================================================
+        Question(
+            prompt="Wofuer steht die Abkuerzung LTI?",
+            options={
+                "A": "Low-Time-Input",
+                "B": "Linear Time Invariant (linear und zeitinvariant)",
+                "C": "Logarithmic Transfer Interface",
+                "D": "Limited Transfer Integration"
+            },
+            correct={"B"},
+            explain_correct="LTI steht fuer Linear Time Invariant - ein System das linear ist "
+                          "(Skalierung und Additivitaet gelten) und zeitinvariant (das Verhalten "
+                          "aendert sich nicht mit der Zeit). LTI-Systeme sind mathematisch gut "
+                          "beschreibbar und bilden die Grundlage der klassischen Signalverarbeitung.",
+            explain_wrong={
+                "A": "Das ist keine korrekte Bedeutung.",
+                "C": "Das ist keine korrekte Bedeutung.",
+                "D": "Das ist keine korrekte Bedeutung."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Was ist die Impulsantwort eines Systems?",
+            options={
+                "A": "Die maximale Verstaerkung",
+                "B": "Die Antwort auf einen idealen Impuls (Dirac-Stoss)",
+                "C": "Die minimale Latenz",
+                "D": "Die Grenzfrequenz"
+            },
+            correct={"B"},
+            explain_correct="Die Impulsantwort ist die Reaktion eines Systems auf einen idealen Impuls "
+                          "(Dirac-Stoss). Sie beschreibt ein LTI-System vollstaendig - kennt man die "
+                          "Impulsantwort, kann man die Ausgabe fuer jedes beliebige Eingangssignal berechnen "
+                          "(durch Faltung). Die Impulsantwort ist sozusagen der 'Fingerabdruck' des Systems.",
+            explain_wrong={
+                "A": "Die Verstaerkung ist nur ein Aspekt des Systemverhaltens.",
+                "C": "Die Latenz ist nicht durch die Impulsantwort allein definiert.",
+                "D": "Die Grenzfrequenz gehoert zum Frequenzgang."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Was benoetigt man, um ein LTI-System vollstaendig zu beschreiben? (Mehrfachauswahl)",
+            options={
+                "A": "Die Impulsantwort",
+                "B": "Die Uebertragungsfunktion (Frequenzgang)",
+                "C": "Die Farbe des Geraets",
+                "D": "A oder B genuegen jeweils"
+            },
+            correct={"A", "B", "D"},
+            explain_correct="Ein LTI-System ist vollstaendig durch seine Impulsantwort ODER seine "
+                          "Uebertragungsfunktion beschrieben - beide enthalten die gleiche Information, "
+                          "nur in verschiedenen Darstellungen (Zeitbereich vs. Frequenzbereich). "
+                          "Sie sind durch die Fouriertransformation ineinander umrechenbar.",
+            explain_wrong={
+                "C": "Die physische Erscheinung ist fuer das Systemverhalten irrelevant."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Was bedeutet Zeitinvarianz bei einem System?",
+            options={
+                "A": "Das System hat keine Verzoegerung",
+                "B": "Das Systemverhalten aendert sich nicht mit der Zeit",
+                "C": "Das System arbeitet nur zu bestimmten Zeiten",
+                "D": "Das System ist unendlich schnell"
+            },
+            correct={"B"},
+            explain_correct="Zeitinvarianz bedeutet, dass das Systemverhalten sich nicht aendert, "
+                          "egal wann man es benutzt. Ein Signal das um t0 verschoben wird, "
+                          "erzeugt eine um t0 verschobene Ausgabe - die Form bleibt gleich. "
+                          "Ein Equalizer ist zeitinvariant, ein System mit sich aendernden Parametern nicht.",
+            explain_wrong={
+                "A": "Auch zeitinvariante Systeme koennen Verzoegerungen haben.",
+                "C": "Das waere das Gegenteil von zeitinvariant.",
+                "D": "Geschwindigkeit ist ein anderes Konzept."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Was bewirkt die Addition zweier Signale im Zeitbereich im Frequenzbereich?",
+            options={
+                "A": "Multiplikation der Spektren",
+                "B": "Faltung der Spektren",
+                "C": "Addition der Spektren",
+                "D": "Division der Spektren"
+            },
+            correct={"C"},
+            explain_correct="Die Fouriertransformation ist linear: Die Summe zweier Signale im Zeitbereich "
+                          "entspricht der Summe ihrer Spektren im Frequenzbereich. Wenn x(t)+y(t) "
+                          "transformiert wird, erhaelt man X(f)+Y(f). Dies gilt auch fuer Skalierung: "
+                          "a*x(t) wird zu a*X(f).",
+            explain_wrong={
+                "A": "Multiplikation im Frequenzbereich entspricht Faltung im Zeitbereich.",
+                "B": "Faltung im Frequenzbereich entspricht Multiplikation im Zeitbereich.",
+                "D": "Division hat keine einfache Entsprechung."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Wie verhalten sich Linearkombinationen bei der Fouriertransformation?",
+            options={
+                "A": "Sie werden nicht linear transformiert",
+                "B": "Die Fouriertransformation ist linear - Linearkombinationen bleiben erhalten",
+                "C": "Sie werden quadratisch transformiert",
+                "D": "Sie werden invertiert"
+            },
+            correct={"B"},
+            explain_correct="Die Fouriertransformation ist eine lineare Operation: "
+                          "FT(a*x + b*y) = a*FT(x) + b*FT(y). Das bedeutet, dass Linearkombinationen "
+                          "von Signalen im Zeitbereich zu den gleichen Linearkombinationen der "
+                          "Spektren im Frequenzbereich fuehren. Diese Eigenschaft ist fundamental wichtig.",
+            explain_wrong={
+                "A": "Linearitaet ist eine Grundeigenschaft der Fouriertransformation.",
+                "C": "Es gibt keine quadratische Transformation.",
+                "D": "Invertierung ist keine Eigenschaft der FT."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Was entspricht y(t)=x(t)*h(t) (Faltung im Zeitbereich) im Frequenzbereich?",
+            options={
+                "A": "Y(f) = X(f) + H(f)",
+                "B": "Y(f) = X(f) * H(f) (auch Faltung)",
+                "C": "Y(f) = X(f) · H(f) (Multiplikation)",
+                "D": "Y(f) = X(f) / H(f)"
+            },
+            correct={"C"},
+            explain_correct="Die Faltung im Zeitbereich entspricht der Multiplikation im Frequenzbereich! "
+                          "Dies ist einer der wichtigsten Saetze der Signalverarbeitung (Faltungssatz). "
+                          "Daher ist es oft einfacher, im Frequenzbereich zu arbeiten: "
+                          "statt aufwendiger Faltung nur einfache Multiplikation.",
+            explain_wrong={
+                "A": "Addition im Frequenzbereich entspricht Addition im Zeitbereich.",
+                "B": "Faltung im Frequenzbereich entspricht Multiplikation im Zeitbereich.",
+                "D": "Division hat keine direkte Entsprechung."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Was ist eine Faltung im Frequenzbereich?",
+            options={
+                "A": "Entspricht einer Addition im Zeitbereich",
+                "B": "Entspricht einer Multiplikation im Zeitbereich",
+                "C": "Entspricht einer Faltung im Zeitbereich",
+                "D": "Hat keine Entsprechung im Zeitbereich"
+            },
+            correct={"B"},
+            explain_correct="Faltung im Frequenzbereich entspricht Multiplikation im Zeitbereich - "
+                          "das ist das 'Gegenstueck' zum Faltungssatz. Wenn man zwei Spektren faltet, "
+                          "multipliziert man die Zeitsignale. Dies ist z.B. relevant bei "
+                          "Amplitudenmodulation (Traeger * Modulationssignal).",
+            explain_wrong={
+                "A": "Addition im Frequenzbereich entspricht Addition im Zeitbereich.",
+                "C": "Faltung im Zeitbereich entspricht Multiplikation im Frequenzbereich.",
+                "D": "Es gibt sehr wohl eine Entsprechung."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Je grober die Zeitaufloesung, desto ...?",
+            options={
+                "A": "Schlechter die Frequenzaufloesung",
+                "B": "Besser die Frequenzaufloesung",
+                "C": "Gleich bleibt die Frequenzaufloesung",
+                "D": "Zufaellig aendert sich die Frequenzaufloesung"
+            },
+            correct={"B"},
+            explain_correct="Dies ist die Zeit-Frequenz-Unschaerferelation (analog zur Heisenberg'schen Unschaerfe): "
+                          "Man kann nicht gleichzeitig eine hohe Zeit- UND Frequenzaufloesung haben. "
+                          "Ein kurzes Zeitfenster (gute Zeitaufloesung) fuehrt zu unscharfen Frequenzen, "
+                          "ein langes Zeitfenster (gute Frequenzaufloesung) verschmiert zeitliche Details.",
+            explain_wrong={
+                "A": "Es ist genau umgekehrt - grober in Zeit = feiner in Frequenz.",
+                "C": "Sie sind nicht unabhaengig, sondern invers verknuepft.",
+                "D": "Der Zusammenhang ist deterministisch, nicht zufaellig."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Die Faltung zweier Rechtecksignale im Zeitbereich ergibt ...?",
+            options={
+                "A": "Ein Sinussignal",
+                "B": "Ein Dreiecksignal",
+                "C": "Ein Rechtecksignal",
+                "D": "Ein Impulssignal"
+            },
+            correct={"B"},
+            explain_correct="Wenn man zwei Rechteckimpulse faltet, erhält man ein Dreiecksignal. "
+                          "Anschaulich: Die Faltung berechnet die 'Ueberlappungsflaeche' wenn ein Rechteck "
+                          "ueber das andere geschoben wird. Diese Flaeche waechst linear an, erreicht "
+                          "ein Maximum, und faellt linear ab - das ergibt eine Dreiecksform.",
+            explain_wrong={
+                "A": "Sinus entsteht nicht durch Rechteck-Faltung.",
+                "C": "Die Form aendert sich durch die Faltung.",
+                "D": "Ein Impuls entsteht nicht aus der Rechteck-Faltung."
+            },
+            topic="Signalverarbeitung - LTI"
+        ),
+
+        # ============================================================
+        # FILTER
+        # ============================================================
+        Question(
+            prompt="Welche Filtertypen gibt es? (Mehrfachauswahl)",
+            options={
+                "A": "Tiefpass",
+                "B": "Hochpass",
+                "C": "Bandpass",
+                "D": "Bandsperre (Notch)"
+            },
+            correct={"A", "B", "C", "D"},
+            explain_correct="Alle vier sind grundlegende Filtertypen: "
+                          "Tiefpass laesst niedrige Frequenzen durch (unter Cutoff), "
+                          "Hochpass laesst hohe Frequenzen durch (ueber Cutoff), "
+                          "Bandpass laesst einen Frequenzbereich durch, "
+                          "Bandsperre/Notch blockiert einen Frequenzbereich.",
+            explain_wrong={},
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Ein Filter hat: Cutoff=1kHz, bei 500Hz -> 0dB, bei 1.5kHz -> -60dB. Um welchen Filtertyp handelt es sich?",
+            options={
+                "A": "Hochpass",
+                "B": "Bandpass",
+                "C": "Tiefpass",
+                "D": "Bandsperre"
+            },
+            correct={"C"},
+            explain_correct="Es ist ein Tiefpass: Frequenzen unter dem Cutoff (500 Hz < 1 kHz) werden "
+                          "unveraendert durchgelassen (0 dB), waehrend Frequenzen ueber dem Cutoff "
+                          "(1.5 kHz > 1 kHz) stark gedaempft werden (-60 dB). Ein Tiefpass 'laesst tiefe durch'.",
+            explain_wrong={
+                "A": "Ein Hochpass wuerde tiefe Frequenzen daempfen, nicht hohe.",
+                "B": "Ein Bandpass wuerde einen Bereich durchlassen, nicht alles unter einer Grenze.",
+                "D": "Eine Bandsperre wuerde einen schmalen Bereich blockieren."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Welche Aufgabe hat das Rekonstruktionsfilter bei der D/A-Wandlung?",
+            options={
+                "A": "Verstaerkung des Signals",
+                "B": "Glaettung des diskreten Signals / Entfernung von Abtastartefakten",
+                "C": "Digitale Fehlerkorrektur",
+                "D": "Kompression des Signals"
+            },
+            correct={"B"},
+            explain_correct="Das Rekonstruktionsfilter (auch Anti-Imaging-Filter) ist ein Tiefpass "
+                          "nach dem D/A-Wandler. Es glaettet die treppenfoermige Ausgabe und entfernt "
+                          "Spiegelfrequenzen (Images), die durch die Abtastung entstehen. "
+                          "So wird aus dem digitalen Signal wieder ein sauberes analoges Signal.",
+            explain_wrong={
+                "A": "Verstaerkung ist eine separate Funktion.",
+                "C": "Fehlerkorrektur passiert digital vor der Wandlung.",
+                "D": "Kompression ist ein separater Prozess."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Was ist Aliasing?",
+            options={
+                "A": "Ein Verstaerkungseffekt",
+                "B": "Frequenzverfaelschung durch zu niedrige Abtastrate",
+                "C": "Ein Kompressionsverfahren",
+                "D": "Eine Art von Rauschen"
+            },
+            correct={"B"},
+            explain_correct="Aliasing tritt auf, wenn die Abtastfrequenz weniger als das Doppelte der "
+                          "hoechsten Signalfrequenz betraegt (Nyquist-Verletzung). Hohe Frequenzen "
+                          "'spiegeln' sich dann und erscheinen faelschlicherweise als niedrigere. "
+                          "Dieser Effekt ist nicht rueckgaengig zu machen und muss durch "
+                          "Anti-Aliasing-Filter vor der Abtastung verhindert werden.",
+            explain_wrong={
+                "A": "Aliasing hat nichts mit Verstaerkung zu tun.",
+                "C": "Aliasing ist ein unerwuenschter Artefakt, kein Kompressionsverfahren.",
+                "D": "Aliasing ist systematisch, nicht zufaellig wie Rauschen."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Wofuer steht die Nyquist-Frequenz?",
+            options={
+                "A": "Die maximale Frequenz eines Signals",
+                "B": "Die halbe Abtastfrequenz",
+                "C": "Die Grundfrequenz",
+                "D": "Die Bandbreite"
+            },
+            correct={"B"},
+            explain_correct="Die Nyquist-Frequenz ist genau die Haelfte der Abtastfrequenz (fs/2). "
+                          "Sie ist die hoechste Frequenz, die bei einer gegebenen Abtastrate "
+                          "korrekt dargestellt werden kann. Bei CD-Qualitaet (44.1 kHz) ist die "
+                          "Nyquist-Frequenz 22.05 kHz - knapp ueber der menschlichen Hoergrenze.",
+            explain_wrong={
+                "A": "Die maximale Signalfrequenz kann beliebig sein, sollte aber unter Nyquist liegen.",
+                "C": "Die Grundfrequenz ist die niedrigste Frequenz eines Signals.",
+                "D": "Bandbreite beschreibt einen Frequenzbereich, nicht eine Grenzfrequenz."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+    ]
