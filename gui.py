@@ -129,10 +129,10 @@ class QuizGUI(ctk.CTk):
         info_title.pack(anchor="w", pady=(0, 15))
 
         instructions = [
-            ("1.", "Waehle ein oder mehrere Themen aus"),
-            ("2.", "Klicke auf die Antworten (mehrere moeglich)"),
-            ("3.", "Bestatige mit dem Pruefen-Button"),
-            ("4.", "Lerne aus den ausfuehrlichen Erklaerungen"),
+            ("1.", "Wähle ein oder mehrere Themen aus"),
+            ("2.", "Klicke auf die Antworten (mehrere möglich)"),
+            ("3.", "Bestätige mit dem Prüfen-Button"),
+            ("4.", "Lerne aus den ausführlichen Erklärungen"),
         ]
 
         for num, text in instructions:
@@ -187,7 +187,7 @@ class QuizGUI(ctk.CTk):
 
         subtitle = ctk.CTkLabel(
             center_frame,
-            text="Waehle die Themen, die du ueben moechtest",
+            text="Wähle die Themen, die du üben moechtest",
             font=ctk.CTkFont(size=14),
             text_color=self.colors['text_muted']
         )
@@ -237,10 +237,10 @@ class QuizGUI(ctk.CTk):
             )
             count_label.pack(side="left", padx=(15, 0))
 
-        # Alle auswaehlen Button
+        # Alle auswählen Button
         all_btn = ctk.CTkButton(
             topics_inner,
-            text="Alle auswaehlen",
+            text="Alle auswählen",
             font=ctk.CTkFont(size=13),
             fg_color="transparent",
             hover_color=self.colors['card_hover'],
@@ -259,7 +259,7 @@ class QuizGUI(ctk.CTk):
 
         back_btn = ctk.CTkButton(
             button_frame,
-            text="Zurueck",
+            text="Zurück",
             font=ctk.CTkFont(size=14, weight="bold"),
             fg_color=self.colors['card'],
             hover_color=self.colors['card_hover'],
@@ -396,7 +396,7 @@ class QuizGUI(ctk.CTk):
         if len(question.correct) > 1:
             hint_label = ctk.CTkLabel(
                 question_inner,
-                text="(Mehrfachauswahl moeglich)",
+                text="(Mehrfachauswahl möglich)",
                 font=ctk.CTkFont(size=12, slant="italic"),
                 text_color=self.colors['warning']
             )
@@ -425,7 +425,7 @@ class QuizGUI(ctk.CTk):
 
         skip_btn = ctk.CTkButton(
             left_buttons,
-            text="Ueberspringen",
+            text="Überspringen",
             font=ctk.CTkFont(size=13),
             fg_color=self.colors['card'],
             hover_color=self.colors['card_hover'],
@@ -449,10 +449,10 @@ class QuizGUI(ctk.CTk):
         )
         quit_btn.pack(side="left")
 
-        # Rechts: Pruefen
+        # Rechts: Prüfen
         check_btn = ctk.CTkButton(
             button_frame,
-            text="Pruefen",
+            text="Prüfen",
             font=ctk.CTkFont(size=14, weight="bold"),
             fg_color=self.colors['accent'],
             hover_color=self.colors['accent_hover'],
@@ -572,7 +572,7 @@ class QuizGUI(ctk.CTk):
             text_color=self.colors['success']
         ).pack(anchor="w", pady=3)
 
-        # Erklaerung
+        # Erklärung
         explain_card = ctk.CTkFrame(
             scroll_frame,
             fg_color=self.colors['card'],
@@ -585,7 +585,7 @@ class QuizGUI(ctk.CTk):
 
         ctk.CTkLabel(
             explain_inner,
-            text="Erklaerung",
+            text="Erklärung",
             font=ctk.CTkFont(size=16, weight="bold"),
             text_color=self.colors['accent']
         ).pack(anchor="w", pady=(0, 12))
@@ -644,7 +644,7 @@ class QuizGUI(ctk.CTk):
         # Weiter-Button
         next_btn = ctk.CTkButton(
             scroll_frame,
-            text="Naechste Frage",
+            text="Nächste Frage",
             font=ctk.CTkFont(size=14, weight="bold"),
             fg_color=self.colors['accent'],
             hover_color=self.colors['accent_hover'],
@@ -656,7 +656,7 @@ class QuizGUI(ctk.CTk):
         next_btn.pack(pady=25)
 
     def next_question(self):
-        """Naechste Frage"""
+        """Nächste Frage"""
         self.current_index += 1
         self.show_question()
 
@@ -667,7 +667,7 @@ class QuizGUI(ctk.CTk):
 
     def confirm_quit(self):
         """Bestaetigung zum Beenden"""
-        if messagebox.askyesno("Quiz beenden", "Moechtest du das Quiz wirklich beenden?"):
+        if messagebox.askyesno("Quiz beenden", "Möchtest du das Quiz wirklich beenden?"):
             self.show_results()
 
     def show_results(self):
@@ -724,7 +724,7 @@ class QuizGUI(ctk.CTk):
             rating = "PERFEKT! Du bist ein Experte!"
             rating_color = self.colors['success']
         elif percentage >= 80:
-            rating = "SEHR GUT! Nur kleine Luecken!"
+            rating = "SEHR GUT! Nur kleine Lücken!"
             rating_color = self.colors['success']
         elif percentage >= 60:
             rating = "GUT! Du bist auf dem richtigen Weg!"

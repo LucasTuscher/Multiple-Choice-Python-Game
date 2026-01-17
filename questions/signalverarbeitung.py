@@ -21,7 +21,7 @@ def get_questions() -> List[Question]:
         # FOURIER-TRANSFORMATION
         # ============================================================
         Question(
-            prompt="Unter Anwendung welches Prinzips kann man die Darstellung eines Signals im Zeit- und Frequenzbereich aendern - und zurueck?",
+            prompt="Unter Anwendung welches Prinzips kann man die Darstellung eines Signals im Zeit- und Frequenzbereich ändern - und zurück?",
             options={
                 "A": "Laplace-Transformation",
                 "B": "Fourierprinzip / Fouriertransformation",
@@ -29,14 +29,14 @@ def get_questions() -> List[Question]:
                 "D": "Shannon-Theorem"
             },
             correct={"B"},
-            explain_correct="Das Fourierprinzip ermoeglicht die Umwandlung zwischen Zeit- und Frequenzbereich. "
+            explain_correct="Das Fourierprinzip ermöglicht die Umwandlung zwischen Zeit- und Frequenzbereich. "
                           "Die Fouriersynthese baut ein Signal aus Sinusschwingungen auf. "
                           "Die DFT (Diskrete Fourier-Transformation) wandelt vom Zeitbereich in den Frequenzbereich, "
-                          "die IDFT (Inverse DFT) macht dies rueckgaengig.",
+                          "die IDFT (Inverse DFT) macht dies rückgängig.",
             explain_wrong={
-                "A": "Die Laplace-Transformation ist eine Verallgemeinerung, wird aber nicht primaer fuer Zeit-Frequenz-Umwandlung verwendet.",
+                "A": "Die Laplace-Transformation ist eine Verallgemeinerung, wird aber nicht primär für Zeit-Frequenz-Umwandlung verwendet.",
                 "C": "Das Nyquist-Theorem beschreibt die minimale Abtastrate, nicht die Transformation zwischen Bereichen.",
-                "D": "Das Shannon-Theorem ist ein anderer Name fuer das Nyquist-Theorem."
+                "D": "Das Shannon-Theorem ist ein anderer Name für das Nyquist-Theorem."
             },
             topic="Signalverarbeitung - Fourier"
         ),
@@ -45,14 +45,14 @@ def get_questions() -> List[Question]:
             prompt="Was beschreibt die Fouriersynthese?",
             options={
                 "A": "Die Zerlegung eines Signals in einzelne Frequenzen",
-                "B": "Den Aufbau eines Signals aus ueberlagerten Sinusschwingungen",
+                "B": "Den Aufbau eines Signals aus überlagerten Sinusschwingungen",
                 "C": "Die Digitalisierung eines analogen Signals",
-                "D": "Die Filterung von Stoerfrequenzen"
+                "D": "Die Filterung von Störfrequenzen"
             },
             correct={"B"},
             explain_correct="Die Fouriersynthese beschreibt, wie man ein beliebiges periodisches Signal "
-                          "durch Ueberlagerung (Addition) von Sinus- und Kosinusschwingungen verschiedener "
-                          "Frequenzen, Amplituden und Phasen aufbauen kann. Dies ist das Gegenstueck zur "
+                          "durch Überlagerung (Addition) von Sinus- und Kosinusschwingungen verschiedener "
+                          "Frequenzen, Amplituden und Phasen aufbauen kann. Dies ist das Gegenstück zur "
                           "Fourieranalyse, die ein Signal in seine Frequenzanteile zerlegt.",
             explain_wrong={
                 "A": "Das ist die Fourieranalyse, nicht die Synthese.",
@@ -87,13 +87,13 @@ def get_questions() -> List[Question]:
             prompt="Was ist der Unterschied zwischen DFT und FFT?",
             options={
                 "A": "FFT ist eine schnelle Implementierung der DFT",
-                "B": "DFT ist fuer analoge, FFT fuer digitale Signale",
+                "B": "DFT ist für analoge, FFT für digitale Signale",
                 "C": "FFT liefert genauere Ergebnisse",
                 "D": "Es gibt keinen Unterschied"
             },
             correct={"A"},
             explain_correct="Die FFT (Fast Fourier Transform) ist ein effizienter Algorithmus zur "
-                          "Berechnung der DFT. Waehrend die direkte DFT O(N^2) Operationen benoetigt, "
+                          "Berechnung der DFT. Waehrend die direkte DFT O(N^2) Operationen benötigt, "
                           "schafft die FFT das gleiche Ergebnis mit nur O(N log N) Operationen. "
                           "Bei 1000 Samples ist die FFT also etwa 100x schneller!",
             explain_wrong={
@@ -134,17 +134,17 @@ def get_questions() -> List[Question]:
                 "A": "Ein zeit- und wertkontinuierliches Signal",
                 "B": "Ein zeitkontinuierliches, aber wertdiskretes Signal",
                 "C": "Ein zeit- und wertdiskretes Signal",
-                "D": "Ein Signal das nur Nullen enthaelt"
+                "D": "Ein Signal das nur Nullen enthält"
             },
             correct={"C"},
             explain_correct="Ein digitales Signal ist sowohl zeitdiskret (existiert nur zu bestimmten "
                           "Abtastzeitpunkten) als auch wertdiskret (kann nur bestimmte Werte/Stufen annehmen). "
                           "Es entsteht durch Sampling (Zeitdiskretisierung) und Quantisierung (Wertdiskretisierung) "
-                          "eines analogen Signals. Computer koennen nur digitale Signale verarbeiten.",
+                          "eines analogen Signals. Computer können nur digitale Signale verarbeiten.",
             explain_wrong={
                 "A": "Das ist ein analoges Signal.",
-                "B": "Zeitkontinuierlich + wertdiskret ist kein vollstaendig digitales Signal.",
-                "D": "Digitale Signale koennen beliebige diskrete Werte haben."
+                "B": "Zeitkontinuierlich + wertdiskret ist kein vollständig digitales Signal.",
+                "D": "Digitale Signale können beliebige diskrete Werte haben."
             },
             topic="Signalverarbeitung - Grundlagen"
         ),
@@ -157,60 +157,60 @@ def get_questions() -> List[Question]:
             options={
                 "A": "Die Wertdiskretisierung eines Signals",
                 "B": "Die Zeitdiskretisierung eines analogen Signals",
-                "C": "Die Verstaerkung eines Signals",
+                "C": "Die Verstärkung eines Signals",
                 "D": "Die Filterung von Rauschen"
             },
             correct={"B"},
             explain_correct="Sampling (Abtastung) ist die Zeitdiskretisierung - das Signal wird nur "
-                          "zu bestimmten regelmaessigen Zeitpunkten gemessen. Aus einem kontinuierlichen "
+                          "zu bestimmten regelmäßigen Zeitpunkten gemessen. Aus einem kontinuierlichen "
                           "Signal werden diskrete Messwerte. Die Wertdiskretisierung heisst dagegen Quantisierung. "
                           "Zusammen (Sampling + Quantisierung) ergibt das die A/D-Wandlung.",
             explain_wrong={
                 "A": "Das ist Quantisierung, nicht Sampling.",
-                "C": "Verstaerkung aendert nur die Amplitude.",
+                "C": "Verstärkung aendert nur die Amplitude.",
                 "D": "Filterung ist ein separater Prozess."
             },
             topic="Signalverarbeitung - Sampling"
         ),
 
         Question(
-            prompt="Wovon haengt die minimale Abtastrate bei der Digitalisierung ab?",
+            prompt="Wovon hängt die minimale Abtastrate bei der Digitalisierung ab?",
             options={
                 "A": "Von der Amplitude des Signals",
-                "B": "Von der hoechsten vorkommenden Frequenz des Signals",
+                "B": "Von der höchsten vorkommenden Frequenz des Signals",
                 "C": "Von der Laenge des Signals",
                 "D": "Von der Bittiefe"
             },
             correct={"B"},
             explain_correct="Nach dem Nyquist-Shannon-Theorem muss die Abtastrate mindestens doppelt so hoch sein "
-                          "wie die hoechste im Signal vorkommende Frequenz. Bei einem Signal mit maximal 20 kHz "
+                          "wie die höchste im Signal vorkommende Frequenz. Bei einem Signal mit maximal 20 kHz "
                           "(menschliches Hoeren) braucht man also mindestens 40 kHz Abtastrate. "
                           "CDs verwenden 44.1 kHz, um etwas Spielraum zu haben.",
             explain_wrong={
-                "A": "Die Amplitude beeinflusst die noetige Bittiefe, nicht die Abtastrate.",
-                "C": "Die Signallaenge ist irrelevant fuer die Abtastrate.",
+                "A": "Die Amplitude beeinflusst die nötige Bittiefe, nicht die Abtastrate.",
+                "C": "Die Signallänge ist irrelevant für die Abtastrate.",
                 "D": "Die Bittiefe betrifft die Quantisierung, nicht das Sampling."
             },
             topic="Signalverarbeitung - Sampling"
         ),
 
         Question(
-            prompt="Wie gross muss die Abtastrate mindestens sein? (Mehrfachauswahl moeglich)",
+            prompt="Wie groß muss die Abtastrate mindestens sein? (Mehrfachauswahl möglich)",
             options={
-                "A": "Mindestens gleich der hoechsten Signalfrequenz",
-                "B": "Mindestens 2x die hoechste Signalfrequenz (Nyquist-Theorem)",
-                "C": "Mindestens 10x die hoechste Signalfrequenz",
+                "A": "Mindestens gleich der höchsten Signalfrequenz",
+                "B": "Mindestens 2x die höchste Signalfrequenz (Nyquist-Theorem)",
+                "C": "Mindestens 10x die höchste Signalfrequenz",
                 "D": "Die Abtastrate ist egal"
             },
             correct={"B"},
             explain_correct="Das Nyquist-Shannon-Theorem besagt: Die Abtastfrequenz muss mindestens "
-                          "doppelt so hoch sein wie die hoechste Signalfrequenz (fs >= 2 * fmax). "
-                          "Nur dann kann das Signal aus den Abtastwerten vollstaendig rekonstruiert werden. "
+                          "doppelt so hoch sein wie die höchste Signalfrequenz (fs >= 2 * fmax). "
+                          "Nur dann kann das Signal aus den Abtastwerten vollständig rekonstruiert werden. "
                           "Diese Grenze heisst Nyquist-Frequenz (= fs/2).",
             explain_wrong={
                 "A": "Das reicht nicht aus - es muss mindestens das Doppelte sein.",
-                "C": "Das waere mehr als noetig, schadet aber nicht.",
-                "D": "Eine zu niedrige Abtastrate fuehrt zu Aliasing!"
+                "C": "Das waere mehr als nötig, schadet aber nicht.",
+                "D": "Eine zu niedrige Abtastrate führt zu Aliasing!"
             },
             topic="Signalverarbeitung - Sampling"
         ),
@@ -221,17 +221,17 @@ def get_questions() -> List[Question]:
                 "A": "Clipping",
                 "B": "Aliasing",
                 "C": "Rauschen",
-                "D": "Verstaerkung"
+                "D": "Verstärkung"
             },
             correct={"B"},
             explain_correct="Aliasing tritt auf, wenn die Abtastrate zu niedrig ist (unter dem Nyquist-Limit). "
-                          "Hohe Frequenzen werden dann faelschlicherweise als niedrigere Frequenzen interpretiert - "
-                          "sie 'spiegeln' sich am Nyquist-Punkt. Das fuehrt zu hoerbaren Artefakten und "
-                          "Verzerrungen, die nicht mehr rueckgaengig gemacht werden koennen.",
+                          "Hohe Frequenzen werden dann fälschlicherweise als niedrigere Frequenzen interpretiert - "
+                          "sie 'spiegeln' sich am Nyquist-Punkt. Das führt zu hoerbaren Artefakten und "
+                          "Verzerrungen, die nicht mehr rückgängig gemacht werden können.",
             explain_wrong={
-                "A": "Clipping entsteht durch Uebersteuerung, nicht durch niedrige Abtastrate.",
+                "A": "Clipping entsteht durch Übersteuerung, nicht durch niedrige Abtastrate.",
                 "C": "Rauschen hat andere Ursachen.",
-                "D": "Verstaerkung ist unabhaengig von der Abtastrate."
+                "D": "Verstärkung ist unabhaengig von der Abtastrate."
             },
             topic="Signalverarbeitung - Sampling"
         ),
@@ -258,27 +258,27 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Welche Abtastraten und Quantisierungen sind in der Audiotechnik ueblich? (Mehrfachauswahl)",
+            prompt="Welche Abtastraten und Quantisierungen sind in der Audiotechnik üblich? (Mehrfachauswahl)",
             options={
-                "A": "CD-Qualitaet: 44.1 kHz / 16 Bit",
-                "B": "Studio-Qualitaet: 48, 96 oder 192 kHz / 24 Bit",
-                "C": "Telefon-Qualitaet: 8 kHz / 8 Bit",
+                "A": "CD-Qualität: 44.1 kHz / 16 Bit",
+                "B": "Studio-Qualität: 48, 96 oder 192 kHz / 24 Bit",
+                "C": "Telefon-Qualität: 8 kHz / 8 Bit",
                 "D": "MP3-Standard: 22 kHz / 4 Bit"
             },
             correct={"A", "B", "C"},
             explain_correct="Alle diese Standards existieren: CD verwendet 44.1 kHz/16 Bit, "
-                          "professionelle Studios arbeiten mit 48-192 kHz und 24 Bit fuer mehr Dynamik und Headroom, "
-                          "und Telefonie nutzt aus historischen Gruenden nur 8 kHz/8 Bit (ausreichend fuer Sprache). "
-                          "Hoehere Werte bedeuten bessere Qualitaet, aber auch mehr Speicherbedarf.",
+                          "professionelle Studios arbeiten mit 48-192 kHz und 24 Bit für mehr Dynamik und Headroom, "
+                          "und Telefonie nutzt aus historischen Gruenden nur 8 kHz/8 Bit (ausreichend für Sprache). "
+                          "Höhere Werte bedeuten bessere Qualität, aber auch mehr Speicherbedarf.",
             explain_wrong={
-                "D": "MP3 ist ein Kompressionsformat, kein Standard fuer Abtastrate/Quantisierung. MP3 arbeitet typischerweise mit 44.1 kHz."
+                "D": "MP3 ist ein Kompressionsformat, kein Standard für Abtastrate/Quantisierung. MP3 arbeitet typischerweise mit 44.1 kHz."
             },
             topic="Signalverarbeitung - Sampling"
         ),
 
         Question(
             prompt="Ein analoges Signal besteht aus Sinustoenen mit Periodendauern T1=3.79ms, T2=3.03ms, T3=2.53ms. "
-                   "Welche Abtastfrequenz ist mindestens noetig?",
+                   "Welche Abtastfrequenz ist mindestens nötig?",
             options={
                 "A": "264 Hz",
                 "B": "396 Hz",
@@ -287,13 +287,13 @@ def get_questions() -> List[Question]:
             },
             correct={"C"},
             explain_correct="Zuerst die Frequenzen berechnen: f1=1/0.00379≈264Hz, f2=1/0.00303≈330Hz, "
-                          "f3=1/0.00253≈396Hz. Die hoechste Frequenz ist 396 Hz. Nach dem Nyquist-Theorem "
+                          "f3=1/0.00253≈396Hz. Die höchste Frequenz ist 396 Hz. Nach dem Nyquist-Theorem "
                           "muss die Abtastfrequenz mindestens 2 x 396 Hz = 792 Hz betragen, "
                           "um Aliasing zu vermeiden.",
             explain_wrong={
                 "A": "264 Hz ist nur die niedrigste Signalfrequenz.",
-                "B": "396 Hz ist die hoechste Signalfrequenz, aber wir brauchen das Doppelte.",
-                "D": "1584 Hz waere mehr als noetig (4x statt 2x)."
+                "B": "396 Hz ist die höchste Signalfrequenz, aber wir brauchen das Doppelte.",
+                "D": "1584 Hz waere mehr als nötig (4x statt 2x)."
             },
             topic="Signalverarbeitung - Sampling"
         ),
@@ -306,7 +306,7 @@ def get_questions() -> List[Question]:
             options={
                 "A": "Die zeitliche Abtastung eines Signals",
                 "B": "Die Umwandlung kontinuierlicher Amplitudenwerte in diskrete Stufen",
-                "C": "Die Verstaerkung eines Signals",
+                "C": "Die Verstärkung eines Signals",
                 "D": "Die Filterung von Rauschen"
             },
             correct={"B"},
@@ -316,7 +316,7 @@ def get_questions() -> List[Question]:
                           "Quantisierungsrauschen. Die Bittiefe bestimmt den Dynamikumfang (ca. 6 dB pro Bit).",
             explain_wrong={
                 "A": "Das ist Sampling, nicht Quantisierung.",
-                "C": "Verstaerkung aendert nur die Amplitude.",
+                "C": "Verstärkung aendert nur die Amplitude.",
                 "D": "Filterung ist ein separater Prozess."
             },
             topic="Signalverarbeitung - Quantisierung"
@@ -326,7 +326,7 @@ def get_questions() -> List[Question]:
         # SIGNALUEBERTRAGUNG
         # ============================================================
         Question(
-            prompt="Mit welcher Geschwindigkeit werden Audiosignale in der Luft uebertragen?",
+            prompt="Mit welcher Geschwindigkeit werden Audiosignale in der Luft übertragen?",
             options={
                 "A": "Lichtgeschwindigkeit (~300'000 km/s)",
                 "B": "Ca. 343 m/s (Schallgeschwindigkeit)",
@@ -336,18 +336,18 @@ def get_questions() -> List[Question]:
             correct={"B"},
             explain_correct="Schall breitet sich in Luft bei Raumtemperatur mit etwa 343 m/s aus "
                           "(ca. 1235 km/h). Dies ist viel langsamer als Licht oder elektrische Signale. "
-                          "Die Schallgeschwindigkeit haengt von Temperatur und Medium ab - "
+                          "Die Schallgeschwindigkeit hängt von Temperatur und Medium ab - "
                           "in Wasser ca. 1500 m/s, in Stahl ca. 5000 m/s.",
             explain_wrong={
-                "A": "Das gilt fuer elektromagnetische Wellen, nicht fuer Schall.",
+                "A": "Das gilt für elektromagnetische Wellen, nicht für Schall.",
                 "C": "Die Schallgeschwindigkeit ist niedriger.",
                 "D": "Die Schallgeschwindigkeit ist hoeher."
             },
-            topic="Signalverarbeitung - Uebertragung"
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
-            prompt="Mit welcher Geschwindigkeit werden Signale in elektronischen Medien uebertragen?",
+            prompt="Mit welcher Geschwindigkeit werden Signale in elektronischen Medien übertragen?",
             options={
                 "A": "Ca. 343 m/s",
                 "B": "Ca. 1000 km/s",
@@ -355,20 +355,20 @@ def get_questions() -> List[Question]:
                 "D": "Ca. 10'000 m/s"
             },
             correct={"C"},
-            explain_correct="Elektrische Signale in Kabeln breiten sich mit einem grossen Teil der "
+            explain_correct="Elektrische Signale in Kabeln breiten sich mit einem großen Teil der "
                           "Lichtgeschwindigkeit aus (typisch 60-90% von c, also ca. 180'000-270'000 km/s). "
-                          "Bei Glasfaserkabeln ist es aehnlich. Das ist so schnell, dass Latenzen "
-                          "durch Kabellaenge in der Audiotechnik vernachlaessigbar sind.",
+                          "Bei Glasfaserkabeln ist es ähnlich. Das ist so schnell, dass Latenzen "
+                          "durch Kabellänge in der Audiotechnik vernachlässigbar sind.",
             explain_wrong={
                 "A": "Das ist die Schallgeschwindigkeit in Luft.",
                 "B": "Elektronische Signale sind viel schneller.",
                 "D": "Elektronische Signale sind viel schneller."
             },
-            topic="Signalverarbeitung - Uebertragung"
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
-            prompt="Welche Signalverzoegerung entsteht in der Luft pro Meter Abstand?",
+            prompt="Welche Signalverzögerung entsteht in der Luft pro Meter Abstand?",
             options={
                 "A": "Ca. 0.3 ms pro Meter",
                 "B": "Ca. 3 ms pro Meter",
@@ -377,38 +377,38 @@ def get_questions() -> List[Question]:
             },
             correct={"B"},
             explain_correct="Bei 343 m/s Schallgeschwindigkeit dauert es 1/343 Sekunde ≈ 2.9 ms pro Meter. "
-                          "Gerundet also etwa 3 ms pro Meter. Bei 10 Metern Entfernung betraegt die "
+                          "Gerundet also etwa 3 ms pro Meter. Bei 10 Metern Entfernung beträgt die "
                           "Verzoegerung also ca. 30 ms - das ist in der Audiotechnik relevant "
-                          "(z.B. bei Delay-Einstellungen fuer PA-Systeme).",
+                          "(z.B. bei Delay-Einstellungen für PA-Systeme).",
             explain_wrong={
-                "A": "Das waere zu schnell fuer Schall.",
+                "A": "Das waere zu schnell für Schall.",
                 "C": "Das waere zu langsam.",
                 "D": "Das waere fast Lichtgeschwindigkeit."
             },
-            topic="Signalverarbeitung - Uebertragung"
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
-            prompt="Was sind Vorteile der symmetrischen gegenueber der asymmetrischen Signaluebertragung? (Mehrfachauswahl)",
+            prompt="Was sind Vorteile der symmetrischen gegenüber der asymmetrischen Signaluebertragung? (Mehrfachauswahl)",
             options={
-                "A": "Bessere Stoerunterdrueckung durch Gleichtaktunterdrueckung",
-                "B": "Laengere Kabelwege moeglich",
-                "C": "Guenstiger und einfacher",
+                "A": "Bessere Störunterdrückung durch Gleichtaktunterdrückung",
+                "B": "Längere Kabelwege möglich",
+                "C": "Günstiger und einfacher",
                 "D": "A und B sind richtig"
             },
             correct={"A", "B", "D"},
-            explain_correct="Bei symmetrischer Uebertragung wird das Signal zweimal gefuehrt: normal und invertiert. "
-                          "Am Empfaenger wird die Differenz gebildet - Stoerungen, die auf beide Leiter gleich wirken, "
-                          "heben sich dabei auf (Gleichtaktunterdrueckung). Dadurch sind laengere Kabelwege moeglich. "
-                          "Nachteile: hoehere Kosten und Komplexitaet (3 Leiter statt 2).",
+            explain_correct="Bei symmetrischer Übertragung wird das Signal zweimal geführt: normal und invertiert. "
+                          "Am Empfaenger wird die Differenz gebildet - Störungen, die auf beide Leiter gleich wirken, "
+                          "heben sich dabei auf (Gleichtaktunterdrückung). Dadurch sind laengere Kabelwege möglich. "
+                          "Nachteile: höhere Kosten und Komplexitaet (3 Leiter statt 2).",
             explain_wrong={
-                "C": "Asymmetrische Uebertragung ist guenstiger und einfacher."
+                "C": "Asymmetrische Übertragung ist guenstiger und einfacher."
             },
-            topic="Signalverarbeitung - Uebertragung"
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
-            prompt="Welche Steckverbinder nutzt man typischerweise fuer asymmetrische Signaluebertragung? (Mehrfachauswahl)",
+            prompt="Welche Steckverbinder nutzt man typischerweise für asymmetrische Signaluebertragung? (Mehrfachauswahl)",
             options={
                 "A": "Cinch/RCA",
                 "B": "6.3mm Klinke (mono)",
@@ -416,42 +416,42 @@ def get_questions() -> List[Question]:
                 "D": "XLR-Stecker"
             },
             correct={"A", "B", "C"},
-            explain_correct="Asymmetrische Uebertragung verwendet 2-polige Verbindungen (Signal + Masse). "
+            explain_correct="Asymmetrische Übertragung verwendet 2-polige Verbindungen (Signal + Masse). "
                           "Cinch/RCA ist Standard im HiFi-Bereich, 6.3mm Klinke bei Instrumenten und "
-                          "aelteren Geraeten, 3.5mm Miniklinke bei Kopfhoerern und mobilen Geraeten. "
-                          "Fuer symmetrische Uebertragung verwendet man XLR oder 6.3mm Stereo-Klinke (TRS).",
+                          "älteren Geräten, 3.5mm Miniklinke bei Kopfhörern und mobilen Geräten. "
+                          "Fuer symmetrische Übertragung verwendet man XLR oder 6.3mm Stereo-Klinke (TRS).",
             explain_wrong={
-                "D": "XLR-Stecker werden fuer symmetrische Signaluebertragung verwendet, nicht asymmetrische."
+                "D": "XLR-Stecker werden für symmetrische Signaluebertragung verwendet, nicht asymmetrische."
             },
-            topic="Signalverarbeitung - Uebertragung"
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
             prompt="Wie wird symmetrische Signaluebertragung technisch realisiert?",
             options={
-                "A": "Das Signal wird verdoppelt und verstaerkt",
+                "A": "Das Signal wird verdoppelt und verstärkt",
                 "B": "Das Signal liegt zweimal vor (normal + invertiert), am Empfaenger wird die Differenz gebildet",
                 "C": "Das Signal wird digital codiert",
                 "D": "Das Signal wird komprimiert"
             },
             correct={"B"},
-            explain_correct="Bei symmetrischer Uebertragung gibt es drei Leiter: Hot (+), Cold (-), Ground. "
-                          "Hot fuehrt das normale Signal, Cold das invertierte (um 180° phasenverschoben). "
-                          "Der Empfaenger bildet die Differenz: Hot - Cold. Stoerungen, die beide Leiter "
-                          "gleich betreffen, heben sich dabei auf (Gleichtaktunterdrueckung/CMRR).",
+            explain_correct="Bei symmetrischer Übertragung gibt es drei Leiter: Hot (+), Cold (-), Ground. "
+                          "Hot führt das normale Signal, Cold das invertierte (um 180° phasenverschoben). "
+                          "Der Empfaenger bildet die Differenz: Hot - Cold. Störungen, die beide Leiter "
+                          "gleich betreffen, heben sich dabei auf (Gleichtaktunterdrückung/CMRR).",
             explain_wrong={
-                "A": "Verdopplung und Verstaerkung allein bringt keine Stoersicherheit.",
+                "A": "Verdopplung und Verstärkung allein bringt keine Störsicherheit.",
                 "C": "Digitale Codierung ist ein anderes Konzept.",
-                "D": "Kompression betrifft die Dynamik, nicht die Uebertragungsmethode."
+                "D": "Kompression betrifft die Dynamik, nicht die Übertragungsmethode."
             },
-            topic="Signalverarbeitung - Uebertragung"
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         # ============================================================
         # SNR, DAEMPFUNG, SOUNDKARTEN
         # ============================================================
         Question(
-            prompt="Wofuer steht die Abkuerzung SNR?",
+            prompt="Wofür steht die Abkürzung SNR?",
             options={
                 "A": "Signal Noise Reduction",
                 "B": "Signal-to-Noise Ratio (Signal-Rausch-Abstand)",
@@ -459,33 +459,33 @@ def get_questions() -> List[Question]:
                 "D": "Stereo Normalizing Range"
             },
             correct={"B"},
-            explain_correct="SNR steht fuer Signal-to-Noise Ratio, auf Deutsch Signal-Rausch-Abstand. "
-                          "Es beschreibt das Verhaeltnis zwischen Nutzsignal und Stoersignal (Rauschen), "
-                          "angegeben in dB. Ein hoeherer SNR bedeutet weniger Rauschen relativ zum Signal. "
-                          "Gute Audiogeraete haben SNR-Werte von 90-120 dB.",
+            explain_correct="SNR steht für Signal-to-Noise Ratio, auf Deutsch Signal-Rausch-Abstand. "
+                          "Es beschreibt das Verhältnis zwischen Nutzsignal und Störsignal (Rauschen), "
+                          "angegeben in dB. Ein höherer SNR bedeutet weniger Rauschen relativ zum Signal. "
+                          "Gute Audiogeräte haben SNR-Werte von 90-120 dB.",
             explain_wrong={
-                "A": "Signal Noise Reduction waere eine Rauschunterdrueckungstechnik.",
-                "C": "Das ist keine gaengige Abkuerzung.",
-                "D": "Das ist keine gaengige Abkuerzung."
+                "A": "Signal Noise Reduction waere eine Rauschunterdrückungstechnik.",
+                "C": "Das ist keine gängige Abkürzung.",
+                "D": "Das ist keine gängige Abkürzung."
             },
             topic="Signalverarbeitung - Kenngroessen"
         ),
 
         Question(
-            prompt="Was ist Daempfung und wie wird sie angegeben?",
+            prompt="Was ist Dämpfung und wie wird sie angegeben?",
             options={
-                "A": "Verstaerkung der Amplitude, in Volt",
-                "B": "Abschwuaechung der Signalamplitude, meist logarithmisch in dB",
+                "A": "Verstärkung der Amplitude, in Volt",
+                "B": "Abschwächung der Signalamplitude, meist logarithmisch in dB",
                 "C": "Aenderung der Frequenz, in Hz",
                 "D": "Aenderung der Phase, in Grad"
             },
             correct={"B"},
-            explain_correct="Daempfung (Attenuation) ist die Abschwuaechung der Signalamplitude, "
-                          "die bei der Uebertragung durch Kabel oder andere Medien auftritt. "
-                          "Sie wird logarithmisch in Dezibel (dB) angegeben, da dies grosse "
-                          "Verhaeltnisse handhabbar macht. Negative dB-Werte bedeuten Abschwuaechung.",
+            explain_correct="Dämpfung (Attenuation) ist die Abschwächung der Signalamplitude, "
+                          "die bei der Übertragung durch Kabel oder andere Medien auftritt. "
+                          "Sie wird logarithmisch in Dezibel (dB) angegeben, da dies große "
+                          "Verhältnisse handhabbar macht. Negative dB-Werte bedeuten Abschwächung.",
             explain_wrong={
-                "A": "Verstaerkung ist das Gegenteil von Daempfung.",
+                "A": "Verstärkung ist das Gegenteil von Dämpfung.",
                 "C": "Frequenzaenderung ist ein anderer Effekt.",
                 "D": "Phasenaenderung ist ein anderer Effekt."
             },
@@ -495,18 +495,18 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Was ist Wordclock-Jitter?",
             options={
-                "A": "Stoergeraeusche im Audiosignal",
+                "A": "Störgeräusche im Audiosignal",
                 "B": "Zeitliche Schwankungen der Sample-Zeitpunkte",
                 "C": "Unterschiede in der Bittiefe",
                 "D": "Frequenzschwankungen im Signal"
             },
             correct={"B"},
             explain_correct="Wordclock-Jitter beschreibt zeitliche Ungenauigkeiten/Schwankungen bei den "
-                          "Abtastzeitpunkten. Idealerweise sollten Samples in exakt gleichmaessigen "
-                          "Abstaenden genommen werden. Jitter fuehrt dazu, dass die Zeitpunkte leicht "
-                          "variieren, was zu Verzerrungen und erhoehtem Rauschen fuehren kann.",
+                          "Abtastzeitpunkten. Idealerweise sollten Samples in exakt gleichmäßigen "
+                          "Abständen genommen werden. Jitter führt dazu, dass die Zeitpunkte leicht "
+                          "variieren, was zu Verzerrungen und erhöhtem Rauschen führen kann.",
             explain_wrong={
-                "A": "Stoergeraeusche koennen durch Jitter entstehen, sind aber nicht dasselbe.",
+                "A": "Störgeräusche können durch Jitter entstehen, sind aber nicht dasselbe.",
                 "C": "Bittiefe ist ein anderes Konzept.",
                 "D": "Frequenzschwankungen waeren Wow/Flutter."
             },
@@ -517,20 +517,20 @@ def get_questions() -> List[Question]:
         # MUSIKTHEORIE & AKUSTIK
         # ============================================================
         Question(
-            prompt="In wie viele Halbtoene ist eine Oktave unterteilt?",
+            prompt="In wie viele Halbtöne ist eine Oktave unterteilt?",
             options={
-                "A": "8 Halbtoene",
-                "B": "10 Halbtoene",
-                "C": "12 Halbtoene",
-                "D": "7 Halbtoene"
+                "A": "8 Halbtöne",
+                "B": "10 Halbtöne",
+                "C": "12 Halbtöne",
+                "D": "7 Halbtöne"
             },
             correct={"C"},
-            explain_correct="Eine Oktave ist in 12 Halbtoene unterteilt (chromatische Tonleiter). "
+            explain_correct="Eine Oktave ist in 12 Halbtöne unterteilt (chromatische Tonleiter). "
                           "Jeder Halbton wird weiter in 100 Cent unterteilt, sodass eine Oktave "
-                          "1200 Cent entspricht. Die 12 Halbtoene bilden die Basis der westlichen Musik "
+                          "1200 Cent entspricht. Die 12 Halbtöne bilden die Basis der westlichen Musik "
                           "und entsprechen den weissen und schwarzen Tasten einer Klavieroktave.",
             explain_wrong={
-                "A": "8 bezieht sich auf die Tonstufen einer diatonischen Tonleiter, nicht auf Halbtoene.",
+                "A": "8 bezieht sich auf die Tonstufen einer diatonischen Tonleiter, nicht auf Halbtöne.",
                 "B": "Es sind genau 12, nicht 10.",
                 "D": "7 sind die Stufen einer diatonischen Tonleiter (Do Re Mi Fa Sol La Si)."
             },
@@ -541,12 +541,12 @@ def get_questions() -> List[Question]:
             prompt="Was ist ein musikalisches Intervall?",
             options={
                 "A": "Die Lautstaerke eines Tons",
-                "B": "Der Tonhoehenabstand zwischen zwei Toenen",
+                "B": "Der Tonhoehenabstand zwischen zwei Tönen",
                 "C": "Die Dauer eines Tons",
                 "D": "Die Klangfarbe eines Instruments"
             },
             correct={"B"},
-            explain_correct="Ein Intervall beschreibt den Tonhoehenabstand zwischen zwei Toenen. "
+            explain_correct="Ein Intervall beschreibt den Tonhoehenabstand zwischen zwei Tönen. "
                           "Intervalle haben Namen wie Sekunde, Terz, Quarte, Quinte, Oktave usw. "
                           "Sie werden durch das Frequenzverhaeltnis der beiden Toene bestimmt. "
                           "Eine Oktave entspricht einer Frequenzverdopplung (2:1).",
@@ -567,14 +567,14 @@ def get_questions() -> List[Question]:
                 "D": "Terz"
             },
             correct={"C"},
-            explain_correct="Eine Oktave entspricht einer Frequenzverdopplung (Verhaeltnis 2:1). "
+            explain_correct="Eine Oktave entspricht einer Frequenzverdopplung (Verhältnis 2:1). "
                           "Wenn ein Ton 440 Hz hat (Kammerton A), liegt die Oktave darueber bei 880 Hz. "
-                          "Die Quinte hat das Verhaeltnis 3:2 (z.B. 440 Hz zu 660 Hz), "
-                          "die Quarte 4:3, die grosse Terz 5:4.",
+                          "Die Quinte hat das Verhältnis 3:2 (z.B. 440 Hz zu 660 Hz), "
+                          "die Quarte 4:3, die große Terz 5:4.",
             explain_wrong={
                 "A": "Die Quinte hat das Frequenzverhaeltnis 3:2.",
                 "B": "Die Quarte hat das Frequenzverhaeltnis 4:3.",
-                "D": "Die grosse Terz hat das Frequenzverhaeltnis 5:4."
+                "D": "Die große Terz hat das Frequenzverhaeltnis 5:4."
             },
             topic="Signalverarbeitung - Akustik"
         ),
@@ -582,19 +582,19 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Welche Intervalle bilden einen Dur-Dreiklang? (Grundton nach oben)",
             options={
-                "A": "Kleine Terz + grosse Terz",
+                "A": "Kleine Terz + große Terz",
                 "B": "Grosse Terz + kleine Terz",
-                "C": "Zwei grosse Terzen",
+                "C": "Zwei große Terzen",
                 "D": "Zwei kleine Terzen"
             },
             correct={"B"},
-            explain_correct="Ein Dur-Dreiklang besteht von unten nach oben aus: grosse Terz (4 Halbtoene) "
-                          "gefolgt von kleiner Terz (3 Halbtoene). Beispiel C-Dur: C-E (grosse Terz) und "
-                          "E-G (kleine Terz). Bei Moll ist es umgekehrt: kleine Terz + grosse Terz. "
+            explain_correct="Ein Dur-Dreiklang besteht von unten nach oben aus: große Terz (4 Halbtöne) "
+                          "gefolgt von kleiner Terz (3 Halbtöne). Beispiel C-Dur: C-E (große Terz) und "
+                          "E-G (kleine Terz). Bei Moll ist es umgekehrt: kleine Terz + große Terz. "
                           "Dies erklaert den unterschiedlichen Klangcharakter (Dur = 'froelich', Moll = 'traurig').",
             explain_wrong={
                 "A": "Das waere ein Moll-Dreiklang.",
-                "C": "Zwei grosse Terzen ergeben einen uebermäessigen Dreiklang.",
+                "C": "Zwei große Terzen ergeben einen uebermäessigen Dreiklang.",
                 "D": "Zwei kleine Terzen ergeben einen verminderten Dreiklang."
             },
             topic="Signalverarbeitung - Akustik"
@@ -605,17 +605,17 @@ def get_questions() -> List[Question]:
             options={
                 "A": "Toene die leiser sind als der Grundton",
                 "B": "Frequenzen die ganzzahlige Vielfache der Grundfrequenz sind",
-                "C": "Stoergeraeusche im Signal",
+                "C": "Störgeräusche im Signal",
                 "D": "Toene die tiefer sind als der Grundton"
             },
             correct={"B"},
             explain_correct="Obertoene (Harmonische) sind Frequenzen, die ganzzahlige Vielfache der "
                           "Grundfrequenz sind. Bei einem Grundton von 100 Hz liegen die Obertoene "
-                          "bei 200 Hz, 300 Hz, 400 Hz usw. Das Verhaeltnis und die Staerke der Obertoene "
+                          "bei 200 Hz, 300 Hz, 400 Hz usw. Das Verhältnis und die Staerke der Obertoene "
                           "bestimmen die Klangfarbe (Timbre) eines Instruments.",
             explain_wrong={
-                "A": "Obertoene koennen unterschiedliche Lautstaerken haben.",
-                "C": "Obertoene sind gewuenschte Signalanteile, keine Stoerungen.",
+                "A": "Obertoene können unterschiedliche Lautstaerken haben.",
+                "C": "Obertoene sind gewuenschte Signalanteile, keine Störungen.",
                 "D": "Tiefere Toene waeren Untertoene (selten)."
             },
             topic="Signalverarbeitung - Akustik"
@@ -649,7 +649,7 @@ def get_questions() -> List[Question]:
         # LTI-SYSTEME
         # ============================================================
         Question(
-            prompt="Wofuer steht die Abkuerzung LTI?",
+            prompt="Wofür steht die Abkürzung LTI?",
             options={
                 "A": "Low-Time-Input",
                 "B": "Linear Time Invariant (linear und zeitinvariant)",
@@ -657,7 +657,7 @@ def get_questions() -> List[Question]:
                 "D": "Limited Transfer Integration"
             },
             correct={"B"},
-            explain_correct="LTI steht fuer Linear Time Invariant - ein System das linear ist "
+            explain_correct="LTI steht für Linear Time Invariant - ein System das linear ist "
                           "(Skalierung und Additivitaet gelten) und zeitinvariant (das Verhalten "
                           "aendert sich nicht mit der Zeit). LTI-Systeme sind mathematisch gut "
                           "beschreibbar und bilden die Grundlage der klassischen Signalverarbeitung.",
@@ -672,18 +672,18 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Was ist die Impulsantwort eines Systems?",
             options={
-                "A": "Die maximale Verstaerkung",
+                "A": "Die maximale Verstärkung",
                 "B": "Die Antwort auf einen idealen Impuls (Dirac-Stoss)",
                 "C": "Die minimale Latenz",
                 "D": "Die Grenzfrequenz"
             },
             correct={"B"},
             explain_correct="Die Impulsantwort ist die Reaktion eines Systems auf einen idealen Impuls "
-                          "(Dirac-Stoss). Sie beschreibt ein LTI-System vollstaendig - kennt man die "
-                          "Impulsantwort, kann man die Ausgabe fuer jedes beliebige Eingangssignal berechnen "
+                          "(Dirac-Stoss). Sie beschreibt ein LTI-System vollständig - kennt man die "
+                          "Impulsantwort, kann man die Ausgabe für jedes beliebige Eingangssignal berechnen "
                           "(durch Faltung). Die Impulsantwort ist sozusagen der 'Fingerabdruck' des Systems.",
             explain_wrong={
-                "A": "Die Verstaerkung ist nur ein Aspekt des Systemverhaltens.",
+                "A": "Die Verstärkung ist nur ein Aspekt des Systemverhaltens.",
                 "C": "Die Latenz ist nicht durch die Impulsantwort allein definiert.",
                 "D": "Die Grenzfrequenz gehoert zum Frequenzgang."
             },
@@ -691,20 +691,20 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Was benoetigt man, um ein LTI-System vollstaendig zu beschreiben? (Mehrfachauswahl)",
+            prompt="Was benötigt man, um ein LTI-System vollständig zu beschreiben? (Mehrfachauswahl)",
             options={
                 "A": "Die Impulsantwort",
-                "B": "Die Uebertragungsfunktion (Frequenzgang)",
+                "B": "Die Übertragungsfunktion (Frequenzgang)",
                 "C": "Die Farbe des Geraets",
                 "D": "A oder B genuegen jeweils"
             },
             correct={"A", "B", "D"},
-            explain_correct="Ein LTI-System ist vollstaendig durch seine Impulsantwort ODER seine "
-                          "Uebertragungsfunktion beschrieben - beide enthalten die gleiche Information, "
+            explain_correct="Ein LTI-System ist vollständig durch seine Impulsantwort ODER seine "
+                          "Übertragungsfunktion beschrieben - beide enthalten die gleiche Information, "
                           "nur in verschiedenen Darstellungen (Zeitbereich vs. Frequenzbereich). "
                           "Sie sind durch die Fouriertransformation ineinander umrechenbar.",
             explain_wrong={
-                "C": "Die physische Erscheinung ist fuer das Systemverhalten irrelevant."
+                "C": "Die physische Erscheinung ist für das Systemverhalten irrelevant."
             },
             topic="Signalverarbeitung - LTI"
         ),
@@ -721,9 +721,9 @@ def get_questions() -> List[Question]:
             explain_correct="Zeitinvarianz bedeutet, dass das Systemverhalten sich nicht aendert, "
                           "egal wann man es benutzt. Ein Signal das um t0 verschoben wird, "
                           "erzeugt eine um t0 verschobene Ausgabe - die Form bleibt gleich. "
-                          "Ein Equalizer ist zeitinvariant, ein System mit sich aendernden Parametern nicht.",
+                          "Ein Equalizer ist zeitinvariant, ein System mit sich ändernden Parametern nicht.",
             explain_wrong={
-                "A": "Auch zeitinvariante Systeme koennen Verzoegerungen haben.",
+                "A": "Auch zeitinvariante Systeme können Verzoegerungen haben.",
                 "C": "Das waere das Gegenteil von zeitinvariant.",
                 "D": "Geschwindigkeit ist ein anderes Konzept."
             },
@@ -741,7 +741,7 @@ def get_questions() -> List[Question]:
             correct={"C"},
             explain_correct="Die Fouriertransformation ist linear: Die Summe zweier Signale im Zeitbereich "
                           "entspricht der Summe ihrer Spektren im Frequenzbereich. Wenn x(t)+y(t) "
-                          "transformiert wird, erhaelt man X(f)+Y(f). Dies gilt auch fuer Skalierung: "
+                          "transformiert wird, erhaelt man X(f)+Y(f). Dies gilt auch für Skalierung: "
                           "a*x(t) wird zu a*X(f).",
             explain_wrong={
                 "A": "Multiplikation im Frequenzbereich entspricht Faltung im Zeitbereich.",
@@ -763,7 +763,7 @@ def get_questions() -> List[Question]:
             explain_correct="Die Fouriertransformation ist eine lineare Operation: "
                           "FT(a*x + b*y) = a*FT(x) + b*FT(y). Das bedeutet, dass Linearkombinationen "
                           "von Signalen im Zeitbereich zu den gleichen Linearkombinationen der "
-                          "Spektren im Frequenzbereich fuehren. Diese Eigenschaft ist fundamental wichtig.",
+                          "Spektren im Frequenzbereich führen. Diese Eigenschaft ist fundamental wichtig.",
             explain_wrong={
                 "A": "Linearitaet ist eine Grundeigenschaft der Fouriertransformation.",
                 "C": "Es gibt keine quadratische Transformation.",
@@ -803,7 +803,7 @@ def get_questions() -> List[Question]:
             },
             correct={"B"},
             explain_correct="Faltung im Frequenzbereich entspricht Multiplikation im Zeitbereich - "
-                          "das ist das 'Gegenstueck' zum Faltungssatz. Wenn man zwei Spektren faltet, "
+                          "das ist das 'Gegenstück' zum Faltungssatz. Wenn man zwei Spektren faltet, "
                           "multipliziert man die Zeitsignale. Dies ist z.B. relevant bei "
                           "Amplitudenmodulation (Traeger * Modulationssignal).",
             explain_wrong={
@@ -825,7 +825,7 @@ def get_questions() -> List[Question]:
             correct={"B"},
             explain_correct="Dies ist die Zeit-Frequenz-Unschaerferelation (analog zur Heisenberg'schen Unschaerfe): "
                           "Man kann nicht gleichzeitig eine hohe Zeit- UND Frequenzaufloesung haben. "
-                          "Ein kurzes Zeitfenster (gute Zeitaufloesung) fuehrt zu unscharfen Frequenzen, "
+                          "Ein kurzes Zeitfenster (gute Zeitaufloesung) führt zu unscharfen Frequenzen, "
                           "ein langes Zeitfenster (gute Frequenzaufloesung) verschmiert zeitliche Details.",
             explain_wrong={
                 "A": "Es ist genau umgekehrt - grober in Zeit = feiner in Frequenz.",
@@ -900,7 +900,7 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Welche Aufgabe hat das Rekonstruktionsfilter bei der D/A-Wandlung?",
             options={
-                "A": "Verstaerkung des Signals",
+                "A": "Verstärkung des Signals",
                 "B": "Glaettung des diskreten Signals / Entfernung von Abtastartefakten",
                 "C": "Digitale Fehlerkorrektur",
                 "D": "Kompression des Signals"
@@ -911,7 +911,7 @@ def get_questions() -> List[Question]:
                           "Spiegelfrequenzen (Images), die durch die Abtastung entstehen. "
                           "So wird aus dem digitalen Signal wieder ein sauberes analoges Signal.",
             explain_wrong={
-                "A": "Verstaerkung ist eine separate Funktion.",
+                "A": "Verstärkung ist eine separate Funktion.",
                 "C": "Fehlerkorrektur passiert digital vor der Wandlung.",
                 "D": "Kompression ist ein separater Prozess."
             },
@@ -921,19 +921,19 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Was ist Aliasing?",
             options={
-                "A": "Ein Verstaerkungseffekt",
+                "A": "Ein Verstärkungseffekt",
                 "B": "Frequenzverfaelschung durch zu niedrige Abtastrate",
                 "C": "Ein Kompressionsverfahren",
                 "D": "Eine Art von Rauschen"
             },
             correct={"B"},
             explain_correct="Aliasing tritt auf, wenn die Abtastfrequenz weniger als das Doppelte der "
-                          "hoechsten Signalfrequenz betraegt (Nyquist-Verletzung). Hohe Frequenzen "
-                          "'spiegeln' sich dann und erscheinen faelschlicherweise als niedrigere. "
-                          "Dieser Effekt ist nicht rueckgaengig zu machen und muss durch "
+                          "höchsten Signalfrequenz beträgt (Nyquist-Verletzung). Hohe Frequenzen "
+                          "'spiegeln' sich dann und erscheinen fälschlicherweise als niedrigere. "
+                          "Dieser Effekt ist nicht rückgängig zu machen und muss durch "
                           "Anti-Aliasing-Filter vor der Abtastung verhindert werden.",
             explain_wrong={
-                "A": "Aliasing hat nichts mit Verstaerkung zu tun.",
+                "A": "Aliasing hat nichts mit Verstärkung zu tun.",
                 "C": "Aliasing ist ein unerwuenschter Artefakt, kein Kompressionsverfahren.",
                 "D": "Aliasing ist systematisch, nicht zufaellig wie Rauschen."
             },
@@ -941,7 +941,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Wofuer steht die Nyquist-Frequenz?",
+            prompt="Wofür steht die Nyquist-Frequenz?",
             options={
                 "A": "Die maximale Frequenz eines Signals",
                 "B": "Die halbe Abtastfrequenz",
@@ -950,8 +950,8 @@ def get_questions() -> List[Question]:
             },
             correct={"B"},
             explain_correct="Die Nyquist-Frequenz ist genau die Haelfte der Abtastfrequenz (fs/2). "
-                          "Sie ist die hoechste Frequenz, die bei einer gegebenen Abtastrate "
-                          "korrekt dargestellt werden kann. Bei CD-Qualitaet (44.1 kHz) ist die "
+                          "Sie ist die höchste Frequenz, die bei einer gegebenen Abtastrate "
+                          "korrekt dargestellt werden kann. Bei CD-Qualität (44.1 kHz) ist die "
                           "Nyquist-Frequenz 22.05 kHz - knapp ueber der menschlichen Hoergrenze.",
             explain_wrong={
                 "A": "Die maximale Signalfrequenz kann beliebig sein, sollte aber unter Nyquist liegen.",
@@ -965,7 +965,7 @@ def get_questions() -> List[Question]:
         # ZUSAETZLICHE FRAGEN (aus DSV-final.pdf), KEINE DOPPELTEN
         # ============================================================
         Question(
-            prompt="Wofuer steht das Ohmsche Gesetz?",
+            prompt="Wofür steht das Ohmsche Gesetz?",
             options={
                 "A": "P = U * I",
                 "B": "I = U / R",
@@ -984,7 +984,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Wovon haengt der elektrische Widerstand eines Leiters ab? (Mehrfachauswahl moeglich)",
+            prompt="Wovon hängt der elektrische Widerstand eines Leiters ab? (Mehrfachauswahl möglich)",
             options={
                 "A": "Von der Leiterlaenge l",
                 "B": "Vom Leiterquerschnitt A",
@@ -1002,7 +1002,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Ein Spannungsteiler besteht aus zwei gleichen Widerstaenden in Reihe an U=230V. Wie gross ist U1 ueber dem ersten Widerstand?",
+            prompt="Ein Spannungsteiler besteht aus zwei gleichen Widerstaenden in Reihe an U=230V. Wie groß ist U1 ueber dem ersten Widerstand?",
             options={
                 "A": "230 V",
                 "B": "115 V",
@@ -1020,7 +1020,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Die Netzspannung hat f = 50 Hz. Wie gross ist die Periodendauer T?",
+            prompt="Die Netzspannung hat f = 50 Hz. Wie groß ist die Periodendauer T?",
             options={
                 "A": "T = 2 ms",
                 "B": "T = 10 ms",
@@ -1038,22 +1038,22 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Warum kann Powerline Communication (PLC) Daten ueber Stromkabel uebertragen, obwohl dort schon 50 Hz Netzspannung anliegt?",
+            prompt="Warum kann Powerline Communication (PLC) Daten ueber Stromkabel übertragen, obwohl dort schon 50 Hz Netzspannung anliegt?",
             options={
-                "A": "PLC nutzt hoehere Traegerfrequenzen zusaetzlich zur 50 Hz Netzspannung",
+                "A": "PLC nutzt höhere Traegerfrequenzen zusaetzlich zur 50 Hz Netzspannung",
                 "B": "PLC ersetzt die 50 Hz komplett durch digitale Impulse",
                 "C": "PLC funktioniert nur bei Gleichspannung",
                 "D": "PLC nutzt Ultraschall in den Kabeln"
             },
             correct={"A"},
             explain_correct="PLC verwendet die vorhandene 230V-Infrastruktur, ueberlagert aber ein Datensignal auf "
-                            "hoeheren Traegerfrequenzen als 50 Hz.",
+                            "höheren Traegerfrequenzen als 50 Hz.",
             explain_wrong={
                 "B": "Die Netzversorgung bleibt bestehen; es wird nicht 'ersetzt'.",
                 "C": "PLC ist nicht auf Gleichspannung beschraenkt.",
                 "D": "Es geht um elektrische/e.m. Signale, nicht Ultraschall."
             },
-            topic="Signalverarbeitung - Modulation & Uebertragung"
+            topic="Signalverarbeitung - Modulation & Übertragung"
         ),
 
         Question(
@@ -1065,22 +1065,22 @@ def get_questions() -> List[Question]:
                 "D": "PWM (Pulsweitenmodulation)"
             },
             correct={"C"},
-            explain_correct="In den Folien wird fuer PLC explizit OFDM (Orthogonales Frequenzmultiplexing) genannt.",
+            explain_correct="In den Folien wird für PLC explizit OFDM (Orthogonales Frequenzmultiplexing) genannt.",
             explain_wrong={
                 "A": "AM ist eine Modulationsart, aber hier wird OFDM genannt.",
                 "B": "FM ist eine Modulationsart, aber hier wird OFDM genannt.",
                 "D": "PWM ist eher Leistungselektronik/Ansteuerung, nicht das genannte Verfahren."
             },
-            topic="Signalverarbeitung - Modulation & Uebertragung"
+            topic="Signalverarbeitung - Modulation & Übertragung"
         ),
 
         Question(
-            prompt="Was gilt fuer Wellenlaenge und Antennengroesse?",
+            prompt="Was gilt für Wellenlaenge und Antennengroesse?",
             options={
                 "A": "Je hoeher die Frequenz, desto groesser die Wellenlaenge und die Antenne",
                 "B": "Je hoeher die Frequenz, desto kleiner die Wellenlaenge und desto kleiner kann die Antenne sein",
                 "C": "Frequenz und Wellenlaenge sind unabhaengig",
-                "D": "Antennegroesse haengt nur von der Sendeleistung ab"
+                "D": "Antennegroesse hängt nur von der Sendeleistung ab"
             },
             correct={"B"},
             explain_correct="Mit steigender Frequenz sinkt die Wellenlaenge (lambda ~ 1/f). "
@@ -1090,48 +1090,48 @@ def get_questions() -> List[Question]:
                 "C": "Sie sind direkt gekoppelt.",
                 "D": "Die Antennengeometrie ist stark wellenlaengenabhaengig."
             },
-            topic="Signalverarbeitung - Modulation & Uebertragung"
+            topic="Signalverarbeitung - Modulation & Übertragung"
         ),
 
         Question(
             prompt="Warum sind digitale Signale oft stoerrobuster als analoge Signale?",
             options={
                 "A": "Weil 0 und 1 als Spannungsbereiche (Schwellwerte) interpretiert werden",
-                "B": "Weil digitale Signale immer hoehere Amplituden haben",
-                "C": "Weil digitale Signale keine Uebertragung benoetigen",
+                "B": "Weil digitale Signale immer höhere Amplituden haben",
+                "C": "Weil digitale Signale keine Übertragung benötigen",
                 "D": "Weil digitale Signale keine Bandbreite brauchen"
             },
             correct={"A"},
             explain_correct="Digitale Logikwerte sind typischerweise nicht ein exakter Spannungswert, sondern ein Bereich. "
                             "Dadurch kann Rauschen innerhalb der Reserve toleriert werden, ohne dass der Logikwert kippt.",
             explain_wrong={
-                "B": "Hoehere Amplitude ist nicht zwingend und nicht das Prinzip.",
-                "C": "Auch digitale Signale muessen uebertragen werden.",
+                "B": "Höhere Amplitude ist nicht zwingend und nicht das Prinzip.",
+                "C": "Auch digitale Signale muessen übertragen werden.",
                 "D": "Digitale Signale brauchen sehr wohl Bandbreite."
             },
             topic="Signalverarbeitung - Digitaltechnik"
         ),
 
         Question(
-            prompt="Das Internet wird in den Folien als welches Uebertragungsmedium beschrieben?",
+            prompt="Das Internet wird in den Folien als welches Übertragungsmedium beschrieben?",
             options={
                 "A": "Synchron (feste, konstante Latenz)",
-                "B": "Asynchron (Latenzen koennen schwanken)",
+                "B": "Asynchron (Latenzen können schwanken)",
                 "C": "Ohne Latenz",
-                "D": "Nur fuer Audio geeignet"
+                "D": "Nur für Audio geeignet"
             },
             correct={"B"},
             explain_correct="Das Internet ist ein asynchrones Medium: Latenzen sind nicht konstant und haengen u.a. von Traffic ab.",
             explain_wrong={
                 "A": "Konstante Latenz waere synchron (im Internet typischerweise nicht gegeben).",
-                "C": "Physikalisch unmoeglich.",
+                "C": "Physikalisch unmöglich.",
                 "D": "Es ist ein allgemeines Datennetz."
             },
             topic="Signalverarbeitung - Netzwerke"
         ),
 
         Question(
-            prompt="Wie nennt man Schwankungen der Uebertragungslatenz im Netzwerk?",
+            prompt="Wie nennt man Schwankungen der Übertragungslatenz im Netzwerk?",
             options={
                 "A": "Clipping",
                 "B": "Network-Jitter",
@@ -1141,7 +1141,7 @@ def get_questions() -> List[Question]:
             correct={"B"},
             explain_correct="Schwankungen der Latenz (Delay-Variationen) werden als Network-Jitter bezeichnet.",
             explain_wrong={
-                "A": "Clipping ist Uebersteuerung im Pegelbereich.",
+                "A": "Clipping ist Übersteuerung im Pegelbereich.",
                 "C": "Aliasing betrifft Sampling zu niedriger Abtastraten.",
                 "D": "Quantisierung betrifft Wertdiskretisierung."
             },
@@ -1178,7 +1178,7 @@ def get_questions() -> List[Question]:
             correct={"B"},
             explain_correct="FIFO bedeutet First In / First Out: Das aelteste Element im Buffer wird zuerst wieder ausgegeben.",
             explain_wrong={
-                "A": "Keine gaengige Bedeutung.",
+                "A": "Keine gängige Bedeutung.",
                 "C": "Nicht korrekt.",
                 "D": "Nicht korrekt."
             },
@@ -1186,7 +1186,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Welche Aussagen treffen typischerweise auf UDP im Vergleich zu TCP zu? (Mehrfachauswahl moeglich)",
+            prompt="Welche Aussagen treffen typischerweise auf UDP im Vergleich zu TCP zu? (Mehrfachauswahl möglich)",
             options={
                 "A": "UDP ist schneller durch weniger Overhead",
                 "B": "UDP garantiert Zustellung und Reihenfolge",
@@ -1206,15 +1206,15 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Welche Aussage beschreibt typische Unterschiede zwischen Onboard-Sound und externer Audio-Hardware (Interface)?",
             options={
-                "A": "Onboard hat meist hoehere SNR und sehr genaue Wordclock",
-                "B": "Externes Interface hat oft mehr I/Os, hoehere SNR und genauere Wordclock (weniger Jitter)",
+                "A": "Onboard hat meist höhere SNR und sehr genaue Wordclock",
+                "B": "Externes Interface hat oft mehr I/Os, höhere SNR und genauere Wordclock (weniger Jitter)",
                 "C": "Externes Interface hat immer weniger Anschluesse als Onboard",
                 "D": "Onboard hat immer Wordclock In/Out, ADAT und SPDIF"
             },
             correct={"B"},
             explain_correct="In den Folien: Onboard/Standard-LineIn/Out hat oft weniger Kanaele und relativ niedrige SNR "
                             "sowie ungenauere Wordclock (mehr Jitter). Externe Interfaces bieten haeufig mehr I/Os, "
-                            "hoehere SNR und eine genauere Wordclock (weniger Jitter) sowie zusaetzliche Schnittstellen.",
+                            "höhere SNR und eine genauere Wordclock (weniger Jitter) sowie zusaetzliche Schnittstellen.",
             explain_wrong={
                 "A": "Das ist typischerweise umgekehrt.",
                 "C": "Externe Interfaces bieten oft mehr, nicht weniger.",
@@ -1236,13 +1236,13 @@ def get_questions() -> List[Question]:
             explain_wrong={
                 "A": "Gruen ist typischerweise Line Out.",
                 "C": "Rot/Pink ist typischerweise Mic In.",
-                "D": "Gelb ist nicht der Standard-Farbcode fuer Line-In."
+                "D": "Gelb ist nicht der Standard-Farbcode für Line-In."
             },
             topic="Signalverarbeitung - PC-Audio"
         ),
 
         Question(
-            prompt="Bei fs = 48 kHz entspricht ein Sample-Intervall ungefaehr welcher Zeit?",
+            prompt="Bei fs = 48 kHz entspricht ein Sample-Intervall ungefähr welcher Zeit?",
             options={
                 "A": "20.83 us",
                 "B": "2.083 us",
@@ -1260,7 +1260,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Bei fs = 48 kHz und Buffer-Size = 128 Samples: Welche (reine) Buffer-Latenz entsteht ungefaehr?",
+            prompt="Bei fs = 48 kHz und Buffer-Size = 128 Samples: Welche (reine) Buffer-Latenz entsteht ungefähr?",
             options={
                 "A": "ca. 0.27 ms",
                 "B": "ca. 2.6 ms",
@@ -1272,7 +1272,7 @@ def get_questions() -> List[Question]:
             explain_wrong={
                 "A": "Das waere eher ~13 Samples.",
                 "C": "Das waere eher ~614 Samples.",
-                "D": "Das passt eher zu sehr grossen Buffern (z.B. 2048 Samples)."
+                "D": "Das passt eher zu sehr großen Buffern (z.B. 2048 Samples)."
             },
             topic="Signalverarbeitung - Echtzeit & Latenz"
         ),
@@ -1289,7 +1289,7 @@ def get_questions() -> List[Question]:
             explain_correct="Eine Callbackfunktion wird einer anderen (z.B. System-/Bibliotheks-)Funktion uebergeben "
                             "und dann von dieser unter definierten Bedingungen aufgerufen (typisch: Audio-/Video-Callbacks).",
             explain_wrong={
-                "A": "Callbacks koennen sehr wohl Parameter haben.",
+                "A": "Callbacks können sehr wohl Parameter haben.",
                 "C": "Das ist kein Informatikbegriff so.",
                 "D": "Hat nichts mit Callbacks zu tun."
             },
@@ -1297,7 +1297,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Full-HD Video hat 1920x1080 Pixel, 32 bit/Pixel und 25 fps. Wie gross ist die Datenmenge pro Bild ungefaehr?",
+            prompt="Full-HD Video hat 1920x1080 Pixel, 32 bit/Pixel und 25 fps. Wie groß ist die Datenmenge pro Bild ungefähr?",
             options={
                 "A": "ca. 0.83 MB",
                 "B": "ca. 8.29 MB",
@@ -1308,8 +1308,8 @@ def get_questions() -> List[Question]:
             explain_correct="1920*1080 = 2,073,600 Pixel. *32 bit = 66,355,200 bit = 8,294,400 byte ≈ 8.29 MB pro Bild.",
             explain_wrong={
                 "A": "Faktor 10 zu klein.",
-                "C": "Faktor 10 zu gross.",
-                "D": "Faktor 100 zu gross."
+                "C": "Faktor 10 zu groß.",
+                "D": "Faktor 100 zu groß."
             },
             topic="Signalverarbeitung - Video"
         ),
