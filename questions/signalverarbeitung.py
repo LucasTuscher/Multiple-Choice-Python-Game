@@ -11,30 +11,93 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from quiz_engine import Question
-from typing import List
+from typing import List, Dict
+
+
+def _swap_answer_keys(q: Question, a: str, b: str) -> Question:
+    swap = {a: b, b: a}
+    options = {swap.get(k, k): v for k, v in q.options.items()}
+    correct = {swap.get(k, k) for k in q.correct}
+    explain_wrong = {swap.get(k, k): v for k, v in q.explain_wrong.items()}
+    return Question(
+        prompt=q.prompt,
+        options=options,
+        correct=correct,
+        explain_correct=q.explain_correct,
+        explain_wrong=explain_wrong,
+        topic=q.topic,
+    )
+
+
+def _rebalance_single_choice_correct_letters(questions: List[Question]) -> List[Question]:
+    """
+    Viele Fragen hatten historisch correct={'B'}.
+    Diese Funktion tauscht Antwortlabels deterministisch, damit die korrekte Option
+    über A/B/C/D deutlich gleichmäßiger verteilt ist (ohne Inhalte zu ändern).
+    """
+    letters = ("A", "B", "C", "D")
+    eligible: List[Question] = [
+        q for q in questions if len(q.correct) == 1 and set(letters).issubset(set(q.options.keys()))
+    ]
+    if not eligible:
+        return questions
+
+    total = len(eligible)
+    base, remainder = divmod(total, len(letters))
+    targets: Dict[str, int] = {
+        letter: base + (1 if idx < remainder else 0) for idx, letter in enumerate(letters)
+    }
+
+    counts: Dict[str, int] = {letter: 0 for letter in letters}
+    for q in eligible:
+        key = next(iter(q.correct))
+        if key in counts:
+            counts[key] += 1
+
+    priority: Dict[str, int] = {"D": 3, "A": 2, "C": 1}
+
+    result: List[Question] = []
+    for q in questions:
+        if (
+            len(q.correct) == 1
+            and q.correct == {"B"}
+            and set(letters).issubset(set(q.options.keys()))
+            and counts["B"] > targets["B"]
+        ):
+            candidates = [k for k in ("A", "C", "D") if counts[k] < targets[k] and k in q.options]
+            if candidates:
+                candidates.sort(key=lambda k: (targets[k] - counts[k], priority.get(k, 0)), reverse=True)
+                target = candidates[0]
+                q = _swap_answer_keys(q, "B", target)
+                counts["B"] -= 1
+                counts[target] += 1
+
+        result.append(q)
+
+    return result
 
 
 def get_questions() -> List[Question]:
     """Gibt alle Fragen zur Signalverarbeitung zurück"""
-    return [
+    questions = [
         # ============================================================
         # FOURIER-TRANSFORMATION
         # ============================================================
         Question(
             prompt="Unter Anwendung welches Prinzips kann man die Darstellung eines Signals im Zeit- und Frequenzbereich ändern - und zurück?",
             options={
-                "A": "Laplace-Transformation",
-                "B": "Fourierprinzip / Fouriertransformation",
+                "A": "Fourierprinzip / Fouriertransformation",
+                "B": "Laplace-Transformation",
                 "C": "Nyquist-Theorem",
                 "D": "Shannon-Theorem"
             },
-            correct={"B"},
+            correct={"A"},
             explain_correct="Das Fourierprinzip ermöglicht die Umwandlung zwischen Zeit- und Frequenzbereich. "
                           "Die Fouriersynthese baut ein Signal aus Sinusschwingungen auf. "
                           "Die DFT (Diskrete Fourier-Transformation) wandelt vom Zeitbereich in den Frequenzbereich, "
                           "die IDFT (Inverse DFT) macht dies rückgängig.",
             explain_wrong={
-                "A": "Die Laplace-Transformation ist eine Verallgemeinerung, wird aber nicht primär für Zeit-Frequenz-Umwandlung verwendet.",
+                "B": "Die Laplace-Transformation ist eine Verallgemeinerung, wird aber nicht primär für Zeit-Frequenz-Umwandlung verwendet.",
                 "C": "Das Nyquist-Theorem beschreibt die minimale Abtastrate, nicht die Transformation zwischen Bereichen.",
                 "D": "Das Shannon-Theorem ist ein anderer Name für das Nyquist-Theorem."
             },
@@ -177,18 +240,18 @@ def get_questions() -> List[Question]:
             prompt="Wovon hängt die minimale Abtastrate bei der Digitalisierung ab?",
             options={
                 "A": "Von der Amplitude des Signals",
-                "B": "Von der höchsten vorkommenden Frequenz des Signals",
-                "C": "Von der Laenge des Signals",
+                "B": "Von der Laenge des Signals",
+                "C": "Von der höchsten vorkommenden Frequenz des Signals",
                 "D": "Von der Bittiefe"
             },
-            correct={"B"},
+            correct={"C"},
             explain_correct="Nach dem Nyquist-Shannon-Theorem muss die Abtastrate mindestens doppelt so hoch sein "
                           "wie die höchste im Signal vorkommende Frequenz. Bei einem Signal mit maximal 20 kHz "
                           "(menschliches Hoeren) braucht man also mindestens 40 kHz Abtastrate. "
                           "CDs verwenden 44.1 kHz, um etwas Spielraum zu haben.",
             explain_wrong={
                 "A": "Die Amplitude beeinflusst die nötige Bittiefe, nicht die Abtastrate.",
-                "C": "Die Signallänge ist irrelevant für die Abtastrate.",
+                "B": "Die Signallänge ist irrelevant für die Abtastrate.",
                 "D": "Die Bittiefe betrifft die Quantisierung, nicht das Sampling."
             },
             topic="Signalverarbeitung - Sampling"
@@ -454,19 +517,19 @@ def get_questions() -> List[Question]:
             prompt="Wofür steht die Abkürzung SNR?",
             options={
                 "A": "Signal Noise Reduction",
-                "B": "Signal-to-Noise Ratio (Signal-Rausch-Abstand)",
-                "C": "Sample Nyquist Rate",
-                "D": "Stereo Normalizing Range"
+                "B": "Sample Nyquist Rate",
+                "C": "Stereo Normalizing Range",
+                "D": "Signal-to-Noise Ratio (Signal-Rausch-Abstand)"
             },
-            correct={"B"},
+            correct={"D"},
             explain_correct="SNR steht für Signal-to-Noise Ratio, auf Deutsch Signal-Rausch-Abstand. "
                           "Es beschreibt das Verhältnis zwischen Nutzsignal und Störsignal (Rauschen), "
                           "angegeben in dB. Ein höherer SNR bedeutet weniger Rauschen relativ zum Signal. "
                           "Gute Audiogeräte haben SNR-Werte von 90-120 dB.",
             explain_wrong={
                 "A": "Signal Noise Reduction waere eine Rauschunterdrückungstechnik.",
-                "C": "Das ist keine gängige Abkürzung.",
-                "D": "Das ist keine gängige Abkürzung."
+                "B": "Das ist keine gängige Abkürzung.",
+                "C": "Das ist keine gängige Abkürzung."
             },
             topic="Signalverarbeitung - Kenngroessen"
         ),
@@ -652,18 +715,18 @@ def get_questions() -> List[Question]:
             prompt="Wofür steht die Abkürzung LTI?",
             options={
                 "A": "Low-Time-Input",
-                "B": "Linear Time Invariant (linear und zeitinvariant)",
-                "C": "Logarithmic Transfer Interface",
+                "B": "Logarithmic Transfer Interface",
+                "C": "Linear Time Invariant (linear und zeitinvariant)",
                 "D": "Limited Transfer Integration"
             },
-            correct={"B"},
+            correct={"C"},
             explain_correct="LTI steht für Linear Time Invariant - ein System das linear ist "
                           "(Skalierung und Additivitaet gelten) und zeitinvariant (das Verhalten "
                           "aendert sich nicht mit der Zeit). LTI-Systeme sind mathematisch gut "
                           "beschreibbar und bilden die Grundlage der klassischen Signalverarbeitung.",
             explain_wrong={
                 "A": "Das ist keine korrekte Bedeutung.",
-                "C": "Das ist keine korrekte Bedeutung.",
+                "B": "Das ist keine korrekte Bedeutung.",
                 "D": "Das ist keine korrekte Bedeutung."
             },
             topic="Signalverarbeitung - LTI"
@@ -796,18 +859,18 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Was ist eine Faltung im Frequenzbereich?",
             options={
-                "A": "Entspricht einer Addition im Zeitbereich",
-                "B": "Entspricht einer Multiplikation im Zeitbereich",
+                "A": "Entspricht einer Multiplikation im Zeitbereich",
+                "B": "Entspricht einer Addition im Zeitbereich",
                 "C": "Entspricht einer Faltung im Zeitbereich",
                 "D": "Hat keine Entsprechung im Zeitbereich"
             },
-            correct={"B"},
+            correct={"A"},
             explain_correct="Faltung im Frequenzbereich entspricht Multiplikation im Zeitbereich - "
                           "das ist das 'Gegenstück' zum Faltungssatz. Wenn man zwei Spektren faltet, "
                           "multipliziert man die Zeitsignale. Dies ist z.B. relevant bei "
                           "Amplitudenmodulation (Traeger * Modulationssignal).",
             explain_wrong={
-                "A": "Addition im Frequenzbereich entspricht Addition im Zeitbereich.",
+                "B": "Addition im Frequenzbereich entspricht Addition im Zeitbereich.",
                 "C": "Faltung im Zeitbereich entspricht Multiplikation im Frequenzbereich.",
                 "D": "Es gibt sehr wohl eine Entsprechung."
             },
@@ -1314,3 +1377,4 @@ def get_questions() -> List[Question]:
             topic="Signalverarbeitung - Video"
         ),
     ]
+    return _rebalance_single_choice_correct_letters(questions)

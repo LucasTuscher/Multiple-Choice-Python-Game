@@ -34,8 +34,8 @@ def show_greeting():
     print()
     print("    So funktioniert's:")
     print("    - Wähle ein oder mehrere Themen aus")
-    print("    - Beantworte die Fragen (z.B. 'B' oder 'B D' für mehrere)")
-    print("    - Die Fragen kommen zufällig, aber nicht direkt doppelt")
+    print("    - Beantworte die Fragen (z.B. 'B')")
+    print("    - Stelle vor dem Start die Runde ein (Zufall/Wiederholung)")
     print("    - Nach jeder Antwort bekommst du eine Erklärung")
     print()
     print("    Befehle während des Quiz:")
@@ -44,6 +44,86 @@ def show_greeting():
     print()
     print("=" * 70)
     input("\nDrücke ENTER um fortzufahren...")
+
+
+def prompt_yes_no(prompt: str, default: bool) -> bool:
+    """Ja/Nein Eingabe abfragen."""
+    suffix = " [J/n]" if default else " [j/N]"
+    while True:
+        value = input(f"{prompt}{suffix}: ").strip().lower()
+        if not value:
+            return default
+        if value in {"j", "ja", "y", "yes"}:
+            return True
+        if value in {"n", "nein", "no"}:
+            return False
+        print("  Bitte 'j' oder 'n' eingeben.")
+
+
+def prompt_int(prompt: str, default: int, min_value: int = 0) -> int:
+    """Integer-Eingabe abfragen."""
+    while True:
+        value = input(f"{prompt} [{default}]: ").strip()
+        if not value:
+            return default
+        try:
+            parsed = int(value)
+        except ValueError:
+            print("  Bitte eine Zahl eingeben.")
+            continue
+        if parsed < min_value:
+            print(f"  Bitte eine Zahl >= {min_value} eingeben.")
+            continue
+        return parsed
+
+
+def get_quiz_settings(total_questions: int) -> dict:
+    """Einstellungen für die Runde abfragen."""
+    clear_screen()
+    print("=" * 70)
+    print("                    EINSTELLUNGEN")
+    print("=" * 70)
+    print()
+    print(f"  Verfügbare Fragen: {total_questions}")
+    print()
+
+    shuffle_questions = prompt_yes_no("  Fragen zufällig mischen?", True)
+    shuffle_answers = prompt_yes_no("  Antwortoptionen zufällig mischen?", True)
+    allow_repeats = prompt_yes_no("  Fragen dürfen sich wiederholen (Training)?", False)
+    print()
+
+    if allow_repeats:
+        question_limit = prompt_int("  Wie viele Fragen möchtest du üben?", max(20, total_questions), min_value=1)
+        cooldown = prompt_int("  Cooldown (Abstand bis Wiederholung möglich)", 3, min_value=0)
+    else:
+        while True:
+            limit_raw = input("  Wie viele Fragen in dieser Runde? (ENTER/0 = alle): ").strip()
+            if not limit_raw or limit_raw == "0":
+                question_limit = None
+                break
+            try:
+                parsed = int(limit_raw)
+            except ValueError:
+                print("  Bitte eine Zahl eingeben.")
+                continue
+            if parsed < 1:
+                print("  Bitte eine Zahl >= 1 eingeben (oder ENTER/0 für alle).")
+                continue
+            question_limit = parsed
+            break
+        cooldown = 3
+
+    print()
+    print("=" * 70)
+    input("  ENTER um zu starten...")
+
+    return {
+        "shuffle_questions": shuffle_questions,
+        "shuffle_answers": shuffle_answers,
+        "allow_repeats": allow_repeats,
+        "question_limit": question_limit,
+        "cooldown": cooldown,
+    }
 
 
 def show_topic_menu():
@@ -155,13 +235,15 @@ def main():
             input("  Drücke ENTER...")
             continue
 
-        clear_screen()
-        print(f"\n  Starte Quiz mit: {', '.join(topic_names)}")
-        print(f"  Anzahl Fragen: {len(all_questions)}")
-        input("\n  Drücke ENTER um zu starten...")
+        settings = get_quiz_settings(len(all_questions))
 
-        engine = QuizEngine(all_questions)
-        correct, total = engine.run()
+        engine = QuizEngine(all_questions, cooldown=settings["cooldown"])
+        correct, total = engine.run(
+            question_limit=settings["question_limit"],
+            allow_repeats=settings["allow_repeats"],
+            shuffle_questions=settings["shuffle_questions"],
+            shuffle_answers=settings["shuffle_answers"],
+        )
 
         show_results(correct, total)
 

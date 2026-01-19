@@ -12,10 +12,11 @@ from tkinter import messagebox
 import random
 import sys
 import os
+from typing import Optional
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from quiz_engine import Question
+from quiz_engine import Question, prepare_question
 from questions.signalverarbeitung import get_questions as get_signal_questions
 from questions.computergrafik import get_questions as get_cg_questions
 
@@ -61,6 +62,7 @@ class QuizGUI(ctk.CTk):
         self.correct_count = 0
         self.total_answered = 0
         self.answer_buttons: dict[str, ctk.CTkButton] = {}
+        self.selection_label: Optional[ctk.CTkLabel] = None
 
         # Themen
         self.topics = {
@@ -68,6 +70,13 @@ class QuizGUI(ctk.CTk):
             'Computergrafik': get_cg_questions,
         }
         self.selected_topics: dict[str, ctk.BooleanVar] = {}
+
+        # Einstellungen
+        self.shuffle_questions_var = ctk.BooleanVar(value=True)
+        self.shuffle_answers_var = ctk.BooleanVar(value=True)
+        self.allow_repeats_var = ctk.BooleanVar(value=False)
+        self.question_limit_entry: Optional[ctk.CTkEntry] = None
+        self.cooldown_entry: Optional[ctk.CTkEntry] = None
 
         # Hauptcontainer
         self.main_container = ctk.CTkFrame(self, fg_color="transparent")
@@ -80,6 +89,7 @@ class QuizGUI(ctk.CTk):
         """Entfernt alle Widgets"""
         for widget in self.main_container.winfo_children():
             widget.destroy()
+        self.selection_label = None
 
     def show_welcome_screen(self):
         """Zeigt den Willkommensbildschirm"""
@@ -130,7 +140,7 @@ class QuizGUI(ctk.CTk):
 
         instructions = [
             ("1.", "Wähle ein oder mehrere Themen aus"),
-            ("2.", "Klicke auf die Antworten (mehrere möglich)"),
+            ("2.", "Klicke auf die Antworten"),
             ("3.", "Bestätige mit dem Prüfen-Button"),
             ("4.", "Lerne aus den ausführlichen Erklärungen"),
         ]
@@ -253,6 +263,99 @@ class QuizGUI(ctk.CTk):
         )
         all_btn.pack(pady=(25, 0))
 
+        # Einstellungen-Karte
+        settings_card = ctk.CTkFrame(
+            center_frame,
+            fg_color=self.colors['card'],
+            corner_radius=15
+        )
+        settings_card.pack(pady=(25, 0), padx=20, fill="x")
+
+        settings_inner = ctk.CTkFrame(settings_card, fg_color="transparent")
+        settings_inner.pack(padx=50, pady=25, fill="x")
+
+        ctk.CTkLabel(
+            settings_inner,
+            text="Einstellungen",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=self.colors['text']
+        ).pack(anchor="w", pady=(0, 12))
+
+        ctk.CTkCheckBox(
+            settings_inner,
+            text="Fragen zufällig mischen",
+            variable=self.shuffle_questions_var,
+            font=ctk.CTkFont(size=13),
+            text_color=self.colors['text_muted'],
+            fg_color=self.colors['accent'],
+            hover_color=self.colors['accent_hover'],
+            border_color=self.colors['text_muted'],
+            checkmark_color=self.colors['text'],
+            corner_radius=5
+        ).pack(anchor="w", pady=4)
+
+        ctk.CTkCheckBox(
+            settings_inner,
+            text="Antwortoptionen zufällig mischen",
+            variable=self.shuffle_answers_var,
+            font=ctk.CTkFont(size=13),
+            text_color=self.colors['text_muted'],
+            fg_color=self.colors['accent'],
+            hover_color=self.colors['accent_hover'],
+            border_color=self.colors['text_muted'],
+            checkmark_color=self.colors['text'],
+            corner_radius=5
+        ).pack(anchor="w", pady=4)
+
+        ctk.CTkCheckBox(
+            settings_inner,
+            text="Training: Fragen dürfen sich wiederholen",
+            variable=self.allow_repeats_var,
+            font=ctk.CTkFont(size=13),
+            text_color=self.colors['text_muted'],
+            fg_color=self.colors['accent'],
+            hover_color=self.colors['accent_hover'],
+            border_color=self.colors['text_muted'],
+            checkmark_color=self.colors['text'],
+            corner_radius=5
+        ).pack(anchor="w", pady=(4, 12))
+
+        limit_row = ctk.CTkFrame(settings_inner, fg_color="transparent")
+        limit_row.pack(fill="x", pady=(6, 0))
+
+        ctk.CTkLabel(
+            limit_row,
+            text="Anzahl Fragen:",
+            font=ctk.CTkFont(size=13),
+            text_color=self.colors['text_muted']
+        ).pack(side="left")
+
+        self.question_limit_entry = ctk.CTkEntry(
+            limit_row,
+            width=180,
+            height=32,
+            placeholder_text="leer = alle",
+        )
+        self.question_limit_entry.pack(side="right")
+
+        cooldown_row = ctk.CTkFrame(settings_inner, fg_color="transparent")
+        cooldown_row.pack(fill="x", pady=(10, 0))
+
+        ctk.CTkLabel(
+            cooldown_row,
+            text="Cooldown (Training):",
+            font=ctk.CTkFont(size=13),
+            text_color=self.colors['text_muted']
+        ).pack(side="left")
+
+        self.cooldown_entry = ctk.CTkEntry(
+            cooldown_row,
+            width=180,
+            height=32,
+            placeholder_text="3",
+        )
+        self.cooldown_entry.pack(side="right")
+
         # Buttons
         button_frame = ctk.CTkFrame(center_frame, fg_color="transparent")
         button_frame.pack(pady=35)
@@ -299,8 +402,75 @@ class QuizGUI(ctk.CTk):
             )
             return
 
-        self.current_questions = self.all_questions.copy()
-        random.shuffle(self.current_questions)
+        shuffle_questions = self.shuffle_questions_var.get()
+        shuffle_answers = self.shuffle_answers_var.get()
+        allow_repeats = self.allow_repeats_var.get()
+
+        question_limit_raw = self.question_limit_entry.get().strip() if self.question_limit_entry else ""
+        cooldown_raw = self.cooldown_entry.get().strip() if self.cooldown_entry else ""
+
+        question_limit: Optional[int]
+        if not question_limit_raw or question_limit_raw == "0":
+            question_limit = None
+        else:
+            try:
+                question_limit = int(question_limit_raw)
+            except ValueError:
+                messagebox.showwarning("Eingabe ungültig", "Bitte bei 'Anzahl Fragen' eine Zahl eingeben.")
+                return
+            if question_limit < 1:
+                messagebox.showwarning("Eingabe ungültig", "Die 'Anzahl Fragen' muss >= 1 sein (oder leer/0).")
+                return
+
+        cooldown = 3
+        if cooldown_raw:
+            try:
+                cooldown = int(cooldown_raw)
+            except ValueError:
+                messagebox.showwarning("Eingabe ungültig", "Bitte beim 'Cooldown' eine Zahl eingeben.")
+                return
+            if cooldown < 0:
+                messagebox.showwarning("Eingabe ungültig", "Der 'Cooldown' muss >= 0 sein.")
+                return
+
+        total_available = len(self.all_questions)
+        if allow_repeats:
+            if question_limit is None:
+                question_limit = max(20, total_available)
+        else:
+            if question_limit is None:
+                question_limit = total_available
+            question_limit = min(question_limit, total_available)
+
+        if total_available == 1:
+            cooldown = 0
+        else:
+            cooldown = min(cooldown, total_available - 1)
+
+        selected_original: list[Question] = []
+        if allow_repeats:
+            if shuffle_questions:
+                recent: list[Question] = []
+                for _ in range(question_limit):
+                    available = [q for q in self.all_questions if q not in recent] if cooldown > 0 else self.all_questions
+                    if not available:
+                        available = self.all_questions
+                    q = random.choice(available)
+                    selected_original.append(q)
+                    if cooldown > 0:
+                        recent.append(q)
+                        if len(recent) > cooldown:
+                            recent.pop(0)
+            else:
+                for i in range(question_limit):
+                    selected_original.append(self.all_questions[i % total_available])
+        else:
+            selected_original = self.all_questions.copy()
+            if shuffle_questions:
+                random.shuffle(selected_original)
+            selected_original = selected_original[:question_limit]
+
+        self.current_questions = [prepare_question(q, shuffle_answers=shuffle_answers) for q in selected_original]
 
         self.current_index = 0
         self.correct_count = 0
@@ -392,16 +562,6 @@ class QuizGUI(ctk.CTk):
         )
         question_label.pack(anchor="w")
 
-        # Mehrfachauswahl-Hinweis
-        if len(question.correct) > 1:
-            hint_label = ctk.CTkLabel(
-                question_inner,
-                text="(Mehrfachauswahl möglich)",
-                font=ctk.CTkFont(size=12, slant="italic"),
-                text_color=self.colors['warning']
-            )
-            hint_label.pack(anchor="w", pady=(10, 0))
-
         # Scrollbarer Bereich für Antworten
         answers_scroll = ctk.CTkScrollableFrame(
             self.main_container,
@@ -414,6 +574,17 @@ class QuizGUI(ctk.CTk):
         for key in sorted(question.options.keys()):
             option_text = question.options[key]
             self.create_answer_button(answers_scroll, key, option_text)
+
+        # Anzeige der Auswahl (ohne Hinweis, ob Mehrfachauswahl ist)
+        self.selection_label = ctk.CTkLabel(
+            self.main_container,
+            text="Ausgewählt: (keine)",
+            font=ctk.CTkFont(size=12),
+            text_color=self.colors['text_muted'],
+            justify="left",
+            wraplength=850
+        )
+        self.selection_label.pack(anchor="w", pady=(0, 12))
 
         # Action Buttons
         button_frame = ctk.CTkFrame(self.main_container, fg_color="transparent")
@@ -498,6 +669,20 @@ class QuizGUI(ctk.CTk):
                 fg_color=self.colors['accent'],
                 border_color=self.colors['accent_hover']
             )
+        self.update_selection_label()
+
+    def update_selection_label(self):
+        """Aktualisiert die Anzeige der aktuell ausgewählten Antworten."""
+        if self.selection_label is None:
+            return
+
+        question = self.current_questions[self.current_index]
+        if not self.selected_answers:
+            self.selection_label.configure(text="Ausgewählt: (keine)")
+            return
+
+        lines = [f"{k}) {question.options.get(k, '')}" for k in sorted(self.selected_answers)]
+        self.selection_label.configure(text="Ausgewählt:\n" + "\n".join(lines))
 
     def check_answer(self):
         """Prueft die Antwort"""
@@ -555,21 +740,33 @@ class QuizGUI(ctk.CTk):
         compare_inner = ctk.CTkFrame(compare_card, fg_color="transparent")
         compare_inner.pack(padx=25, pady=18)
 
-        your_answer = "  ".join(sorted(self.selected_answers)) if self.selected_answers else "(keine)"
-        correct_answer = "  ".join(sorted(question.correct))
+        if self.selected_answers:
+            your_answer = "\n".join(
+                [f"{k}) {question.options.get(k, '')}" for k in sorted(self.selected_answers)]
+            )
+        else:
+            your_answer = "(keine)"
+
+        correct_answer = "\n".join(
+            [f"{k}) {question.options.get(k, '')}" for k in sorted(question.correct)]
+        )
 
         ctk.CTkLabel(
             compare_inner,
-            text=f"Deine Antwort:      {your_answer}",
+            text="Deine Antwort:\n" + your_answer,
             font=ctk.CTkFont(size=14),
-            text_color=self.colors['text']
+            text_color=self.colors['text'],
+            justify="left",
+            wraplength=750
         ).pack(anchor="w", pady=3)
 
         ctk.CTkLabel(
             compare_inner,
-            text=f"Richtige Antwort:  {correct_answer}",
+            text="Richtige Antwort:\n" + correct_answer,
             font=ctk.CTkFont(size=14, weight="bold"),
-            text_color=self.colors['success']
+            text_color=self.colors['success'],
+            justify="left",
+            wraplength=750
         ).pack(anchor="w", pady=3)
 
         # Erklärung
