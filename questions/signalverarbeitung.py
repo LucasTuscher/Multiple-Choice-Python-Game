@@ -1054,7 +1054,7 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Wovon hängt der elektrische Widerstand eines Leiters ab?",
             options={
-                "A": "Von der Leiterlaenge l",
+                "A": "Von der Leiterlänge l",
                 "B": "Vom Leiterquerschnitt A",
                 "C": "Vom Material (spezifischer Widerstand rho)",
                 "D": "Von der Farbe der Isolation"
@@ -1070,7 +1070,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Ein Spannungsteiler besteht aus zwei gleichen Widerstaenden in Reihe an U=230V. Wie groß ist U1 ueber dem ersten Widerstand?",
+            prompt="Ein Spannungsteiler besteht aus zwei gleichen Widerständen in Reihe an U=230V. Wie groß ist U1 ueber dem ersten Widerstand?",
             options={
                 "A": "230 V",
                 "B": "115 V",
@@ -1078,7 +1078,7 @@ def get_questions() -> List[Question]:
                 "D": "0 V"
             },
             correct={"B"},
-            explain_correct="Bei zwei gleichen Widerstaenden teilt sich die Spannung gleich auf: U1 = 230 V / 2 = 115 V.",
+            explain_correct="Bei zwei gleichen Widerständen teilt sich die Spannung gleich auf: U1 = 230 V / 2 = 115 V.",
             explain_wrong={
                 "A": "Das waere die Gesamtspannung, nicht die Teilspannung.",
                 "C": "Das waere eine Viertelung, nicht Halbierung.",
@@ -1106,7 +1106,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Warum kann Powerline Communication (PLC) Daten ueber Stromkabel übertragen, obwohl dort schon 50 Hz Netzspannung anliegt?",
+            prompt="Warum kann Powerline Communication (PLC) Daten über Stromkabel übertragen, obwohl dort schon 50 Hz Netzspannung anliegt?",
             options={
                 "A": "PLC nutzt höhere Traegerfrequenzen zusaetzlich zur 50 Hz Netzspannung",
                 "B": "PLC ersetzt die 50 Hz komplett durch digitale Impulse",
@@ -1145,10 +1145,10 @@ def get_questions() -> List[Question]:
         Question(
             prompt="Was gilt für Wellenlaenge und Antennengroesse?",
             options={
-                "A": "Je hoeher die Frequenz, desto groesser die Wellenlaenge und die Antenne",
-                "B": "Je hoeher die Frequenz, desto kleiner die Wellenlaenge und desto kleiner kann die Antenne sein",
-                "C": "Frequenz und Wellenlaenge sind unabhaengig",
-                "D": "Antennegroesse hängt nur von der Sendeleistung ab"
+                "A": "Je höher die Frequenz, desto groesser die Wellenlänge und die Antenne",
+                "B": "Je höher die Frequenz, desto kleiner die Wellenlänge und desto kleiner kann die Antenne sein",
+                "C": "Frequenz und Wellenlänge sind unabhaengig",
+                "D": "Antennegrösse hängt nur von der Sendeleistung ab"
             },
             correct={"B"},
             explain_correct="Mit steigender Frequenz sinkt die Wellenlaenge (lambda ~ 1/f). "
@@ -1244,7 +1244,7 @@ def get_questions() -> List[Question]:
                 "D": "Frequency In / Frequency Out"
             },
             correct={"B"},
-            explain_correct="FIFO bedeutet First In / First Out: Das aelteste Element im Buffer wird zuerst wieder ausgegeben.",
+            explain_correct="FIFO bedeutet First In / First Out: Das älteste Element im Buffer wird zuerst wieder ausgegeben.",
             explain_wrong={
                 "A": "Keine gängige Bedeutung.",
                 "C": "Nicht korrekt.",
