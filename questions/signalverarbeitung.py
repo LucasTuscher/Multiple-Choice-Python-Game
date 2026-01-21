@@ -1510,42 +1510,6 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Ein FIR-Filter hat 64 Koeffizienten. Wie hoch ist seine Ordnung?",
-            options={
-                "A": "63",
-                "B": "64",
-                "C": "32",
-                "D": "65"
-            },
-            correct={"A"},
-            explain_correct="Die Ordnung eines FIR-Filters ist Anzahl der Koeffizienten minus 1: 64 - 1 = 63.",
-            explain_wrong={
-                "B": "Das wäre die Anzahl der Koeffizienten, nicht die Ordnung.",
-                "C": "Das ist die halbe Anzahl.",
-                "D": "Das ist zu groß."
-            },
-            topic="Signalverarbeitung - Filter"
-        ),
-
-        Question(
-            prompt="Ein Signal wird mit einer Fensterfunktion multipliziert. Was ist der Hauptzweck?",
-            options={
-                "A": "Erhöhung der Abtastfrequenz",
-                "B": "Reduktion von spektraler Leakage",
-                "C": "Reduktion der Quantisierung",
-                "D": "Erhöhung der Amplitude"
-            },
-            correct={"B"},
-            explain_correct="Fensterfunktionen reduzieren spektrale Leakage bei der FFT.",
-            explain_wrong={
-                "A": "Die Abtastfrequenz bleibt gleich.",
-                "C": "Quantisierung wird dadurch nicht verändert.",
-                "D": "Amplitude wird nicht gezielt erhöht."
-            },
-            topic="Signalverarbeitung - Fourier"
-        ),
-
-        Question(
             prompt="Ein Signal hat 1000 Abtastwerte und wird mit einer FFT analysiert. Wie viele Frequenzbins entstehen?",
             options={
                 "A": "500",
@@ -1891,24 +1855,6 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Wie wird die Umwandlung einer akustischen Schwingung in eine elektromagnetische Schwingung bei einem Kondensatormikrofon realisiert?",
-            options={
-                "A": "Durch Induktion in einer bewegten Spule",
-                "B": "Durch Veränderung einer elektrischen Kapazität",
-                "C": "Durch den piezoelektrischen Effekt",
-                "D": "Durch direkte Digitalisierung der Luftdruckschwankung"
-            },
-            correct={"B"},
-            explain_correct="Ein Kondensatormikrofon nutzt die Kapazitätsänderung zwischen einer Membran und einer Gegenelektrode.",
-            explain_wrong={
-                "A": "Das beschreibt das Tauchspulprinzip (dynamisches Mikrofon).",
-                "C": "Piezo-Mikrofone nutzen Kristalle, keine Kondensatorplatten.",
-                "D": "Ein Mikrofon ist ein analoger Wandler; die Digitalisierung erfolgt später im AD-Wandler."
-            },
-            topic="Signalverarbeitung - Sensoren"
-        ),
-
-        Question(
             prompt="Ein 8-Bit-Wandler deckt einen Messbereich von -5 V bis +5 V ab. Wie groß ist die Auflösung (Intervall) ΔU?",
             options={
                 "A": "~1,25 V",
@@ -2038,24 +1984,6 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Was ist das Hauptmerkmal eines 'DSP' (Digital Signal Processor)?",
-            options={
-                "A": "Er kann besonders große Mengen an Text verarbeiten.",
-                "B": "Er ist für die Echtzeitverarbeitung von kontinuierlichen Datenströmen optimiert.",
-                "C": "Er benötigt keine Stromversorgung während des Betriebs.",
-                "D": "Er ersetzt den AD-Wandler vollständig."
-            },
-            correct={"B"},
-            explain_correct="Ein DSP ist ein spezialisierter Mikroprozessor, dessen Architektur auf die extrem schnelle, echtzeitfähige Verarbeitung von Signalen ausgelegt ist.",
-            explain_wrong={
-                "A": "DSPs sind auf mathematische Operationen (Multiply-Accumulate), nicht auf Text spezialisiert.",
-                "C": "Jeder Prozessor benötigt elektrische Energie.",
-                "D": "Ein DSP verarbeitet digitale Daten; der AD-Wandler wird immer noch für den Eingang benötigt."
-            },
-            topic="Signalverarbeitung - Hardware"
-        ),
-
-        Question(
             prompt="Warum wird bei der Übertragung über Glasfaserkabel Licht statt Strom verwendet?",
             options={
                 "A": "Weil Licht weniger wiegt als Elektronen.",
@@ -2092,24 +2020,6 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="In welcher Form liegen die Daten bei einer 'Flash-Speicher'-Zelle (SSD) vor?",
-            options={
-                "A": "Als magnetische Ausrichtung auf einer Scheibe.",
-                "B": "Als elektrische Ladung in einem Floating-Gate-Transistor.",
-                "C": "Als mechanische Vertiefungen (Pits).",
-                "D": "Als chemische Verbindung."
-            },
-            correct={"B"},
-            explain_correct="Flash-Speicher speichern Informationen durch das Festhalten von Elektronen in einem isolierten Bereich (Floating Gate).",
-            explain_wrong={
-                "A": "Das beschreibt eine klassische HDD-Festplatte.",
-                "C": "Das ist das Prinzip von optischen Medien wie CDs/DVDs.",
-                "D": "Chemische Speicher werden aktuell nicht in Computern eingesetzt."
-            },
-            topic="Signalverarbeitung - Hardware"
-        ),
-
-        Question(
             prompt="Welche Aufgabe hat das 'Betriebssystem' bei der Digitalen Signalverarbeitung?",
             options={
                 "A": "Es wandelt Schallwellen in digitale Daten um.",
@@ -2143,42 +2053,6 @@ def get_questions() -> List[Question]:
                 "D": "Ein Quantisierungsfehler ist ein Präzisionsverlust, kein Datenverlust."
             },
             topic="Signalverarbeitung - Quantisierung"
-        ),
-
-        Question(
-            prompt="Wozu dient die 'Paritätsprüfung' bei der digitalen Datenübertragung?",
-            options={
-                "A": "Um die Übertragungsgeschwindigkeit zu verdoppeln.",
-                "B": "Um Übertragungsfehler (Bit-Kipper) zu erkennen.",
-                "C": "Um die Lautstärke des Signals zu erhöhen.",
-                "D": "Um analoge Signale in digitale zu wandeln."
-            },
-            correct={"B"},
-            explain_correct="Ein Paritätsbit wird angehängt, um zu prüfen, ob die Anzahl der gesetzten Bits (1en) korrekt übertragen wurde, was einfache Fehler aufdeckt.",
-            explain_wrong={
-                "A": "Zusatzbits verringern die effektive Nutzdatenrate eher geringfügig.",
-                "C": "Sie hat keinen Einfluss auf die Amplitude des Signals.",
-                "D": "Dies ist ein rein digitaler Prozess zur Sicherung der Datenintegrität."
-            },
-            topic="Signalverarbeitung - Übertragung"
-        ),
-
-        Question(
-            prompt="Welche Rolle spielt die 'Phantomspeisung' (48V) in der Studiotechnik?",
-            options={
-                "A": "Sie dient zum Betrieb von Kondensatormikrofonen über das XLR-Kabel.",
-                "B": "Sie wird benötigt, um digitale Signale zu verstärken.",
-                "C": "Sie schützt das Mischpult vor Kurzschlüssen.",
-                "D": "Sie ist eine spezielle Art der digitalen Kompression."
-            },
-            correct={"A"},
-            explain_correct="Kondensatormikrofone benötigen eine elektrische Spannung für die Kapselvorspannung und den internen Vorverstärker, die oft vom Mischpult geliefert wird.",
-            explain_wrong={
-                "B": "Phantomspeisung ist für analoge Mikrofone gedacht.",
-                "C": "Sie dient der Energieversorgung, nicht dem Schutz.",
-                "D": "Es handelt sich um eine Gleichspannung, nicht um einen Algorithmus."
-            },
-            topic="Signalverarbeitung - Hardware"
         ),
 
         Question(
