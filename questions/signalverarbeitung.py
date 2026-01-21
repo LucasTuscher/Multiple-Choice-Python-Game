@@ -2271,6 +2271,168 @@ def get_questions() -> List[Question]:
             topic="Signalverarbeitung - Filter"
         ),
 
+        Question(
+            prompt="Welches Prinzip erlaubt die Umwandlung eines Signals zwischen Zeit- und Frequenzbereich?",
+            options={
+                "A": "Fourierprinzip / Fouriertransformation",
+                "B": "Laplace-Transformation",
+                "C": "Nyquist-Theorem",
+                "D": "Shannon-Theorem"
+            },
+            correct={"A"},
+            explain_correct="Die Fouriertransformation ermöglicht die Analyse eines Signals in Frequenzen und den Aufbau aus Sinusschwingungen. "
+                            "DFT wandelt vom Zeit- in den Frequenzbereich, IDFT macht das rückgängig.",
+            explain_wrong={
+                "B": "Laplace wird nicht primär für Zeit-Frequenz-Umwandlung genutzt.",
+                "C": "Nyquist beschreibt nur die minimale Abtastrate.",
+                "D": "Shannon-Theorem = Nyquist-Theorem, nicht für Umwandlung."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Wie lässt sich ein periodisches Signal aus Sinus- und Kosinusschwingungen erzeugen?",
+            options={
+                "A": "Fourieranalyse",
+                "B": "Fouriersynthese",
+                "C": "Digitalisierung",
+                "D": "Filterung"
+            },
+            correct={"B"},
+            explain_correct="Fouriersynthese beschreibt den Aufbau eines Signals aus Sinus- und Kosinusschwingungen. "
+                            "Die Zerlegung in einzelne Frequenzen nennt man Fourieranalyse.",
+            explain_wrong={
+                "A": "Fourieranalyse zerlegt, baut aber nicht auf.",
+                "C": "Digitalisierung = Sampling + Quantisierung.",
+                "D": "Filterung ist ein separater Prozess."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Welche Aufgabe hat die DFT (Diskrete Fourier-Transformation)?",
+            options={
+                "A": "Vom Frequenz- in den Zeitbereich wandeln",
+                "B": "Vom Zeit- in den Frequenzbereich wandeln",
+                "C": "Analoges Signal digitalisieren",
+                "D": "Hohe Frequenzen filtern"
+            },
+            correct={"B"},
+            explain_correct="Die DFT zeigt, welche Frequenzen im zeitdiskreten Signal enthalten sind. FFT ist nur eine effizientere Berechnungsmethode.",
+            explain_wrong={
+                "A": "Das macht die IDFT.",
+                "C": "Digitalisierung = Sampling + Quantisierung.",
+                "D": "Filterung ist ein anderer Vorgang."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Ein Signal besteht aus Sinustönen mit Perioden 3.79ms, 3.03ms, 2.53ms. Welche minimale Abtastfrequenz nach Nyquist?",
+            options={
+                "A": "264 Hz",
+                "B": "396 Hz",
+                "C": "792 Hz",
+                "D": "1584 Hz"
+            },
+            correct={"C"},
+            explain_correct="Frequenzen: f1≈264Hz, f2≈330Hz, f3≈396Hz. Höchste Frequenz 396 Hz → Abtastfrequenz ≥ 2×396 = 792 Hz.",
+            explain_wrong={
+                "A": "264 Hz ist nur die niedrigste Frequenz.",
+                "B": "396 Hz ist nur die höchste Frequenz, nicht das Doppelte.",
+                "D": "1584 Hz wäre mehr als nötig."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Was bedeutet Sampling in der Signalverarbeitung?",
+            options={
+                "A": "Kontinuierliche Amplitudenwerte in diskrete Stufen umwandeln",
+                "B": "Zeitliche Abtastung eines Signals",
+                "C": "Signal verstärken",
+                "D": "Rauschen filtern"
+            },
+            correct={"B"},
+            explain_correct="Sampling = zeitliche Abtastung. Quantisierung = Wertdiskretisierung. Zusammen ergibt das die A/D-Wandlung.",
+            explain_wrong={
+                "A": "Das ist Quantisierung.",
+                "C": "Verstärkung verändert nur Amplitude.",
+                "D": "Filterung ist ein anderer Prozess."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Was versteht man unter Quantisierung?",
+            options={
+                "A": "Zeitliche Abtastung",
+                "B": "Umwandlung kontinuierlicher Amplituden in diskrete Stufen",
+                "C": "Signalverstärkung",
+                "D": "Rauschfilterung"
+            },
+            correct={"B"},
+            explain_correct="Quantisierung = Wertdiskretisierung. 8 Bit → 256 Stufen, 16 Bit → 65536 Stufen. Mehr Bit = weniger Rauschen.",
+            explain_wrong={
+                "A": "Das ist Sampling.",
+                "C": "Verstärkung verändert nur Amplitude.",
+                "D": "Filterung ist ein anderer Prozess."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Welche minimale Abtastrate muss ein Signal haben, um Aliasing zu vermeiden?",
+            options={
+                "A": "Mindestens so hoch wie die höchste Signalfrequenz",
+                "B": "Mindestens doppelt so hoch wie die höchste Signalfrequenz",
+                "C": "10-fache der höchsten Frequenz",
+                "D": "Beliebig, Aliasing passiert sowieso nicht"
+            },
+            correct={"B"},
+            explain_correct="Nach Nyquist muss die Abtastrate ≥ 2× f_max sein, sonst treten Aliasing-Artefakte auf.",
+            explain_wrong={
+                "A": "Reicht nicht, muss mindestens doppelt sein.",
+                "C": "Mehr als nötig, unnötiger Speicherverbrauch.",
+                "D": "Falsch, zu niedrige Rate → Aliasing."
+            },
+            topic="Signalverarbeitung - Sampling"
+        ),
+
+        Question(
+            prompt="Welche Geschwindigkeit haben Schallwellen in Luft bei Raumtemperatur?",
+            options={
+                "A": "Ca. 343 m/s",
+                "B": "Nahe Lichtgeschwindigkeit",
+                "C": "Ca. 1000 m/s",
+                "D": "Ca. 10 m/s"
+            },
+            correct={"A"},
+            explain_correct="Schallgeschwindigkeit in Luft ≈ 343 m/s. In Wasser ~1500 m/s, in Stahl ~5000 m/s.",
+            explain_wrong={
+                "B": "Das gilt für Licht/elektrische Signale, nicht Schall.",
+                "C": "Zu hoch.",
+                "D": "Zu niedrig."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
+
+        Question(
+            prompt="Welche Vorteile bietet symmetrische Signaleübertragung?",
+            options={
+                "A": "Bessere Störunterdrückung durch Gleichtaktunterdrückung",
+                "B": "Längere Kabelstrecken möglich",
+                "C": "Günstiger als asymmetrisch",
+                "D": "Kürzere Kabelwege"
+            },
+            correct={"A", "B"},
+            explain_correct="Symmetrische Übertragung: Hot + invertiertes Cold-Signal → Differenz → Störungen heben sich auf. Ermöglicht längere Kabelwege.",
+            explain_wrong={
+                "C": "Asymmetrisch ist günstiger.",
+                "D": "Kürze Kabel typisch für asymmetrische Systeme."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
 
     ]
     return _rebalance_single_choice_correct_letters(questions)
