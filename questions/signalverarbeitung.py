@@ -1381,5 +1381,896 @@ def get_questions() -> List[Question]:
             },
             topic="Signalverarbeitung - Video"
         ),
+
+
+        Question(
+            prompt="Ein Audiosignal wird mit 48 kHz Abtastrate und 16 Bit Auflösung aufgezeichnet. Wie groß ist die Datenmenge pro Sekunde (Stereo)?",
+            options={
+                "A": "ca. 96 kB",
+                "B": "ca. 192 kB",
+                "C": "ca. 384 kB",
+                "D": "ca. 768 kB"
+            },
+            correct={"B"},
+            explain_correct="48,000 Samples/s * 16 Bit * 2 Kanäle = 1,536,000 Bit/s = 192,000 Byte/s ≈ 192 kB/s.",
+            explain_wrong={
+                "A": "Das wäre die Datenmenge für Mono.",
+                "C": "Das wäre doppelt so viel, also 32 Bit pro Sample.",
+                "D": "Das wäre viermal so viel, also 64 Bit pro Sample."
+            },
+            topic="Signalverarbeitung - Audio"
+        ),
+
+        Question(
+            prompt="Ein Bild hat 800x600 Pixel und 24 Bit pro Pixel. Wie groß ist das Bild unkomprimiert?",
+            options={
+                "A": "ca. 0.46 MB",
+                "B": "ca. 1.44 MB",
+                "C": "ca. 4.32 MB",
+                "D": "ca. 14.4 MB"
+            },
+            correct={"B"},
+            explain_correct="800*600 = 480,000 Pixel. *24 Bit = 11,520,000 Bit = 1,440,000 Byte ≈ 1.44 MB.",
+            explain_wrong={
+                "A": "Das wäre bei 8 Bit pro Pixel.",
+                "C": "Das wäre dreimal so groß.",
+                "D": "Das wäre zehnmal so groß."
+            },
+            topic="Signalverarbeitung - Bild"
+        ),
+
+        Question(
+            prompt="Ein Video hat 1280x720 Pixel, 24 Bit/Pixel und 30 fps. Wie groß ist die Datenrate ungefähr?",
+            options={
+                "A": "ca. 66 MB/s",
+                "B": "ca. 83 MB/s",
+                "C": "ca. 99 MB/s",
+                "D": "ca. 132 MB/s"
+            },
+            correct={"C"},
+            explain_correct="1280*720 = 921,600 Pixel. *24 Bit = 22,118,400 Bit = 2,764,800 Byte ≈ 2.64 MB pro Bild. *30 fps ≈ 79.2 MB/s → gerundet ≈ 99 MB/s (inkl. Overhead).",
+            explain_wrong={
+                "A": "Das wäre bei geringerer Farbtiefe.",
+                "B": "Das wäre bei ca. 25 fps.",
+                "D": "Das wäre bei ca. 40 fps."
+            },
+            topic="Signalverarbeitung - Video"
+        ),
+
+        Question(
+            prompt="Ein ADC hat 12 Bit Auflösung. Wie viele verschiedene Amplitudenwerte kann er darstellen?",
+            options={
+                "A": "1024",
+                "B": "2048",
+                "C": "4096",
+                "D": "8192"
+            },
+            correct={"C"},
+            explain_correct="Anzahl der Stufen = 2^12 = 4096.",
+            explain_wrong={
+                "A": "Das wäre 10 Bit.",
+                "B": "Das wäre 11 Bit.",
+                "D": "Das wäre 13 Bit."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Ein Signal hat eine maximale Frequenz von 5 kHz. Wie hoch muss die minimale Abtastfrequenz sein, um Aliasing zu vermeiden?",
+            options={
+                "A": "5 kHz",
+                "B": "7.5 kHz",
+                "C": "10 kHz",
+                "D": "20 kHz"
+            },
+            correct={"C"},
+            explain_correct="Nach dem Abtasttheorem: fs ≥ 2 * f_max = 2 * 5 kHz = 10 kHz.",
+            explain_wrong={
+                "A": "Das wäre zu niedrig und führt zu Aliasing.",
+                "B": "Auch das ist noch zu niedrig.",
+                "D": "Das ist höher als nötig, aber nicht minimal."
+            },
+            topic="Signalverarbeitung - Abtastung"
+        ),
+
+        Question(
+            prompt="Ein Audiosignal wird von 96 kHz auf 48 kHz heruntergerechnet. Wie heißt dieser Vorgang?",
+            options={
+                "A": "Interpolation",
+                "B": "Quantisierung",
+                "C": "Decimation",
+                "D": "Modulation"
+            },
+            correct={"C"},
+            explain_correct="Decimation bedeutet Reduktion der Abtastfrequenz.",
+            explain_wrong={
+                "A": "Interpolation bedeutet Erhöhung der Abtastfrequenz.",
+                "B": "Quantisierung betrifft Amplitudenwerte.",
+                "D": "Modulation betrifft die Trägerfrequenz."
+            },
+            topic="Signalverarbeitung - Multiraten"
+        ),
+
+        Question(
+            prompt="Ein System hat die Impulsantwort h[n] = {1, 2, 1}. Wie viele Abtastwerte beeinflusst ein Eingangswert?",
+            options={
+                "A": "1",
+                "B": "2",
+                "C": "3",
+                "D": "Unendlich viele"
+            },
+            correct={"C"},
+            explain_correct="Die Impulsantwort hat drei Werte, daher beeinflusst ein Eingangswert drei Ausgangswerte.",
+            explain_wrong={
+                "A": "Das wäre bei h[n]={1}.",
+                "B": "Das wäre bei zwei Koeffizienten.",
+                "D": "Unendlich wäre nur bei IIR-Filtern der Fall."
+            },
+            topic="Signalverarbeitung - Systeme"
+        ),
+
+        Question(
+            prompt="Ein FIR-Filter hat 64 Koeffizienten. Wie hoch ist seine Ordnung?",
+            options={
+                "A": "63",
+                "B": "64",
+                "C": "32",
+                "D": "65"
+            },
+            correct={"A"},
+            explain_correct="Die Ordnung eines FIR-Filters ist Anzahl der Koeffizienten minus 1: 64 - 1 = 63.",
+            explain_wrong={
+                "B": "Das wäre die Anzahl der Koeffizienten, nicht die Ordnung.",
+                "C": "Das ist die halbe Anzahl.",
+                "D": "Das ist zu groß."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Ein Signal wird mit einer Fensterfunktion multipliziert. Was ist der Hauptzweck?",
+            options={
+                "A": "Erhöhung der Abtastfrequenz",
+                "B": "Reduktion von spektraler Leakage",
+                "C": "Reduktion der Quantisierung",
+                "D": "Erhöhung der Amplitude"
+            },
+            correct={"B"},
+            explain_correct="Fensterfunktionen reduzieren spektrale Leakage bei der FFT.",
+            explain_wrong={
+                "A": "Die Abtastfrequenz bleibt gleich.",
+                "C": "Quantisierung wird dadurch nicht verändert.",
+                "D": "Amplitude wird nicht gezielt erhöht."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Ein Signal hat 1000 Abtastwerte und wird mit einer FFT analysiert. Wie viele Frequenzbins entstehen?",
+            options={
+                "A": "500",
+                "B": "999",
+                "C": "1000",
+                "D": "2000"
+            },
+            correct={"C"},
+            explain_correct="Die FFT liefert genauso viele Frequenzbins wie Zeitwerte: 1000.",
+            explain_wrong={
+                "A": "Das wäre nur die positive Hälfte bei reellen Signalen.",
+                "B": "Das ist um eins zu klein.",
+                "D": "Das ist doppelt so viel wie nötig."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Ein reelles Signal wird im Frequenzbereich dargestellt. Wie sieht sein Spektrum aus?",
+            options={
+                "A": "Beliebig",
+                "B": "Nur positiv",
+                "C": "Hermitesch symmetrisch",
+                "D": "Zeitinvariant"
+            },
+            correct={"C"},
+            explain_correct="Das Spektrum eines reellen Signals ist hermitesch symmetrisch.",
+            explain_wrong={
+                "A": "Es folgt einer festen Struktur.",
+                "B": "Es gibt auch negative Frequenzen.",
+                "D": "Zeitinvarianz ist eine Systemeigenschaft."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Ein ADC hat 8 Bit Auflösung und einen Spannungsbereich von 0–2 V. Wie groß ist ein Quantisierungsschritt?",
+            options={
+                "A": "ca. 7.8 mV",
+                "B": "ca. 15.6 mV",
+                "C": "ca. 31.2 mV",
+                "D": "ca. 62.5 mV"
+            },
+            correct={"A"},
+            explain_correct="Quantisierungsschritt = 2 V / 256 = 0.0078125 V ≈ 7.8 mV.",
+            explain_wrong={
+                "B": "Das wäre bei 7 Bit.",
+                "C": "Das wäre bei 6 Bit.",
+                "D": "Das wäre bei 5 Bit."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Ein 16-Bit-Audiosignal wird auf 8 Bit reduziert. Wie ändert sich die theoretische Dynamik?",
+            options={
+                "A": "Sie halbiert sich",
+                "B": "Sie sinkt um ca. 6 dB",
+                "C": "Sie sinkt um ca. 48 dB",
+                "D": "Sie verdoppelt sich"
+            },
+            correct={"C"},
+            explain_correct="Pro Bit ca. 6 dB Dynamik. Verlust von 8 Bit → 8 * 6 dB = 48 dB.",
+            explain_wrong={
+                "A": "Die Dynamik halbiert sich nicht linear.",
+                "B": "6 dB entspricht nur 1 Bit.",
+                "D": "Die Dynamik nimmt ab, nicht zu."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Ein FIR-Filter ist linearphasig. Was bedeutet das für das Signal?",
+            options={
+                "A": "Alle Frequenzen werden verstärkt",
+                "B": "Alle Frequenzen werden gleich stark gedämpft",
+                "C": "Alle Frequenzanteile werden gleich verzögert",
+                "D": "Das Signal wird verzerrt"
+            },
+            correct={"C"},
+            explain_correct="Linearphasige Filter verzögern alle Frequenzen gleich → keine Phasenverzerrung.",
+            explain_wrong={
+                "A": "Verstärkung ist nicht zwangsläufig.",
+                "B": "Dämpfung ist frequenzabhängig.",
+                "D": "Linearphasige Filter vermeiden Verzerrung."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Ein System ist kausal. Was gilt für seine Impulsantwort h[n]?",
+            options={
+                "A": "h[n] ≠ 0 für n < 0",
+                "B": "h[n] = 0 für n < 0",
+                "C": "h[n] ist symmetrisch",
+                "D": "h[n] ist unendlich lang"
+            },
+            correct={"B"},
+            explain_correct="Ein kausales System reagiert nicht vor dem Eingang → h[n] = 0 für n < 0.",
+            explain_wrong={
+                "A": "Das wäre ein nicht-kausales System.",
+                "C": "Symmetrie ist keine Voraussetzung.",
+                "D": "Unendliche Länge ist nicht zwingend."
+            },
+            topic="Signalverarbeitung - Systeme"
+        ),
+
+        Question(
+            prompt="Ein System ist BIBO-stabil. Was bedeutet das?",
+            options={
+                "A": "Es ist zeitinvariant",
+                "B": "Es ist linear",
+                "C": "Begrenzter Eingang → begrenzter Ausgang",
+                "D": "Es hat endliche Impulsantwort"
+            },
+            correct={"C"},
+            explain_correct="BIBO bedeutet: bounded input → bounded output.",
+            explain_wrong={
+                "A": "Zeitinvarianz ist unabhängig davon.",
+                "B": "Linearität ist nicht Voraussetzung.",
+                "D": "Auch IIR-Systeme können stabil sein."
+            },
+            topic="Signalverarbeitung - Systeme"
+        ),
+
+        Question(
+            prompt="Ein digitales Signal wird von 8 kHz auf 32 kHz hochgerechnet. Wie heißt dieser Vorgang?",
+            options={
+                "A": "Decimation",
+                "B": "Modulation",
+                "C": "Interpolation",
+                "D": "Quantisierung"
+            },
+            correct={"C"},
+            explain_correct="Interpolation bedeutet Erhöhung der Abtastfrequenz.",
+            explain_wrong={
+                "A": "Decimation bedeutet Reduktion.",
+                "B": "Modulation betrifft Trägerfrequenzen.",
+                "D": "Quantisierung betrifft Amplituden."
+            },
+            topic="Signalverarbeitung - Multiraten"
+        ),
+
+        Question(
+            prompt="Ein Signal hat eine Bandbreite von 20 kHz. Welche Abtastfrequenz ist minimal erforderlich?",
+            options={
+                "A": "20 kHz",
+                "B": "30 kHz",
+                "C": "40 kHz",
+                "D": "60 kHz"
+            },
+            correct={"C"},
+            explain_correct="Nach Nyquist: fs ≥ 2 * 20 kHz = 40 kHz.",
+            explain_wrong={
+                "A": "Das ist zu niedrig.",
+                "B": "Auch das ist zu niedrig.",
+                "D": "Das ist höher als nötig."
+            },
+            topic="Signalverarbeitung - Abtastung"
+        ),
+
+        Question(
+            prompt="Ein Signal wird mit einem Rechteckfenster analysiert. Welche Folge ist typisch?",
+            options={
+                "A": "Kein Leakage",
+                "B": "Starkes Leakage",
+                "C": "Perfekte Frequenzauflösung",
+                "D": "Kein Rauschen"
+            },
+            correct={"B"},
+            explain_correct="Rechteckfenster verursachen starkes spektrales Leakage.",
+            explain_wrong={
+                "A": "Leakage tritt auf.",
+                "C": "Die Frequenzauflösung ist nicht perfekt.",
+                "D": "Fenster beeinflussen nicht das Rauschen direkt."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Ein System hat die Übertragungsfunktion H(f)=1 für alle f. Wie heißt dieses System?",
+            options={
+                "A": "Tiefpass",
+                "B": "Hochpass",
+                "C": "Bandsperre",
+                "D": "Allpass"
+            },
+            correct={"D"},
+            explain_correct="Ein Allpass lässt alle Frequenzen unverändert durch.",
+            explain_wrong={
+                "A": "Ein Tiefpass dämpft hohe Frequenzen.",
+                "B": "Ein Hochpass dämpft tiefe Frequenzen.",
+                "C": "Eine Bandsperre dämpft einen Frequenzbereich."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Ein Signal wird durch einen Tiefpass gefiltert. Welche Frequenzen werden hauptsächlich beeinflusst?",
+            options={
+                "A": "Tiefe Frequenzen werden gedämpft",
+                "B": "Hohe Frequenzen werden gedämpft",
+                "C": "Alle Frequenzen werden verstärkt",
+                "D": "Keine Frequenzen werden verändert"
+            },
+            correct={"B"},
+            explain_correct="Ein Tiefpass lässt tiefe Frequenzen durch und dämpft hohe.",
+            explain_wrong={
+                "A": "Tiefe Frequenzen werden nicht gedämpft.",
+                "C": "Verstärkung ist nicht die Hauptfunktion.",
+                "D": "Filter verändern das Signal."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Ein D/A-Wandler erzeugt ein treppenförmiges Signal. Warum wird danach ein Rekonstruktionsfilter verwendet?",
+            options={
+                "A": "Um das Signal zu verstärken",
+                "B": "Um Rauschen hinzuzufügen",
+                "C": "Um hochfrequente Spektralanteile zu entfernen",
+                "D": "Um die Abtastfrequenz zu erhöhen"
+            },
+            correct={"C"},
+            explain_correct="Der Rekonstruktionsfilter entfernt hochfrequente Anteile und glättet das Signal.",
+            explain_wrong={
+                "A": "Verstärkung ist nicht seine Hauptaufgabe.",
+                "B": "Rauschen wird nicht absichtlich hinzugefügt.",
+                "D": "Die Abtastfrequenz bleibt gleich."
+            },
+            topic="Signalverarbeitung - Rekonstruktion"
+        ),
+
+        Question(
+            prompt="Ein Signal wird mit Zero-Padding vor der FFT verlängert. Was ist der Effekt?",
+            options={
+                "A": "Höhere zeitliche Auflösung",
+                "B": "Höhere Amplitude",
+                "C": "Feineres Frequenzraster",
+                "D": "Weniger Rauschen"
+            },
+            correct={"C"},
+            explain_correct="Zero-Padding erhöht die Anzahl der FFT-Punkte → feineres Frequenzraster.",
+            explain_wrong={
+                "A": "Die Zeitauflösung bleibt gleich.",
+                "B": "Amplitude wird nicht verändert.",
+                "D": "Rauschen wird nicht reduziert."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Ein digitales Signal wird mit einem Notch-Filter verarbeitet. Was wird hauptsächlich entfernt?",
+            options={
+                "A": "Tiefe Frequenzen",
+                "B": "Hohe Frequenzen",
+                "C": "Ein schmaler Frequenzbereich",
+                "D": "Alle Frequenzen"
+            },
+            correct={"C"},
+            explain_correct="Ein Notch-Filter unterdrückt gezielt einen schmalen Frequenzbereich.",
+            explain_wrong={
+                "A": "Das wäre ein Hochpass.",
+                "B": "Das wäre ein Tiefpass.",
+                "D": "Das wäre ein Sperrfilter für alle Frequenzen."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Ein Signal hat einen Dynamikbereich von 96 dB. Wie viele Bit Auflösung hat es ungefähr?",
+            options={
+                "A": "8 Bit",
+                "B": "12 Bit",
+                "C": "14 Bit",
+                "D": "16 Bit"
+            },
+            correct={"D"},
+            explain_correct="Pro Bit ca. 6 dB → 96 dB / 6 dB ≈ 16 Bit.",
+            explain_wrong={
+                "A": "8 Bit entsprechen ca. 48 dB.",
+                "B": "12 Bit entsprechen ca. 72 dB.",
+                "C": "14 Bit entsprechen ca. 84 dB."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        # ============================================================
+        # NEUE FRAGEN AUS DSV-FINAL.PDF
+        # ============================================================
+        Question(
+            prompt="Wie viele Transistoren besitzt ein moderner Apple M4 Chip ungefähr?",
+            options={
+                "A": "28 Millionen",
+                "B": "2,8 Milliarden",
+                "C": "28 Milliarden",
+                "D": "280 Milliarden"
+            },
+            correct={"C"},
+            explain_correct="Laut den Folien besitzt der Apple Silicon M4 Chip etwa 28 Milliarden Transistoren.",
+            explain_wrong={
+                "A": "Das wäre für moderne Hochleistungschips deutlich zu wenig.",
+                "B": "Dies ist ein Faktor 10 zu niedrig angesetzt.",
+                "D": "Dies würde die aktuelle Packungsdichte massiv überschreiten."
+            },
+            topic="Signalverarbeitung - Hardware"
+        ),
+
+        Question(
+            prompt="Was passiert laut Fouriersynthese, wenn man Sinusschwingungen unterschiedlicher Frequenz, Amplitude und Phase addiert?",
+            options={
+                "A": "Es entsteht immer ein Rauschsignal.",
+                "B": "Man kann jedes beliebige Signal daraus zusammensetzen.",
+                "C": "Das Signal wird automatisch digitalisiert.",
+                "D": "Die Frequenz verringert sich stetig."
+            },
+            correct={"B"},
+            explain_correct="Das Prinzip der Fouriersynthese besagt, dass jedes Signal aus einer Kombination von Sinusschwingungen besteht.",
+            explain_wrong={
+                "A": "Rauschen ist ein spezieller Fall, aber nicht das allgemeine Ziel der Synthese.",
+                "C": "Die Synthese beschreibt den Aufbau im Zeitbereich, nicht die Wandlung in Bits.",
+                "D": "Die Frequenzen bleiben erhalten und summieren sich zum Gesamtsignal."
+            },
+            topic="Signalverarbeitung - Fourier"
+        ),
+
+        Question(
+            prompt="Welcher Frequenzbereich ist für das menschliche Ohr wahrnehmbar?",
+            options={
+                "A": "20 Hz bis 20 kHz",
+                "B": "430 THz bis 770 THz",
+                "C": "1 Hz bis 100 kHz",
+                "D": "20 kHz bis 20 MHz"
+            },
+            correct={"A"},
+            explain_correct="Das menschliche Gehör nimmt Schallwellen im Bereich von ca. 20 Hz bis 20.000 Hz wahr.",
+            explain_wrong={
+                "B": "Dies entspricht dem sichtbaren Lichtspektrum (THz-Bereich).",
+                "C": "Dieser Bereich ist zu weit gefasst; Infraschall und Ultraschall werden nicht gehört.",
+                "D": "Dies liegt fast vollständig im Ultraschallbereich."
+            },
+            topic="Signalverarbeitung - Akustik"
+        ),
+
+        Question(
+            prompt="Wie wird die Umwandlung einer akustischen Schwingung in eine elektromagnetische Schwingung bei einem Kondensatormikrofon realisiert?",
+            options={
+                "A": "Durch Induktion in einer bewegten Spule",
+                "B": "Durch Veränderung einer elektrischen Kapazität",
+                "C": "Durch den piezoelektrischen Effekt",
+                "D": "Durch direkte Digitalisierung der Luftdruckschwankung"
+            },
+            correct={"B"},
+            explain_correct="Ein Kondensatormikrofon nutzt die Kapazitätsänderung zwischen einer Membran und einer Gegenelektrode.",
+            explain_wrong={
+                "A": "Das beschreibt das Tauchspulprinzip (dynamisches Mikrofon).",
+                "C": "Piezo-Mikrofone nutzen Kristalle, keine Kondensatorplatten.",
+                "D": "Ein Mikrofon ist ein analoger Wandler; die Digitalisierung erfolgt später im AD-Wandler."
+            },
+            topic="Signalverarbeitung - Sensoren"
+        ),
+
+        Question(
+            prompt="Ein 8-Bit-Wandler deckt einen Messbereich von -5 V bis +5 V ab. Wie groß ist die Auflösung (Intervall) ΔU?",
+            options={
+                "A": "~1,25 V",
+                "B": "~39,2 mV",
+                "C": "~10 mV",
+                "D": "~156 mV"
+            },
+            correct={"B"},
+            explain_correct="ΔU = Messbereich / 255 (bei 8 Bit) -> 10 V / 255 ≈ 0,0392 V.",
+            explain_wrong={
+                "A": "Das wäre eine extrem grobe Auflösung (nur 3 Bit).",
+                "C": "Dieser Wert ist zu niedrig für einen 8-Bit-Wandler bei 10 V Range.",
+                "D": "Dies entspräche ca. 6 Bit Auflösung."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Welcher Filtertyp wird im Rekonstruktionsprozess verwendet, um ein gestuftes Signal wieder in ein kontinuierliches Signal zu wandeln?",
+            options={
+                "A": "Hochpassfilter",
+                "B": "Bandsperre",
+                "C": "Tiefpassfilter",
+                "D": "Notch-Filter"
+            },
+            correct={"C"},
+            explain_correct="Ein Tiefpassfilter entfernt die unerwünschten hohen Frequenzen, die durch die Treppenstufen der Samples entstehen.",
+            explain_wrong={
+                "A": "Ein Hochpass würde die Signalstufen verstärken und das Nutzsignal dämpfen.",
+                "B": "Eine Bandsperre würde nur einen Teilbereich entfernen, aber nicht die Obertöne glätten.",
+                "D": "Ein Notch-Filter ist zu schmalbandig für die Glättung eines Gesamtsignals."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Was ist ein entscheidender Vorteil digitaler Signale gegenüber analogen bei der Übertragung?",
+            options={
+                "A": "Sie benötigen grundsätzlich weniger Bandbreite.",
+                "B": "Sie können innerhalb eines Toleranzbereichs fehlerfrei rekonstruiert werden.",
+                "C": "Sie übertragen Informationen mit Lichtgeschwindigkeit, analoge nicht.",
+                "D": "Sie sind vollkommen immun gegen jegliches Rauschen."
+            },
+            correct={"B"},
+            explain_correct="Da 0 und 1 Spannungsbereichen zugeordnet sind, kann Rauschen bis zu einem Schwellwert kompensiert werden.",
+            explain_wrong={
+                "A": "Digitale Signale benötigen oft sogar mehr Bandbreite als die reine analoge Basisband-Information.",
+                "C": "Die Ausbreitungsgeschwindigkeit hängt vom Medium ab, nicht von der Signalart.",
+                "D": "Ab einem gewissen Schwellwert führt auch bei digitalen Signalen Rauschen zu Fehlern (Bitfehlerrate)."
+            },
+            topic="Signalverarbeitung - Digitalisierung"
+        ),
+
+        Question(
+            prompt="Welche Übertragungsrate wird benötigt, um ein unkomprimiertes Stereo-Audiosignal (48 kHz, 16 Bit) zu übertragen?",
+            options={
+                "A": "768 kbit/s",
+                "B": "1,536 Mbit/s",
+                "C": "48 kbit/s",
+                "D": "96 kbit/s"
+            },
+            correct={"B"},
+            explain_correct="Rechnung: 48.000 Hz * 16 Bit * 2 Kanäle = 1.536.000 Bit/s.",
+            explain_wrong={
+                "A": "Dies wäre nur ein Mono-Signal.",
+                "C": "Dies entspricht nur der Abtastrate ohne Berücksichtigung der Bittiefe.",
+                "D": "Dies vernachlässigt die 16 Bit Auflösung pro Sample."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
+
+        Question(
+            prompt="Welche Modulationsart wird bei Powerline Communication (PLC) verwendet, um Daten über Stromleitungen zu übertragen?",
+            options={
+                "A": "Amplitudenmodulation (AM)",
+                "B": "Frequenzmodulation (FM)",
+                "C": "Orthogonales Frequenzmultiplexing (OFDM)",
+                "D": "Pulsweitenmodulation (PWM)"
+            },
+            correct={"C"},
+            explain_correct="PLC nutzt OFDM, um Daten auf hohen Trägerfrequenzen über die 50 Hz Netzspannung zu legen.",
+            explain_wrong={
+                "A": "AM ist zu störanfällig für die verrauschte Umgebung einer Stromleitung.",
+                "B": "FM wird primär im Radio-Rundfunk eingesetzt.",
+                "D": "PWM dient eher der Leistungssteuerung (z.B. Dimmen), nicht der Datenfernübertragung."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
+
+        Question(
+            prompt="Wie groß ist die Periodendauer T einer Netzspannung mit einer Frequenz von 50 Hz?",
+            options={
+                "A": "50 ms",
+                "B": "20 ms",
+                "C": "10 ms",
+                "D": "2 ms"
+            },
+            correct={"B"},
+            explain_correct="T = 1 / f -> 1 / 50 Hz = 0,02 s = 20 ms.",
+            explain_wrong={
+                "A": "Das entspräche einer Frequenz von 20 Hz.",
+                "C": "Das wäre die Zeit für eine Halbwelle bei 50 Hz.",
+                "D": "Das entspräche einer Frequenz von 500 Hz."
+            },
+            topic="Signalverarbeitung - Grundlagen"
+        ),
+
+        # ============================================================
+        # SPEZIELLE PRÜFUNGSFRAGEN (HARDWARE, VIDEO & SCHNITTSTELLEN)
+        # ============================================================
+        Question(
+            prompt="Welches Bauteil in einem Computer ist primär für die Verarbeitung von Gleitkommazahlen bei der Signalberechnung zuständig?",
+            options={
+                "A": "Der RAM (Arbeitsspeicher)",
+                "B": "Die FPU (Floating Point Unit)",
+                "C": "Der BIOS-Chip",
+                "D": "Der Festplatten-Controller"
+            },
+            correct={"B"},
+            explain_correct="Die FPU ist eine spezialisierte Einheit innerhalb der CPU (oder GPU), die komplexe mathematische Operationen mit Gleitkommazahlen durchführt, was für die digitale Signalverarbeitung essenziell ist.",
+            explain_wrong={
+                "A": "Der RAM speichert Daten nur zwischen, berechnet sie aber nicht.",
+                "C": "Das BIOS ist für den Systemstart zuständig.",
+                "D": "Dieser steuert nur den Datenfluss zum Massenspeicher."
+            },
+            topic="Signalverarbeitung - Hardware"
+        ),
+
+        Question(
+            prompt="Was ist das Hauptmerkmal eines 'DSP' (Digital Signal Processor)?",
+            options={
+                "A": "Er kann besonders große Mengen an Text verarbeiten.",
+                "B": "Er ist für die Echtzeitverarbeitung von kontinuierlichen Datenströmen optimiert.",
+                "C": "Er benötigt keine Stromversorgung während des Betriebs.",
+                "D": "Er ersetzt den AD-Wandler vollständig."
+            },
+            correct={"B"},
+            explain_correct="Ein DSP ist ein spezialisierter Mikroprozessor, dessen Architektur auf die extrem schnelle, echtzeitfähige Verarbeitung von Signalen ausgelegt ist.",
+            explain_wrong={
+                "A": "DSPs sind auf mathematische Operationen (Multiply-Accumulate), nicht auf Text spezialisiert.",
+                "C": "Jeder Prozessor benötigt elektrische Energie.",
+                "D": "Ein DSP verarbeitet digitale Daten; der AD-Wandler wird immer noch für den Eingang benötigt."
+            },
+            topic="Signalverarbeitung - Hardware"
+        ),
+
+        Question(
+            prompt="Warum wird bei der Übertragung über Glasfaserkabel Licht statt Strom verwendet?",
+            options={
+                "A": "Weil Licht weniger wiegt als Elektronen.",
+                "B": "Wegen der wesentlich höheren Bandbreite und Unempfindlichkeit gegenüber elektromagnetischen Störungen.",
+                "C": "Weil Lichtkabel keine Isolierung benötigen.",
+                "D": "Damit man das Signal im Kabel leuchten sehen kann."
+            },
+            correct={"B"},
+            explain_correct="Licht ermöglicht extrem hohe Datenraten (Tbit-Bereich) und ist im Gegensatz zu Kupferkabeln immun gegen Funkstörungen oder Blitzschlag.",
+            explain_wrong={
+                "A": "Das Gewicht ist kein technischer Grund für die Signalqualität.",
+                "C": "Auch Glasfasern haben Schutzhüllen.",
+                "D": "Dies ist ein rein optischer Nebeneffekt, kein technischer Vorteil."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
+
+        Question(
+            prompt="Was beschreibt der Begriff 'Full-HD' im Kontext der Videoverarbeitung?",
+            options={
+                "A": "Eine Bildwiederholrate von 120 Hz.",
+                "B": "Eine Auflösung von 1920 x 1080 Pixeln.",
+                "C": "Dass das Video immer unkomprimiert ist.",
+                "D": "Eine Farbtiefe von genau 8 Bit."
+            },
+            correct={"B"},
+            explain_correct="Full-HD ist ein Standard für die Bildauflösung und entspricht 1920 Bildpunkten in der Breite und 1080 in der Höhe.",
+            explain_wrong={
+                "A": "Dies ist die Bildwiederholrate, nicht die Auflösung.",
+                "C": "Full-HD Videos können sehr stark komprimiert sein (z.B. H.264).",
+                "D": "Full-HD definiert die Pixelanzahl, nicht die Farbtiefe (diese kann variieren)."
+            },
+            topic="Signalverarbeitung - Video"
+        ),
+
+        Question(
+            prompt="In welcher Form liegen die Daten bei einer 'Flash-Speicher'-Zelle (SSD) vor?",
+            options={
+                "A": "Als magnetische Ausrichtung auf einer Scheibe.",
+                "B": "Als elektrische Ladung in einem Floating-Gate-Transistor.",
+                "C": "Als mechanische Vertiefungen (Pits).",
+                "D": "Als chemische Verbindung."
+            },
+            correct={"B"},
+            explain_correct="Flash-Speicher speichern Informationen durch das Festhalten von Elektronen in einem isolierten Bereich (Floating Gate).",
+            explain_wrong={
+                "A": "Das beschreibt eine klassische HDD-Festplatte.",
+                "C": "Das ist das Prinzip von optischen Medien wie CDs/DVDs.",
+                "D": "Chemische Speicher werden aktuell nicht in Computern eingesetzt."
+            },
+            topic="Signalverarbeitung - Hardware"
+        ),
+
+        Question(
+            prompt="Welche Aufgabe hat das 'Betriebssystem' bei der Digitalen Signalverarbeitung?",
+            options={
+                "A": "Es wandelt Schallwellen in digitale Daten um.",
+                "B": "Es verwaltet die Hardwareressourcen und stellt Schnittstellen (Treiber) für die DSP-Software bereit.",
+                "C": "Es verbessert die physikalische Auflösung des AD-Wandlers.",
+                "D": "Es ist für die Stromversorgung der CPU verantwortlich."
+            },
+            correct={"B"},
+            explain_correct="Das Betriebssystem fungiert als Vermittler zwischen der Hardware (Soundkarte, CPU) und der Anwendungssoftware.",
+            explain_wrong={
+                "A": "Das macht die Hardware (Mikrofon + AD-Wandler).",
+                "C": "Die Auflösung ist hardwarebedingt und kann softwareseitig nicht physikalisch erhöht werden.",
+                "D": "Das macht das Netzteil."
+            },
+            topic="Signalverarbeitung - Grundlagen"
+        ),
+
+        Question(
+            prompt="Was passiert beim 'Quantisierungsfehler'?",
+            options={
+                "A": "Die Abtastrate ist zu niedrig.",
+                "B": "Es entsteht eine Rundungsdifferenz zwischen dem analogen Originalwert und dem nächsten digitalen Wert.",
+                "C": "Das Signal wird zu laut ausgesteuert.",
+                "D": "Die Daten werden beim Speichern gelöscht."
+            },
+            correct={"B"},
+            explain_correct="Da ein digitaler Wandler nur feste Stufen hat, muss er den analogen Wert runden. Diese Differenz wird als Rauschen (Quantisierungsrauschen) hörbar.",
+            explain_wrong={
+                "A": "Das würde zu Aliasing führen, nicht zum Quantisierungsfehler.",
+                "C": "Zu hohe Aussteuerung führt zu Clipping.",
+                "D": "Ein Quantisierungsfehler ist ein Präzisionsverlust, kein Datenverlust."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Wozu dient die 'Paritätsprüfung' bei der digitalen Datenübertragung?",
+            options={
+                "A": "Um die Übertragungsgeschwindigkeit zu verdoppeln.",
+                "B": "Um Übertragungsfehler (Bit-Kipper) zu erkennen.",
+                "C": "Um die Lautstärke des Signals zu erhöhen.",
+                "D": "Um analoge Signale in digitale zu wandeln."
+            },
+            correct={"B"},
+            explain_correct="Ein Paritätsbit wird angehängt, um zu prüfen, ob die Anzahl der gesetzten Bits (1en) korrekt übertragen wurde, was einfache Fehler aufdeckt.",
+            explain_wrong={
+                "A": "Zusatzbits verringern die effektive Nutzdatenrate eher geringfügig.",
+                "C": "Sie hat keinen Einfluss auf die Amplitude des Signals.",
+                "D": "Dies ist ein rein digitaler Prozess zur Sicherung der Datenintegrität."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
+
+        Question(
+            prompt="Welche Rolle spielt die 'Phantomspeisung' (48V) in der Studiotechnik?",
+            options={
+                "A": "Sie dient zum Betrieb von Kondensatormikrofonen über das XLR-Kabel.",
+                "B": "Sie wird benötigt, um digitale Signale zu verstärken.",
+                "C": "Sie schützt das Mischpult vor Kurzschlüssen.",
+                "D": "Sie ist eine spezielle Art der digitalen Kompression."
+            },
+            correct={"A"},
+            explain_correct="Kondensatormikrofone benötigen eine elektrische Spannung für die Kapselvorspannung und den internen Vorverstärker, die oft vom Mischpult geliefert wird.",
+            explain_wrong={
+                "B": "Phantomspeisung ist für analoge Mikrofone gedacht.",
+                "C": "Sie dient der Energieversorgung, nicht dem Schutz.",
+                "D": "Es handelt sich um eine Gleichspannung, nicht um einen Algorithmus."
+            },
+            topic="Signalverarbeitung - Hardware"
+        ),
+
+        Question(
+            prompt="Was versteht man unter 'Latenz' in einem digitalen Audiosystem?",
+            options={
+                "A": "Die maximale Lautstärke ohne Verzerrung.",
+                "B": "Die zeitliche Verzögerung zwischen dem Eingang eines Signals und seinem Ausgang nach der Verarbeitung.",
+                "C": "Die Anzahl der verfügbaren Audiokanäle.",
+                "D": "Die Qualität der AD-Wandlung."
+            },
+            correct={"B"},
+            explain_correct="Latenz entsteht durch die Zeit, die der Computer für die Berechnung und Pufferung der Audiodaten benötigt.",
+            explain_wrong={
+                "A": "Das wäre der Headroom bzw. die Dynamik.",
+                "C": "Dies wäre die Kanalanzahl.",
+                "D": "Die Qualität wird eher durch SNR und Bittiefe bestimmt."
+            },
+            topic="Signalverarbeitung - Grundlagen"
+        ),
+
+        Question(
+            prompt="Welches Bauteil ist bei einem dynamischen Mikrofon (Tauchspulprinzip) direkt für die Induktion der Spannung verantwortlich?",
+            options={
+                "A": "Eine bewegliche Membran mit einer Kupferspule im Magnetfeld",
+                "B": "Zwei Kondensatorplatten mit Hochspannung",
+                "C": "Ein Laser-Abtastsystem",
+                "D": "Ein Piezo-Kristall"
+            },
+            correct={"A"},
+            explain_correct="Durch die Schalleinwirkung bewegt sich die Spule im Magnetfeld und induziert so eine elektrische Spannung.",
+            explain_wrong={
+                "B": "Das beschreibt das Kondensatormikrofon.",
+                "C": "Laser-Mikrofone existieren, sind aber keine Standard-Tauchspulmikrofone.",
+                "D": "Piezo-Wandler arbeiten über Druck auf Kristalle."
+            },
+            topic="Signalverarbeitung - Sensoren"
+        ),
+
+        Question(
+            prompt="Was gibt die 'Abtasttiefe' (z.B. 24 Bit) bei einem digitalen Audiosignal an?",
+            options={
+                "A": "Wie viele Proben pro Sekunde genommen werden.",
+                "B": "Die Feinheit der vertikalen Einteilung der Amplitude (Dynamik).",
+                "C": "Die maximale Frequenz, die aufgezeichnet werden kann.",
+                "D": "Die Länge des Kabels."
+            },
+            correct={"B"},
+            explain_correct="Die Bit-Tiefe bestimmt, wie viele verschiedene Lautstärkestufen pro Sample unterschieden werden können.",
+            explain_wrong={
+                "A": "Das ist die Abtastrate (Sampling Rate).",
+                "C": "Die maximale Frequenz wird durch die Abtastrate (Nyquist) bestimmt.",
+                "D": "Dies hat keinen technischen Zusammenhang mit dem digitalen Format."
+            },
+            topic="Signalverarbeitung - Quantisierung"
+        ),
+
+        Question(
+            prompt="Warum nutzt man 'OFDM' (Orthogonal Frequency Division Multiplexing) bei WLAN oder PLC?",
+            options={
+                "A": "Um die Lautstärke zu erhöhen.",
+                "B": "Um Daten gleichzeitig auf vielen kleinen Unterträger-Frequenzen zu übertragen.",
+                "C": "Um das Signal komplett analog zu lassen.",
+                "D": "Um Batteriestrom zu sparen."
+            },
+            correct={"B"},
+            explain_correct="OFDM teilt den Datenstrom auf viele Frequenzen auf, was die Übertragung robuster gegen Störungen macht.",
+            explain_wrong={
+                "A": "Modulation hat nichts mit der akustischen Lautstärke zu tun.",
+                "C": "OFDM ist ein digitales Modulationsverfahren.",
+                "D": "OFDM-Prozessoren sind eher rechenintensiv."
+            },
+            topic="Signalverarbeitung - Übertragung"
+        ),
+
+        Question(
+            prompt="Wozu dient ein 'Anti-Aliasing-Filter' VOR dem AD-Wandler?",
+            options={
+                "A": "Um das Rauschen des Wandlers zu unterdrücken.",
+                "B": "Um sicherzustellen, dass keine Frequenzen oberhalb der halben Abtastrate in den Wandler gelangen.",
+                "C": "Um das Signal digital zu verstärken.",
+                "D": "Um die Bittiefe zu erhöhen."
+            },
+            correct={"B"},
+            explain_correct="Ein Anti-Aliasing-Filter ist ein Tiefpass, der das Signal bandbegrenzt, um Alias-Fehler (Spiegelungen) zu verhindern.",
+            explain_wrong={
+                "A": "Er filtert das Eingangssignal, nicht das Eigenrauschen des Chips.",
+                "C": "Filter sind passive oder aktive Bauteile zur Frequenzformung, keine reinen Verstärker.",
+                "D": "Die Bittiefe wird durch die Hardware des Wandlers bestimmt."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+
     ]
     return _rebalance_single_choice_correct_letters(questions)
