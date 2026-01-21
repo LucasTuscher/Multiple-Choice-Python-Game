@@ -8,7 +8,7 @@ Multiple-Choice-Quiz zum Lernen von Signalverarbeitung und Computergrafik.
 
 ```bash
 # Virtual Environment aktivieren
-cd "/Users/lucastuscher/Desktop/Lern Code Spiele"
+cd "/Users/<UsersName>/Desktop/Lern Code Spiele"
 source .venv/bin/activate
 
 # CustomTkinter installieren (falls noch nicht geschehen)
