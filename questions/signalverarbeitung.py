@@ -2861,6 +2861,59 @@ def get_questions() -> List[Question]:
                 "C": "Ein zeitbegrenztes Signal ist im Allgemeinen nicht bandbegrenzt."
             },
             topic="Signalverarbeitung - Fourier-Analyse"
+        ),
+
+        Question(
+            prompt="Welche Zuordnung der Farben zu den Audioanschlüssen ist korrekt?",
+            options={
+                "A": "Grün = Line Out, Blau = Line In, Rot = Mic In",
+                "B": "Grün = Mic In, Blau = Line Out, Rot = Line In",
+                "C": "Grün = Line In, Blau = Mic In, Rot = Line Out",
+                "D": "Grün = Line Out, Blau = Mic In, Rot = Line In"
+            },
+            correct={"A"},
+            explain_correct="Standardmäßig gilt: Grün = Line Out (Lautsprecher/Kopfhörer), "
+                            "Blau = Line In (externe Audioquellen), "
+                            "Rot = Mic In (Mikrofon).",
+            explain_wrong={
+                "B": "Mic In ist rot, nicht grün.",
+                "C": "Line In ist blau, nicht grün.",
+                "D": "Mic In ist rot, nicht blau."
+            },
+            topic="Signalverarbeitung - Audioanschlüsse"
+        ),
+
+        Question(
+            prompt="Welche Aussagen zu Line In, Line Out und Mic In sind korrekt?",
+            options={
+                "A": "Line Out liefert ein Ausgangssignal für Lautsprecher oder Kopfhörer",
+                "B": "Mic In ist für hochpegelige Line-Signale gedacht",
+                "C": "Line In ist für externe Audioquellen mit Line-Pegel vorgesehen",
+                "D": "Mic In erwartet ein schwaches Mikrofonsignal"
+            },
+            correct={"A", "C", "D"},
+            explain_correct="Line Out gibt Audiosignale aus, Line In nimmt Line-Pegel-Signale auf, "
+                            "Mic In ist für schwache Mikrofonsignale ausgelegt.",
+            explain_wrong={
+                "B": "Mic In ist nicht für hochpegelige Line-Signale gedacht, sondern für sehr schwache Mikrofonsignale."
+            },
+            topic="Signalverarbeitung - Audioanschlüsse"
+        ),
+
+        Question(
+            prompt="Welche Kombinationen aus Anschlussfarbe und Funktion sind korrekt?",
+            options={
+                "A": "Blau = Line In",
+                "B": "Rot = Line Out",
+                "C": "Grün = Line Out",
+                "D": "Rot = Mic In"
+            },
+            correct={"A", "C", "D"},
+            explain_correct="Blau steht für Line In, Grün für Line Out und Rot für Mic In.",
+            explain_wrong={
+                "B": "Rot ist Mic In, nicht Line Out."
+            },
+            topic="Signalverarbeitung - Audioanschlüsse"
         )
 
     ]
