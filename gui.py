@@ -38,6 +38,7 @@ class QuizGUI(ctk.CTk):
         self.minsize(850, 650)
 
         # Farben
+        """
         self.colors = {
             'bg': '#1a1a2e',
             'card': '#252542',
@@ -49,6 +50,21 @@ class QuizGUI(ctk.CTk):
             'warning': '#f59e0b',
             'text': '#f8fafc',
             'text_muted': '#94a3b8',
+        }
+        """
+
+        # Blaues Farbschema
+        self.colors = {
+            'bg': '#0f172a',  # dunkles Blau als Hintergrund
+            'card': '#1e293b',  # etwas helleres Blau für Karten
+            'card_hover': '#334155',  # Hover-Effekt auf Karten
+            'accent': '#3b82f6',  # Hauptakzent (helles Blau)
+            'accent_hover': '#60a5fa',  # Hover-Akzent
+            'success': '#22c55e',  # Erfolg bleibt grün für Klarheit
+            'error': '#ef4444',  # Fehler bleibt rot
+            'warning': '#f59e0b',  # Warnung bleibt orange
+            'text': '#e0f2fe',  # sehr helles Blau/Weiß für Text
+            'text_muted': '#94a3b8',  # gedecktes Grau-Blau für sekundären Text
         }
 
         # Hintergrundfarbe
