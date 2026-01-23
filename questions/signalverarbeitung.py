@@ -303,7 +303,7 @@ def get_questions() -> List[Question]:
             prompt="Welchen technischen Zusatz verwendet man, um Aliasing zu vermeiden?",
             options={
                 "A": "Anti-Aliasing-Filter",
-                "B": "Verstaerker",
+                "B": "Verstärker",
                 "C": "Kompressor",
                 "D": "Equalizer"
             },
@@ -557,6 +557,24 @@ def get_questions() -> List[Question]:
                 "D": "Phasenaenderung ist ein anderer Effekt."
             },
             topic="Signalverarbeitung - Kenngroessen"
+        ),
+
+        Question(
+            prompt="Welche der folgenden Steckertypen werden üblicherweise für asymmetrische Signalübertragung verwendet?",
+            options={
+                "A": "3.5mm Miniklinke (TRS)",
+                "B": "XLR 4-polig",
+                "C": "RCA (Cinch)",
+                "D": "AES/EBU"
+            },
+            correct={"A", "C"},
+            explain_correct="3.5mm Miniklinke und RCA/Cinch sind typische asymmetrische Steckverbinder. "
+                            "XLR 4-polig und AES/EBU gehören zur symmetrischen bzw. digitalen Übertragung.",
+            explain_wrong={
+                "B": "XLR-Stecker werden für symmetrische Signale verwendet.",
+                "D": "AES/EBU ist ein digitales Übertragungsprotokoll, kein asymmetrischer Steckverbinder."
+            },
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
@@ -859,6 +877,24 @@ def get_questions() -> List[Question]:
                 "D": "Division hat keine direkte Entsprechung."
             },
             topic="Signalverarbeitung - LTI"
+        ),
+
+        Question(
+            prompt="Welche Steckverbindungen sind für unsymmetrische Audiosignale geeignet?",
+            options={
+                "A": "6.3mm Klinke (TS, mono)",
+                "B": "XLR",
+                "C": "Cinch (RCA)",
+                "D": "RJ45"
+            },
+            correct={"A", "C"},
+            explain_correct="6.3mm Mono-Klinke (TS) und Cinch (RCA) sind typische unsymmetrische Steckverbindungen. "
+                            "XLR ist symmetrisch, RJ45 wird für Netzwerke verwendet.",
+            explain_wrong={
+                "B": "XLR ist für symmetrische Signalübertragung vorgesehen.",
+                "D": "RJ45 ist ein Netzwerkstecker und nicht für analoge Audiosignale gedacht."
+            },
+            topic="Signalverarbeitung - Übertragung"
         ),
 
         Question(
@@ -2307,6 +2343,525 @@ def get_questions() -> List[Question]:
             },
             topic="Signalverarbeitung - Übertragung"
         ),
+
+        Question(
+            prompt="Was passiert mit der Wellenform eines Audiosignals, wenn man die Amplitude erhöht??",
+            options={
+                "A": "Die Wellenberge & Wellentäler werden höher bzw. tiefer.",
+                "B": "Die Wellen werden enger zusammengeschoben.",
+                "C": "Die Welle wird zeitlich nach rechts verschoben.",
+                "D": "Die Welle verändert ihre Grundform (z. B. von Sinus zu Zickzack)"
+            },
+            correct={"A"},
+            explain_correct="Die Amplitude bestimmt den maximalen Ausschlag (die Höhe) des Signals, was wir als Lautstärke wahrnehmen.",
+            explain_wrong={
+                "B": "Das würde die Frequenz ändern.",
+                "C": "Das wäre eine Phasenverschiebung.",
+                "D": "Das würde den Klangcharakter (Obertöne) ändern."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Wenn ein Ton für das menschliche Ohr immer 'höher' klingt, welche Eigenschaft des Signals hat sich dann verändert?",
+            options={
+                "A": "Die Phase hat sich gedreht.",
+                "B": "Die Amplitude ist gestiegen.",
+                "C": "Die Frequenz hat sich erhöht.",
+                "D": "Die Periodendauer ist länger geworden."
+            },
+            correct={"C"},
+            explain_correct="Die Frequenz (Schwingungen pro Sekunde) korreliert direkt mit der wahrgenommenen Tonhöhe.",
+            explain_wrong={
+                "A": "Die Phase hat keinen Einfluss auf die Tonhöhe.",
+                "B": "Das würde den Ton nur lauter machen",
+                "D": "Eine längere Periode würde den Ton tiefer machen, nicht höher."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Wie verhält sich die Periodendauer eines Signals im Vergleich zur Frequenz?",
+            options={
+                "A": "Beide Werte steigen immer gleichzeitig an.",
+                "B": "Die Periodendauer ist unabhängig von der Frequenz.",
+                "C": "Je höher die Frequenz, desto kürzer die Periodendauer.",
+                "D": "Die Periodendauer misst nur die Lautstärke."
+            },
+            correct={"C"},
+            explain_correct="Die Periodendauer ist die Zeit für einen Zyklus; schwingt das Signal schneller (höhere Frequenz), braucht ein Zyklus weniger Zeit.",
+            explain_wrong={
+                "A": "Sie verhalten sich umgekehrt proportional (Gegenteil).",
+                "B": "Sie sind mathematisch fest aneinander gekoppelt.",
+                "D": "Die Lautstärke wird durch die Amplitude gemessen."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Was beschreibt die Phase eines Signals?",
+            options={
+                "A": "Die Gesamtdauer des Signals.",
+                "B": "Die Tonhöhe des Signals.",
+                "C": "Den zeitlichen Versatz oder Fortschritt innerhalb eines Schwingungszyklus.",
+                "D": "Die maximale Spannung des Signals."
+            },
+            correct={"C"},
+            explain_correct="Die Phase gibt an, an welchem Punkt (Winkel) sich die Schwingung zu einem bestimmten Zeitpunkt befindet.",
+            explain_wrong={
+                "A": "Die Dauer ist eine absolute Zeitangabe, keine zyklische Position.",
+                "B": "Die Tonhöhe ist die Frequenz.",
+                "D": "Die maximale Spannung ist die Amplitude."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Wie lautet die korrekte Definition der Amplitude in der Signalverarbeitung?",
+            options={
+                "A": "Der zeitliche Abstand zwischen zwei Schwingungszyklen.",
+                "B": "Der maximale Ausschlag einer Schwingung aus der Ruhelage.",
+                "C": "Die Anzahl der Schwingungen innerhalb einer Sekunde.",
+                "D": "Der Versatz des Startpunkts einer Sinuswelle."
+            },
+            correct={"B"},
+            explain_correct="Die Amplitude definiert die maximale Auslenkung (die 'Höhe') eines Signals vom Nullpunkt aus.",
+            explain_wrong={
+                "A": "Dies beschreibt die Periodendauer.",
+                "C": "Dies ist die Definition der Frequenz.",
+                "D": "Dies beschreibt die Phase des Signals."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Was versteht man unter der Periodendauer eines periodischen Signals?",
+            options={
+                "A": "Die maximale Spannung, die ein Signal erreichen kann.",
+                "B": "Das Verhältnis zwischen positiver und negativer Halbwelle.",
+                "C": "Das Zeitintervall, nach dem sich ein Schwingungsvorgang wiederholt.",
+                "D": "Die Verschiebung der Welle auf der Zeitachse."
+            },
+            correct={"C"},
+            explain_correct="Die Periodendauer T ist die Zeitspanne, die für genau einen vollständigen Schwingungszyklus benötigt wird.",
+            explain_wrong={
+                "A": "Das ist die Definition der Amplitude (Peak-Wert).",
+                "B": "Dies beschreibt das Tastverhältnis (Duty Cycle).",
+                "D": "Die Verschiebung wird durch die Phase angegeben."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Was definiert die Phase (bzw. den Phasenwinkel) eines Signals?",
+            options={
+                "A": "Die Reinheit eines Sinustons ohne Obertöne.",
+                "B": "Die Abnahme der Signalstärke über eine bestimmte Zeit.",
+                "C": "Die Anzahl der Nulldurchgänge innerhalb einer Periode.",
+                "D": "Den aktuellen Status oder Fortschritt der Schwingung relativ zu einem Referenzpunkt."
+            },
+            correct={"D"},
+            explain_correct="Die Phase beschreibt die Position innerhalb des Zyklus (ausgedrückt in Grad oder Radiant) zu einem festen Zeitpunkt.",
+            explain_wrong={
+                "A": "Die Reinheit hat nichts mit der zeitlichen Lage (Phase) zu tun.",
+                "B": "Das wäre die Dämpfung des Signals.",
+                "C": "Die Anzahl der Nulldurchgänge ist ein Merkmal der Wellenform, definiert aber nicht die Phase."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Was definiert eine asymmetrische Signalübertragung (unbalanced)?",
+            options={
+                "A": "Das Signal wird über zwei gleichwertige Leiter übertragen.",
+                "B": "Das Signal wird über einen Leiter und eine gemeinsame Masse (Ground) übertragen.",
+                "C": "Das Signal wird digital verschlüsselt übertragen.",
+                "D": "Es werden zwei identische Signale zeitversetzt gesendet."
+            },
+            correct={"B"},
+            explain_correct="Asymmetrische Kabel (wie Klinke oder Cinch) nutzen einen Innenleiter für das Signal und den Schirm als Masse/Rückleitung.",
+            explain_wrong={
+                "A": "Das beschreibt die symmetrische Übertragung.",
+                "C": "Ob ein Signal analog oder digital ist, hat nichts mit der Symmetrie zu tun.",
+                "D": "Zeitversatz beschreibt die Phase, nicht die Leitungsart."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Warum sind symmetrische Kabel weniger anfällig für Einstreuungen (Brummen)?",
+            options={
+                "A": "Weil das Kabel dicker isoliert ist.",
+                "B": "Weil Störungen auf beiden Leitern gleich entstehen und sich am Ziel gegenseitig auslöschen.",
+                "C": "Weil der Strom in symmetrischen Kabeln schneller fließt.",
+                "D": "Weil symmetrische Kabel nur für kurze Strecken unter 1 Meter gebaut werden."
+            },
+            correct={"B"},
+            explain_correct="Durch die Differenzbildung am Empfänger (Common Mode Rejection) werden Störungen, die auf beiden Adern landen, eliminiert.",
+            explain_wrong={
+                "A": "Die Isolierung kann gleich sein; der Schutz kommt durch die Schaltungstechnik.",
+                "C": "Die Signalgeschwindigkeit ist identisch.",
+                "D": "Im Gegenteil: Symmetrische Kabel sind gerade für sehr lange Strecken gedacht."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Welcher Steckertyp wird typischerweise für eine asymmetrische Verbindung im Heimbereich genutzt?",
+            options={
+                "A": "XLR (3-Pol)",
+                "B": "Cinch (RCA)",
+                "C": "Speakon",
+                "D": "Toslink"
+            },
+            correct={"B"},
+            explain_correct="Cinch-Kabel sind der Standard für asymmetrische Verbindungen bei HiFi-Anlagen und DJ-Equipment.",
+            explain_wrong={
+                "A": "XLR ist der Standard für symmetrische Verbindungen.",
+                "C": "Speakon wird für Lautsprecher (Leistung) verwendet, nicht für Kleinsignale.",
+                "D": "Toslink ist eine optische (digitale) Verbindung."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Was ist das Hauptmerkmal einer symmetrischen Signalübertragung (balanced)?",
+            options={
+                "A": "Zwei Signalleiter führen das gleiche Signal, eines davon mit invertierter Polarität.",
+                "B": "Das Signal wird doppelt so laut übertragen wie asymmetrisch.",
+                "C": "Es wird nur ein einziger Draht ohne Masseabschirmung verwendet.",
+                "D": "Die Spannung des Signals wird ständig zwischen 0V und 5V gewechselt."
+            },
+            correct={"A"},
+            explain_correct="Symmetrische Systeme (z. B. XLR) nutzen zwei Leiter (Hot/Cold), wobei das Signal auf einem Leiter um 180° gedreht (invertiert) wird.",
+            explain_wrong={
+                "B": "Symmetrie dient der Störungsunterdrückung, nicht primär der Lautstärke.",
+                "C": "Symmetrische Kabel benötigen mindestens drei Kontakte (Hot, Cold, Ground).",
+                "D": "Das beschreibt ein digitales Schaltsignal."
+            },
+            topic="Signalverarbeitung"
+        ),
+
+        Question(
+            prompt="Was bedeutet Abtasten in der Signalverarbeitung?",
+            options={
+                "A": "Die Umwandlung eines analogen Signals in ein digitales Signal",
+                "B": "Die Verstärkung eines Signals",
+                "C": "Die Filterung von Frequenzen",
+                "D": "Die Modulation eines Signals"
+            },
+            correct={"A"},
+            explain_correct="Abtasten bedeutet, ein analoges Signal in diskrete Werte umzuwandeln, also ein digitales Signal zu erzeugen.",
+            explain_wrong={
+                "B": "Verstärkung bezieht sich auf die Erhöhung der Amplitude, nicht auf Abtasten.",
+                "C": "Filterung bedeutet die Auswahl bestimmter Frequenzen, nicht Abtasten.",
+                "D": "Modulation bezieht sich auf die Veränderung von Signalparametern, nicht auf Abtasten."
+            },
+            topic="Signalverarbeitung - Abtastung"
+        ),
+
+        Question(
+            prompt="Was bedeutet Faltung in der Signalverarbeitung?",
+            options={
+                "A": "Die Kombination von zwei Signalen zur Erzeugung eines neuen Signals",
+                "B": "Die Verstärkung eines Signals",
+                "C": "Die Filtration eines Signals",
+                "D": "Die Modulation eines Signals"
+            },
+            correct={"A"},
+            explain_correct="Faltung ist ein mathematischer Prozess, bei dem zwei Signale kombiniert werden, um ein neues Signal zu erzeugen.",
+            explain_wrong={
+                "B": "Verstärkung bezieht sich auf die Erhöhung der Amplitude, nicht auf Faltung.",
+                "C": "Filtration bedeutet das Entfernen bestimmter Frequenzen, nicht Faltung.",
+                "D": "Modulation verändert Signalparameter, nicht Faltung."
+            },
+            topic="Signalverarbeitung - Faltung"
+        ),
+
+        Question(
+            prompt="Was beschreibt das Nyquist-Theorem?",
+            options={
+                "A": "Die minimale Abtastfrequenz zur fehlerfreien Rekonstruktion eines Signals",
+                "B": "Die maximale Verstärkung eines Signals",
+                "C": "Die Frequenzmodulation eines Signals",
+                "D": "Die Filterung von Rauschen in einem Signal"
+            },
+            correct={"A"},
+            explain_correct="Das Nyquist-Theorem legt fest, dass die Abtastfrequenz mindestens doppelt so hoch sein muss wie die höchste Frequenz im Signal, um eine verlustfreie Rekonstruktion zu ermöglichen.",
+            explain_wrong={
+                "B": "Die Verstärkung bezieht sich auf die Amplitude, nicht auf die Abtastfrequenz.",
+                "C": "Frequenzmodulation ist ein anderer Prozess und steht nicht im Zusammenhang mit dem Nyquist-Theorem.",
+                "D": "Die Filterung von Rauschen ist ein separater Prozess, der nicht direkt mit dem Nyquist-Theorem zusammenhängt."
+            },
+            topic="Signalverarbeitung - Nyquist-Theorem"
+        ),
+
+        Question(
+            prompt="Welche Aussagen über diskrete und kontinuierliche Signale sind korrekt?",
+            options={
+                "A": "Ein zeitdiskretes Signal kann wertkontinuierlich oder wertdiskret sein",
+                "B": "Ein zeitkontinuierliches Signal ist immer wertkontinuierlich",
+                "C": "Ein digitales Signal ist sowohl zeitdiskret als auch wertdiskret",
+                "D": "Ein zeitkontinuierliches Signal kann wertdiskret sein"
+            },
+            correct={"A", "C", "D"},
+            explain_correct="Zeitdiskrete Signale können wertkontinuierlich oder wertdiskret sein. "
+                            "Digitale Signale sind sowohl zeitdiskret als auch wertdiskret. "
+                            "Ein zeitkontinuierliches Signal kann wertdiskret sein (z.B. getaktete Schaltsignale).",
+            explain_wrong={
+                "B": "Ein zeitkontinuierliches Signal kann wertdiskret sein, z.B. bei Schaltsignalen."
+            },
+            topic="Signalverarbeitung - Signalarten"
+        ),
+
+        Question(
+            prompt="Welche Konsequenz hat eine zu niedrige Abtastfrequenz gemäß dem Nyquist-Theorem?",
+            options={
+                "A": "Aliasing, also eine Überlagerung von Frequenzen",
+                "B": "Erhöhte Signalverstärkung",
+                "C": "Reduzierte Signalqualität ohne Informationsverlust",
+                "D": "Bessere Frequenztrennung"
+            },
+            correct={"A"},
+            explain_correct="Eine zu niedrige Abtastfrequenz führt zu Aliasing, bei dem höhere Frequenzen als niedrigere Frequenzen erscheinen und sich überlagern.",
+            explain_wrong={
+                "B": "Verstärkung ist nicht direkt mit der Abtastfrequenz verknüpft.",
+                "C": "Eine zu niedrige Abtastfrequenz führt gerade zu Informationsverlust, nicht zu einer verbesserten Qualität.",
+                "D": "Eine niedrigere Abtastfrequenz führt nicht zu einer besseren Frequenztrennung."
+            },
+            topic="Signalverarbeitung - Nyquist-Theorem"
+        ),
+
+        Question(
+            prompt="Welche Aussagen über die Abtastung und das Nyquist-Theorem sind korrekt?",
+            options={
+                "A": "Die Abtastfrequenz muss größer oder gleich dem Doppelten der höchsten Signalfrequenz sein",
+                "B": "Aliasing kann durch ein Tiefpassfilter vor der Abtastung reduziert werden",
+                "C": "Eine höhere Abtastfrequenz erhöht immer die Amplitude des Signals",
+                "D": "Ohne Aliasing kann ein Signal theoretisch verlustfrei rekonstruiert werden"
+            },
+            correct={"A", "B", "D"},
+            explain_correct="Das Nyquist-Theorem fordert mindestens die doppelte Frequenz, ein Anti-Aliasing-Tiefpassfilter "
+                            "reduziert Aliasing, und ohne Aliasing ist eine theoretisch verlustfreie Rekonstruktion möglich.",
+            explain_wrong={
+                "C": "Die Abtastfrequenz beeinflusst die zeitliche Auflösung, nicht die Amplitude."
+            },
+            topic="Signalverarbeitung - Abtastung und Nyquist"
+        ),
+
+        Question(
+            prompt="Wie kann man Aliasing vermeiden?",
+            options={
+                "A": "Durch Erhöhung der Abtastfrequenz",
+                "B": "Durch Verringerung der Signalverstärkung",
+                "C": "Durch Veränderung der Modulationsart",
+                "D": "Durch Anwendung eines Tiefpassfilters vor dem Abtasten"
+            },
+            correct={"A", "D"},
+            explain_correct="Aliasing kann vermieden werden, indem man die Abtastfrequenz erhöht oder einen Tiefpassfilter anwendet, um hohe Frequenzen vor dem Abtasten zu entfernen.",
+            explain_wrong={
+                "B": "Die Signalverstärkung hat keinen direkten Einfluss auf Aliasing.",
+                "C": "Die Modulationsart beeinflusst nicht das Aliasing direkt."
+            },
+            topic="Signalverarbeitung - Nyquist-Theorem"
+        ),
+
+        Question(
+            prompt="Was bedeutet Fourier-Transformation in der Signalverarbeitung?",
+            options={
+                "A": "Die Zerlegung eines Signals in seine einzelnen Frequenzanteile",
+                "B": "Die Verstärkung eines Signals",
+                "C": "Die Abtastung eines analogen Signals",
+                "D": "Die Filterung eines Signals"
+            },
+            correct={"A"},
+            explain_correct="Die Fourier-Transformation zerlegt ein Signal in seine sinusförmigen Frequenzanteile und stellt es im Frequenzbereich dar.",
+            explain_wrong={
+                "B": "Verstärkung verändert nur die Amplitude, nicht die Darstellung im Frequenzbereich.",
+                "C": "Abtastung bedeutet die Umwandlung eines analogen in ein digitales Signal.",
+                "D": "Filterung bedeutet das Entfernen oder Abschwächen bestimmter Frequenzen, nicht deren Analyse."
+            },
+            topic="Signalverarbeitung - Fourier-Transformation"
+        ),
+
+        Question(
+            prompt="Was bedeutet Fourier-Synthese in der Signalverarbeitung?",
+            options={
+                "A": "Der Aufbau eines Signals aus einzelnen Sinus- und Kosinuskomponenten",
+                "B": "Die Zerlegung eines Signals in Frequenzanteile",
+                "C": "Die Verstärkung eines Signals",
+                "D": "Die Modulation eines Signals"
+            },
+            correct={"A"},
+            explain_correct="Fourier-Synthese beschreibt den Aufbau eines Signals durch Überlagerung (Addition) seiner sinusförmigen Frequenzkomponenten.",
+            explain_wrong={
+                "B": "Das ist die Fourier-Transformation, nicht die Synthese.",
+                "C": "Verstärkung verändert nur die Amplitude, nicht die Signalzusammensetzung.",
+                "D": "Modulation verändert Signalparameter, nicht den grundsätzlichen Signalaufbau."
+            },
+            topic="Signalverarbeitung - Fourier-Synthese"
+        ),
+
+        Question(
+            prompt="Was bedeutet Linearität eines Systems in der Signalverarbeitung?",
+            options={
+                "A": "Das System erfüllt das Superpositionsprinzip",
+                "B": "Das System verändert sein Verhalten über die Zeit",
+                "C": "Das System verstärkt jedes Signal gleich stark",
+                "D": "Das System filtert alle hohen Frequenzen"
+            },
+            correct={"A"},
+            explain_correct="Ein lineares System erfüllt das Superpositionsprinzip: Die Antwort auf eine Summe von Eingängen ist die Summe der einzelnen Antworten.",
+            explain_wrong={
+                "B": "Das beschreibt Zeitvarianz, nicht Linearität.",
+                "C": "Gleiche Verstärkung allein garantiert keine Linearität.",
+                "D": "Filterung ist eine mögliche Eigenschaft, aber kein Kriterium für Linearität."
+            },
+            topic="Signalverarbeitung - Lineare Systeme"
+        ),
+
+        Question(
+            prompt="Was bedeutet das Nyquist-Theorem?",
+            options={
+                "A": "Die Abtastfrequenz muss mindestens doppelt so hoch sein wie die höchste Signalfrequenz",
+                "B": "Die Abtastfrequenz muss kleiner als die höchste Signalfrequenz sein",
+                "C": "Die Abtastfrequenz beeinflusst nur die Amplitude",
+                "D": "Die Abtastfrequenz hat keinen Einfluss auf die Signalqualität"
+            },
+            correct={"A"},
+            explain_correct="Das Nyquist-Theorem besagt, dass die Abtastfrequenz mindestens doppelt so hoch wie die höchste im Signal enthaltene Frequenz sein muss, um Aliasing zu vermeiden.",
+            explain_wrong={
+                "B": "Das führt zu Aliasing.",
+                "C": "Die Abtastfrequenz beeinflusst die zeitliche Auflösung, nicht die Amplitude.",
+                "D": "Die Abtastfrequenz ist entscheidend für die Signalqualität."
+            },
+            topic="Signalverarbeitung - Abtasttheorie"
+        ),
+
+        Question(
+            prompt="Was bedeutet Rekonstruktion eines Signals?",
+            options={
+                "A": "Die Rückgewinnung eines analogen Signals aus diskreten Abtastwerten",
+                "B": "Die Verstärkung eines digitalen Signals",
+                "C": "Die Modulation eines Signals",
+                "D": "Die Zerlegung eines Signals in Frequenzen"
+            },
+            correct={"A"},
+            explain_correct="Rekonstruktion bezeichnet den Prozess, aus diskreten Abtastwerten wieder ein kontinuierliches analoges Signal zu erzeugen.",
+            explain_wrong={
+                "B": "Verstärkung verändert nur die Amplitude.",
+                "C": "Modulation verändert Signalparameter.",
+                "D": "Zerlegung in Frequenzen ist Fourier-Transformation."
+            },
+            topic="Signalverarbeitung - Rekonstruktion"
+        ),
+
+        Question(
+            prompt="Welche der folgenden sind echte, grundlegende Filtertypen in der Signalverarbeitung?",
+            options={
+                "A": "Tiefpass",
+                "B": "Hochbandfilter",
+                "C": "Bandpass",
+                "D": "Frequenzsperre"
+            },
+            correct={"A", "C", "D"},
+            explain_correct="Tiefpass, Bandpass und Bandsperre (auch Frequenzsperre oder Notch genannt) sind echte Filtertypen. "
+                            "Ein 'Hochbandfilter' ist kein standardisierter Filtertyp.",
+            explain_wrong={
+                "B": "Der Begriff 'Hochbandfilter' ist kein standardisierter Filtertyp in der Signalverarbeitung."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Welche Filterarten existieren in der Signalverarbeitung?",
+            options={
+                "A": "Hochpass",
+                "B": "Bandsperre (Notch)",
+                "C": "Niederfrequenzfilter",
+                "D": "Phasenfilter"
+            },
+            correct={"A", "B"},
+            explain_correct="Hochpass und Bandsperre sind grundlegende Filtertypen. "
+                            "'Niederfrequenzfilter' ist kein standardisierter Begriff für einen Filtertyp "
+                            "(gemeint wäre Tiefpass), und 'Phasenfilter' ist kein eigenständiger Grundfiltertyp.",
+            explain_wrong={
+                "C": "Der korrekte Begriff ist 'Tiefpass', nicht 'Niederfrequenzfilter'.",
+                "D": "Ein Phasenfilter ist kein grundlegender Filtertyp im klassischen Sinn."
+            },
+            topic="Signalverarbeitung - Filter"
+        ),
+
+        Question(
+            prompt="Was bedeutet Zeitinvarianz eines Systems in der Signalverarbeitung?",
+            options={
+                "A": "Das Systemverhalten ändert sich nicht, wenn das Eingangssignal zeitlich verschoben wird",
+                "B": "Das System verstärkt alle Frequenzen gleich stark",
+                "C": "Das System ist immer linear",
+                "D": "Das System filtert Störungen automatisch heraus"
+            },
+            correct={"A"},
+            explain_correct="Ein zeitinvariantes System reagiert auf ein zeitlich verschobenes Eingangssignal mit einer entsprechend zeitlich verschobenen Ausgabe, ohne sein Verhalten zu ändern.",
+            explain_wrong={
+                "B": "Das beschreibt Frequenzgang-Eigenschaften, nicht Zeitinvarianz.",
+                "C": "Ein System kann zeitinvariant sein, ohne linear zu sein.",
+                "D": "Störungsunterdrückung ist keine Eigenschaft der Zeitinvarianz."
+            },
+            topic="Signalverarbeitung - Zeitinvariante Systeme"
+        ),
+
+        Question(
+            prompt="Welche Eigenschaften treffen auf ein lineares zeitinvariantes (LTI) System zu?",
+            options={
+                "A": "Das System erfüllt das Superpositionsprinzip",
+                "B": "Die Impulsantwort beschreibt das System vollständig",
+                "C": "Eine zeitliche Verschiebung des Eingangssignals führt zu einer identischen Verschiebung der Ausgabe",
+                "D": "Das System kann nur sinusförmige Signale verarbeiten"
+            },
+            correct={"A", "B", "C"},
+            explain_correct="Ein LTI-System ist linear (Superpositionsprinzip), zeitinvariant (Verschiebungseigenschaft) "
+                            "und vollständig durch seine Impulsantwort beschrieben.",
+            explain_wrong={
+                "D": "Ein LTI-System kann beliebige Signale verarbeiten, nicht nur Sinusschwingungen."
+            },
+            topic="Signalverarbeitung - LTI-Systeme"
+        ),
+
+        Question(
+            prompt="Welche Aussagen zur Faltung und zum Frequenzbereich sind korrekt?",
+            options={
+                "A": "Faltung im Zeitbereich entspricht einer Multiplikation im Frequenzbereich",
+                "B": "Multiplikation im Zeitbereich entspricht einer Faltung im Frequenzbereich",
+                "C": "Die Fourier-Transformation einer Impulsantwort ergibt den Frequenzgang des Systems",
+                "D": "Faltung ist nur für zeitkontinuierliche Signale definiert"
+            },
+            correct={"A", "B", "C"},
+            explain_correct="Faltung im Zeitbereich entspricht einer Multiplikation im Frequenzbereich und umgekehrt. "
+                            "Die Fourier-Transformation der Impulsantwort liefert den Frequenzgang. "
+                            "Faltung ist sowohl für zeitkontinuierliche als auch zeitdiskrete Signale definiert.",
+            explain_wrong={
+                "D": "Faltung ist auch für zeitdiskrete Signale definiert."
+            },
+            topic="Signalverarbeitung - Faltung und Frequenzbereich"
+        ),
+
+        Question(
+            prompt="Welche Aussagen zur Fourier-Transformation und Fourier-Synthese sind korrekt?",
+            options={
+                "A": "Die Fourier-Transformation zerlegt ein Signal in seine Frequenzkomponenten",
+                "B": "Die Fourier-Synthese baut ein Signal aus seinen Frequenzkomponenten wieder auf",
+                "C": "Ein zeitbegrenztes Signal hat immer ein bandbegrenztes Spektrum",
+                "D": "Ein bandbegrenztes Signal ist immer zeitlich unbegrenzt"
+            },
+            correct={"A", "B", "D"},
+            explain_correct="Fourier-Transformation zerlegt, Fourier-Synthese rekonstruiert. "
+                            "Ein bandbegrenztes Signal ist zwangsläufig zeitlich unbegrenzt. "
+                            "Ein zeitbegrenztes Signal ist hingegen nicht bandbegrenzt.",
+            explain_wrong={
+                "C": "Ein zeitbegrenztes Signal ist im Allgemeinen nicht bandbegrenzt."
+            },
+            topic="Signalverarbeitung - Fourier-Analyse"
+        )
 
     ]
     return _rebalance_single_choice_correct_letters(questions)
