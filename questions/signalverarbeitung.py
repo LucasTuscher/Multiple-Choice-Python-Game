@@ -2300,7 +2300,7 @@ def get_questions() -> List[Question]:
                 "D": "Beliebig, Aliasing passiert sowieso nicht"
             },
             correct={"B"},
-            explain_correct="Nach Nyquist muss die Abtastrate ≥ 2× f_max sein, sonst treten Aliasing-Artefakte auf.",
+            explain_correct="Nach Nyquist muss die Abtastrate größer als 2× f_max sein, sonst treten Aliasing-Artefakte auf.",
             explain_wrong={
                 "A": "Reicht nicht, muss mindestens doppelt sein.",
                 "C": "Mehr als nötig, unnötiger Speicherverbrauch.",
