@@ -2295,12 +2295,12 @@ def get_questions() -> List[Question]:
             prompt="Welche minimale Abtastrate muss ein Signal haben, um Aliasing zu vermeiden?",
             options={
                 "A": "Mindestens so hoch wie die höchste Signalfrequenz",
-                "B": "Mindestens doppelt so hoch wie die höchste Signalfrequenz",
+                "B": "Mindestens mehr als doppelt so hoch wie die höchste Signalfrequenz",
                 "C": "10-fache der höchsten Frequenz",
                 "D": "Beliebig, Aliasing passiert sowieso nicht"
             },
             correct={"B"},
-            explain_correct="Nach Nyquist muss die Abtastrate größer als 2× f_max sein, sonst treten Aliasing-Artefakte auf.",
+            explain_correct="Nach Nyquist muss die Abtastrate mindenstens mehr als doppelt so groß sein, sonst treten Aliasing-Artefakte auf.",
             explain_wrong={
                 "A": "Reicht nicht, muss mindestens doppelt sein.",
                 "C": "Mehr als nötig, unnötiger Speicherverbrauch.",
