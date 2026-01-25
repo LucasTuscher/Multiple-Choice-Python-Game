@@ -267,7 +267,7 @@ def get_questions() -> List[Question]:
             },
             correct={"B"},
             explain_correct="Das Nyquist-Shannon-Theorem besagt: Die Abtastfrequenz muss mindestens "
-                          "doppelt so hoch sein wie die höchste Signalfrequenz (fs >= 2 * fmax). "
+                          "doppelt so hoch sein wie die höchste Signalfrequenz (fs > 2 * fmax). "
                           "Nur dann kann das Signal aus den Abtastwerten vollständig rekonstruiert werden. "
                           "Diese Grenze heisst Nyquist-Frequenz (= fs/2).",
             explain_wrong={
@@ -452,7 +452,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Was sind Vorteile der symmetrischen gegenüber der asymmetrischen Signaluebertragung?",
+            prompt="Was sind Vorteile der symmetrischen gegenüber der asymmetrischen Signalübertragung?",
             options={
                 "A": "Bessere Störunterdrückung durch Gleichtaktunterdrückung",
                 "B": "Längere Kabelwege möglich",
@@ -475,7 +475,7 @@ def get_questions() -> List[Question]:
         ),
 
         Question(
-            prompt="Welche Steckverbinder nutzt man typischerweise für asymmetrische Signaluebertragung?",
+            prompt="Welche Steckverbinder nutzt man typischerweise für asymmetrische Signalübertragung?",
             options={
                 "A": "Cinch/RCA",
                 "B": "6.3mm Klinke (mono)",
